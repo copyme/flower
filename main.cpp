@@ -8,9 +8,9 @@
 
 int main(int argc, char *argv[])
 {
-    if ( argc > 3 )
+    if ( argc < 3 )
     {
-        std::cerr << "Please define input PLY file.";
+        std::cerr << "Please define input and output: PLY files.\n";
         exit ( EXIT_FAILURE );
     }
     
@@ -19,12 +19,12 @@ int main(int argc, char *argv[])
     reader.set ( &surface );
     reader.read ( argv[1] );
     
-    EdgeExtractor extract;
-    extract.set ( &surface );
+    EdgeExtractor edgeExtractor;
+    edgeExtractor.set ( &surface );
     
-    extract.extract ( 0 );
+    edgeExtractor.extract ( 0 );
     
-    std::vector < Edge > const & edges = extract.get();
+    std::vector < Edge > const & edges = edgeExtractor.get();
     std::cout << "Edges for vertex 0:" << std::endl;
     for(int i = 0; i < edges.size(); i++ )
     {
