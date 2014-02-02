@@ -4,6 +4,7 @@
   Module:    <>
   
   Copyright (c) Kacper Pluta <kacper.pluta@dbslabs.com.br>
+                Meri-nut Zago <meri_zago@hotmail.fr>
   All rights reserved.
   See Copyright.txt for details.
   
