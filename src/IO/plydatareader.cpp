@@ -53,25 +53,26 @@ void PLYDataReader::read ( const char *filename )
     ply_close ( t_ply_file );
  
 #ifndef NDEBUG
-//    std::cout << "Verices: " << std::endl;
+    std::cout << "PLYDataReader -- DEBUG REPORT " << std::endl;
+    std::cout << "Verices: " << std::endl;
     
-//    Surface::CVertexIterator it = surface->vertices_cbegin();
-//    Surface::CVertexIterator iend = surface->vertices_cend();
+    Surface::CVertexIterator it = surface->vertices_cbegin();
+    Surface::CVertexIterator iend = surface->vertices_cend();
     
-//    for(; it != iend; ++it )
-//        std::cout << it->x << " " << it->y << " " << it->z << std::endl;
+    for(; it != iend; ++it )
+        std::cout << it->x << " " << it->y << " " << it->z << std::endl;
     
-//    std::cout << "Faces: " << std::endl;
+    std::cout << "Faces: " << std::endl;
     
-//    Surface::CFaceIterator itf = surface->faces_cbegin();
-//    Surface::CFaceIterator iendf = surface->faces_cend();
+    Surface::CFaceIterator itf = surface->faces_cbegin();
+    Surface::CFaceIterator iendf = surface->faces_cend();
     
-//    for(; itf != iendf; ++itf  )
-//    {
-//        for (int j = 0; j < itf->size(); j++ )
-//            std::cout << (*itf)[j] << " ";
-//        std::cout << std::endl;
-//    }
+    for(; itf != iendf; ++itf  )
+    {
+        for (int j = 0; j < itf->size(); j++ )
+            std::cout << (*itf)[j] << " ";
+        std::cout << std::endl;
+    }
 #endif
 }
 

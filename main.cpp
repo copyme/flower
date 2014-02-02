@@ -25,7 +25,7 @@ int main(int argc, char *argv[])
     extract.extract ( 0 );
     
     std::vector < Edge > const & edges = extract.get();
-    
+    std::cout << "Edges for vertex 0:" << std::endl;
     for(int i = 0; i < edges.size(); i++ )
     {
         std::cout << edges[i].begin() << " " << edges[i].end() << std::endl;
