@@ -3,6 +3,8 @@
 
 #include <vector>
 
+//! \todo Split 
+
 class Vertex
 {
 public:
@@ -37,6 +39,68 @@ public:
     //! read access to indexes of vertices
     int operator[] ( unsigned int index ) const;
     int size() const { return vertices.size(); }
+};
+
+class Surface
+{
+private:
+    std::vector < Vertex > vertices;
+    std::vector < Face > faces;
+public:
+    typedef std::vector < Vertex >::const_iterator CVertexIterator;
+    typedef std::vector < Vertex >::iterator VertexIterator;
+    typedef std::vector < Face >::const_iterator CFaceIterator;
+    typedef std::vector < Face >::iterator FaceIterator;
+    
+    Surface () {}
+    CVertexIterator vertices_cbegin() const
+    {
+        return vertices.begin();
+    }
+    VertexIterator vertices_begin()
+    {
+        return vertices.begin();
+    }
+    CVertexIterator vertices_cend() const
+    {
+        return vertices.end();
+    }
+    VertexIterator vertices_end()
+    {
+        return vertices.end();
+    }
+    CFaceIterator faces_cbegin() const
+    {
+        return faces.begin();
+    }
+    FaceIterator faces_begin()
+    {
+        return faces.begin();
+    }
+    CFaceIterator faces_cend() const
+    {
+        return faces.end();
+    }
+    FaceIterator faces_end()
+    {
+        return faces.end();
+    }
+    void add_face ( Face face )
+    {
+        faces.push_back( face );
+    }
+    void add_vertex ( Vertex vertex )
+    {
+        vertices.push_back( vertex );
+    }
+    unsigned int vertex_count() const 
+    {
+        return vertices.size();
+    }
+    unsigned int faces_count() const 
+    {
+        return faces.size();
+    }
 };
 
 

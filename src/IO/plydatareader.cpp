@@ -15,17 +15,25 @@
 =========================================================================*/
 
 #include <stdexcept>
+#include <cassert>
 #include <iostream>
 #include <cstdio>
 #include "plydatareader.h"
 
 PLYDataReader::PLYDataReader()
 {
+    surface = NULL;
 }
 
-void PLYDataReader::read_data(const char *filename)
+void PLYDataReader::set ( Surface *surface )
 {
-    vertices.clear();
+    assert ( surface != NULL );
+    this->surface = surface;
+}
+
+void PLYDataReader::read ( const char *filename )
+{
+    assert ( surface != NULL );
     faces.clear();
     
     p_ply t_ply_file = NULL;
@@ -35,8 +43,8 @@ void PLYDataReader::read_data(const char *filename)
         return; // We will get std error message from RPLy.
     }
     check_file(t_ply_file);
-    map_vertices_callbacks(t_ply_file);
-    map_faces_callbacks(t_ply_file);
+    map_callbacks_vertices(t_ply_file);
+    map_callbacks_faces(t_ply_file);
     
     if ( !ply_read( t_ply_file ) )
     {
@@ -46,20 +54,28 @@ void PLYDataReader::read_data(const char *filename)
  
 #ifndef NDEBUG
 //    std::cout << "Verices: " << std::endl;
-//    for(int i = 0; i < vertices.size(); i++ )
-//        std::cout << vertices[i].x << vertices[i].y << vertices[i].z << std::endl;
+    
+//    Surface::CVertexIterator it = surface->vertices_cbegin();
+//    Surface::CVertexIterator iend = surface->vertices_cend();
+    
+//    for(; it != iend; ++it )
+//        std::cout << it->x << " " << it->y << " " << it->z << std::endl;
     
 //    std::cout << "Faces: " << std::endl;
-//    for(int i = 0; i < faces.size(); i++ )
+    
+//    Surface::CFaceIterator itf = surface->faces_cbegin();
+//    Surface::CFaceIterator iendf = surface->faces_cend();
+    
+//    for(; itf != iendf; ++itf  )
 //    {
-//        for (int j = 0; j < faces[i].size(); j++ )
-//            std::cout << faces[i][j];
+//        for (int j = 0; j < itf->size(); j++ )
+//            std::cout << (*itf)[j] << " ";
 //        std::cout << std::endl;
 //    }
 #endif
 }
 
-void PLYDataReader::check_file(p_ply file)
+void PLYDataReader::check_file ( p_ply file )
 {
     int nvertices = 0;
     int nvfaces = 0;
@@ -87,27 +103,24 @@ void PLYDataReader::check_file(p_ply file)
 static int vertex_callback ( p_ply_argument argument )
 {
     long eol;
-    std::vector < Vertex > * list = NULL;
+    Surface * surface = NULL;
     void * data_mapper = NULL;
     ply_get_argument_user_data ( argument, &data_mapper, &eol );
-    list = reinterpret_cast < std::vector < Vertex > * > ( data_mapper );
-    
+    surface = reinterpret_cast < Surface * > ( data_mapper );
     if ( eol == 0 ) 
     {
         Vertex vertex;
         vertex.x = ply_get_argument_value ( argument );
-        list->push_back(vertex);
+        surface->add_vertex( vertex );
     }
     else if ( eol == 1 )
     {
-        Vertex * vertex;
-        vertex = &list->back();
+        Surface::VertexIterator vertex = surface->vertices_end()-1;
         vertex->y = ply_get_argument_value ( argument );
     } 
     else if ( eol == 2 )
     {
-        Vertex * vertex;
-        vertex = &list->back();
+        Surface::VertexIterator vertex = surface->vertices_end()-1;
         vertex->z = ply_get_argument_value ( argument );
     }
     else
@@ -115,41 +128,41 @@ static int vertex_callback ( p_ply_argument argument )
     return 1;
 }
 
-void PLYDataReader::map_vertices_callbacks(p_ply t_ply_file)
+void PLYDataReader::map_callbacks_vertices(p_ply t_ply_file)
 {
-    ply_set_read_cb ( t_ply_file, "vertex", "x", vertex_callback, (void *)(&vertices), 0 );
-    ply_set_read_cb ( t_ply_file, "vertex", "y", vertex_callback, (void *)(&vertices), 1 );
-    ply_set_read_cb ( t_ply_file, "vertex", "z", vertex_callback, (void *)(&vertices), 2 );    
+    ply_set_read_cb ( t_ply_file, "vertex", "x", vertex_callback, reinterpret_cast < void * >( surface ), 0 );
+    ply_set_read_cb ( t_ply_file, "vertex", "y", vertex_callback, reinterpret_cast < void * >( surface ), 1 );
+    ply_set_read_cb ( t_ply_file, "vertex", "z", vertex_callback, reinterpret_cast < void * >( surface ), 2 );    
 }
 
 //! \todo move to different compilation unit
 static int face_callback ( p_ply_argument argument )
 {
     long length = 0, value_index = -2;
-    std::vector < Face > * list = NULL;
+    Surface * surface = NULL;
     void * data_mapper = NULL;
     ply_get_argument_user_data ( argument, &data_mapper, NULL );
     ply_get_argument_property ( argument, NULL, &length, &value_index );
-    list = reinterpret_cast < std::vector < Face > * > ( data_mapper );
+    surface = reinterpret_cast < Surface * > ( data_mapper );
     
     if( value_index == 0 )
     {
         Face face;
         double vertex_index = ply_get_argument_value ( argument );
-        face.add_vertex(vertex_index);
-        list->push_back ( face );
+        face.add_vertex( vertex_index );
+        surface->add_face ( face );
     }
     else if ( value_index > 0 && value_index < length )
     {
-        Face *face = &list->back();
+        Surface::FaceIterator face = surface->faces_end()-1;
         double vertex_index = ply_get_argument_value ( argument );
         face->add_vertex ( vertex_index );
     }
     return 1;
 }
 
-void PLYDataReader::map_faces_callbacks(p_ply t_ply_file)
+void PLYDataReader::map_callbacks_faces(p_ply t_ply_file)
 {
-    ply_set_read_cb(t_ply_file, "face", "vertex_indices", face_callback, (void *)(&faces), 0);
-    ply_set_read_cb(t_ply_file, "face", "vertex_index", face_callback, reinterpret_cast < void * > (&faces), 0);    
+    ply_set_read_cb(t_ply_file, "face", "vertex_indices", face_callback, reinterpret_cast < void * >( surface ), 0);
+    ply_set_read_cb(t_ply_file, "face", "vertex_index", face_callback, reinterpret_cast < void * >( surface ), 0);    
 }

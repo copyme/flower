@@ -22,11 +22,11 @@
 class EdgeExtractor
 {
 private:
-    std::vector < Face > const * faces;
+    Surface const * surface;
     std::vector < Edge > edges;
 public:
     EdgeExtractor();
-    void set( std::vector < Face > const * faces ) { this->faces = faces; }
+    void set( Surface const * surface );
     
     /** \param index of a given vertex
      * \return indexes of vertices which are an end of edges which have a beginning in \param index

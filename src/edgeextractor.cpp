@@ -13,50 +13,57 @@
      
 =========================================================================*/
 
+#include <cassert>
 #include <cstddef>
-
-#include <iostream>
-
 #include <algorithm>
 #include "edgeextractor.h"
 
 EdgeExtractor::EdgeExtractor()
 {
-    faces = NULL;
+    surface = NULL;
+}
+
+void EdgeExtractor::set ( const Surface *surface )
+{
+    assert ( surface != NULL );
+    this->surface = surface;
 }
 
 void EdgeExtractor::extract ( unsigned int index )
 {
+    assert ( surface != NULL );
     edges.clear();
+    Surface::CFaceIterator iface = surface->faces_cbegin();
+    Surface::CFaceIterator iend = surface->faces_cend();
     
-    for ( unsigned int i = 0; i < faces->size(); i++ )
+    for (; iface != iend; ++iface )
     {
-        for ( unsigned int j = 0; j < faces->at(i).size(); j++ )
+        for ( unsigned int j = 0; j < iface->size(); j++ )
         {
-            if ( faces->at(i)[j] == index )
+            if ( (*iface)[j] == index )
             {
                 //beginning
                 if ( j ==  0 )
                 {
-                    Edge t_edge( faces->at(i)[faces->at(i).size() - 1], faces->at(i)[j] );
+                    Edge t_edge( (*iface)[iface->size() - 1], (*iface)[j] );
                     edges.push_back(t_edge);  
                 }
                 //middle - left
                 if( j > 0 )
                 {
-                    Edge t_edge(faces->at(i)[j - 1], faces->at(i)[j] );
-                    edges.push_back(t_edge);
+                    Edge t_edge ( (*iface)[j - 1], (*iface)[j] );
+                    edges.push_back ( t_edge );
                 }
                 //middle - right
-                if ( j + 1 <  faces->at(i).size() )
+                if ( j + 1 <  iface->size() )
                 {
-                    Edge t_edge(faces->at(i)[j], faces->at(i)[j  + 1] );
+                    Edge t_edge( (*iface)[j], (*iface)[j  + 1] );
                     edges.push_back(t_edge);
                 }
                 //end
-                if ( j == faces->at(i).size() - 1 )
+                if ( j == iface->size() - 1 )
                 {
-                    Edge t_edge(faces->at(i)[j], faces->at(i)[0] );
+                    Edge t_edge( (*iface)[j], (*iface)[0] );
                     edges.push_back(t_edge);
                 }
             }

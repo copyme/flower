@@ -1,23 +1,28 @@
 #include <iostream>
+#include <cstdlib>
 #include <vector>
 #include "plydatareader.h"
 #include "edgeextractor.h"
 #include "datastructure.h"
+#include "plydatawriter.h"
 
-using namespace std;
-
-int main()
+int main(int argc, char *argv[])
 {
-    PLYDataReader dd;
-    dd.read_data("cube.ply");
+    if ( argc > 3 )
+    {
+        std::cerr << "Please define input PLY file.";
+        exit ( EXIT_FAILURE );
+    }
+    
+    Surface surface;
+    PLYDataReader reader;
+    reader.set ( &surface );
+    reader.read ( argv[1] );
     
     EdgeExtractor extract;
+    extract.set ( &surface );
     
-    std::vector < Face > const & faces = dd.get_faces();
-    
-    extract.set(&faces);
-    
-    extract.extract(5);
+    extract.extract ( 0 );
     
     std::vector < Edge > const & edges = extract.get();
     
@@ -26,6 +31,8 @@ int main()
         std::cout << edges[i].begin() << " " << edges[i].end() << std::endl;
     }
     
+    PLYDataWriter writer;
+    writer.set ( &surface );
+    writer.write( argv[2] );
     return 0;
 }
-

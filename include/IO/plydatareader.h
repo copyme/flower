@@ -23,16 +23,16 @@
 class PLYDataReader
 {
 private:
-    std::vector < Vertex > vertices;
     std::vector < Face > faces;
+    Surface * surface;
     
     void check_file( p_ply file );
-    void map_vertices_callbacks(p_ply t_ply_file);
-    void map_faces_callbacks(p_ply t_ply_file);
+    void map_callbacks_vertices(p_ply t_ply_file);
+    void map_callbacks_faces(p_ply t_ply_file);
 public:
     PLYDataReader ();
-    void read_data ( const char * filename );
-    std::vector < Vertex > const & get_vertices() const { return vertices; }
+    void set ( Surface * surface );
+    void read ( const char * filename );
     std::vector < Face > const & get_faces() const { return faces; }    
 };
 

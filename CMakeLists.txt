@@ -13,6 +13,7 @@ include_directories(${PROJECT_HEADERS_DIR} ${PROJECT_HEADERS_DIR}/IO)
 set(PROJECT_FILES 
   ${PROJECT_SRC_DIR}/IO/rply.c
   ${PROJECT_SRC_DIR}/IO/plydatareader.cpp
+  ${PROJECT_SRC_DIR}/IO/plydatawriter.cpp
   ${PROJECT_SRC_DIR}/datastructure.cpp
   ${PROJECT_SRC_DIR}/edgeextractor.cpp
 )
