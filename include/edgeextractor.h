@@ -23,17 +23,17 @@
 class EdgeExtractor
 {
 private:
-    const test::Mesh *mesh;
-    std::vector < test::Edge > edges;
+    const Mesh *mesh;
+    std::vector < Edge > edges;
 public:
     EdgeExtractor();
-    void set( const test::Mesh *mesh );
+    void set( const Mesh *mesh );
     
     /** \param index of a given vertex
      * \return indexes of vertices which are an end of edges which have a beginning in \param index
      */
     void extract( unsigned int index );
-    std::vector < test::Edge > const & get() const { return edges; }
+    std::vector < Edge > const & get() const { return edges; }
 };
 
 #endif // EDGEEXTRACTOR_H

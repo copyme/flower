@@ -19,8 +19,6 @@
 #include "mesh.h"
 #include <cppunit/extensions/HelperMacros.h>
 
-using namespace test;
-
 class MeshTests : public CppUnit::TestFixture
 {
 private:

@@ -25,7 +25,7 @@ PLYDataReader::PLYDataReader()
     mesh = NULL;
 }
 
-void PLYDataReader::set ( test::Mesh *mesh )
+void PLYDataReader::set ( Mesh *mesh )
 {
     assert ( mesh != NULL );
     this->mesh = mesh;
@@ -58,7 +58,7 @@ void PLYDataReader::read ( const char *filename )
     
     for ( unsigned int i = 0 ; i < mesh->vertex_count(); i++ )
     {
-        test::Vertex vert = mesh->get_vertex( i );
+        Vertex vert = mesh->get_vertex( i );
         std::cout << vert.x() << " " << vert.y() << " " << vert.z() << std::endl;
     }
     
@@ -66,7 +66,7 @@ void PLYDataReader::read ( const char *filename )
     
     for ( unsigned int i = 0 ; i < mesh->face_count(); i++  )
     {
-        test::Face face = mesh->get_face ( i );
+        Face face = mesh->get_face ( i );
         for (int j = 0; j < face.model(); j++ )
         {
             std::cout << face[j];
@@ -104,10 +104,10 @@ void PLYDataReader::check_file ( p_ply file )
 static int vertex_callback ( p_ply_argument argument )
 {
     long eol;
-    test::Mesh * mesh = NULL;
+    Mesh * mesh = NULL;
     void * data_mapper = NULL;
     ply_get_argument_user_data ( argument, &data_mapper, &eol );
-    mesh = reinterpret_cast < test::Mesh * > ( data_mapper );
+    mesh = reinterpret_cast < Mesh * > ( data_mapper );
     double value = ply_get_argument_value ( argument );
     mesh->add_vertex_coord ( value );
     return 1;
@@ -124,11 +124,11 @@ void PLYDataReader::map_callbacks_vertices(p_ply t_ply_file)
 static int face_callback ( p_ply_argument argument )
 {
     long length = 0, value_index = -2;
-    test::Mesh * mesh = NULL;
+    Mesh * mesh = NULL;
     void * data_mapper = NULL;
     ply_get_argument_user_data ( argument, &data_mapper, NULL );
     ply_get_argument_property ( argument, NULL, &length, &value_index );
-    mesh = reinterpret_cast < test::Mesh * > ( data_mapper );
+    mesh = reinterpret_cast < Mesh * > ( data_mapper );
     
     if( value_index == -1 )
     {

@@ -23,14 +23,14 @@
 class PLYDataReader
 {
 private:
-    test::Mesh * mesh;
+    Mesh * mesh;
     
     void check_file( p_ply file );
     void map_callbacks_vertices(p_ply t_ply_file);
     void map_callbacks_faces(p_ply t_ply_file);
 public:
     PLYDataReader ();
-    void set ( test::Mesh * mesh );
+    void set ( Mesh * mesh );
     void read ( const char * filename );  
 };
 

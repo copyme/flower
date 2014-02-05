@@ -24,7 +24,7 @@ EdgeExtractor::EdgeExtractor()
     mesh = NULL;
 }
 
-void EdgeExtractor::set ( const test::Mesh *mesh )
+void EdgeExtractor::set ( const Mesh *mesh )
 {
     assert ( mesh != NULL );
     this->mesh = mesh;
@@ -37,7 +37,7 @@ void EdgeExtractor::extract ( unsigned int index )
     
     for ( unsigned int i = 0; i < mesh->face_count(); i++ )
     {
-        test::Face face = mesh->get_face ( i );
+        Face face = mesh->get_face ( i );
         for ( unsigned int j = 0; j < face.model(); j++ )
         {
             if ( face[j] == index )
@@ -45,25 +45,25 @@ void EdgeExtractor::extract ( unsigned int index )
                 //beginning
                 if ( j ==  0 )
                 {
-                    test::Edge t_edge( face.end() - 1, face.begin()+j );
+                    Edge t_edge( face.end() - 1, face.begin()+j );
                     edges.push_back(t_edge);
                 }
                 //middle - left
                 if( j > 0 )
                 {
-                    test::Edge t_edge ( face.begin() + j - 1, face.begin()+j );
+                    Edge t_edge ( face.begin() + j - 1, face.begin()+j );
                     edges.push_back ( t_edge );
                 }
                 //middle - right
                 if ( j + 1 <  face.model() )
                 {
-                    test::Edge t_edge( face.begin() + j , face.begin()+ j +1 );
+                    Edge t_edge( face.begin() + j , face.begin()+ j +1 );
                     edges.push_back(t_edge);
                 }
                 //end
                 if ( j == face.model() - 1 )
                 {
-                    test::Edge t_edge( face.begin()+j, face.begin() );
+                    Edge t_edge( face.begin()+j, face.begin() );
                     edges.push_back(t_edge);
                 }
             }

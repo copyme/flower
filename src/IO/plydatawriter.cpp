@@ -25,7 +25,7 @@ PLYDataWriter::PLYDataWriter()
     mesh = NULL;
 }
 
-void PLYDataWriter::set(const test::Mesh *mesh )
+void PLYDataWriter::set(const Mesh *mesh )
 {
     assert ( mesh != NULL );
     this->mesh = mesh;
@@ -63,7 +63,7 @@ void PLYDataWriter::write_vertices ( p_ply oply )
 {
     for( unsigned int i = 0; i <  mesh->vertex_count(); i++ )
     {
-          test::Vertex vert = mesh->get_vertex( i );
+          Vertex vert = mesh->get_vertex( i );
           ply_write ( oply, vert.x() );
           ply_write ( oply, vert.y() );
           ply_write ( oply, vert.z() );
@@ -74,7 +74,7 @@ void PLYDataWriter::write_faces ( p_ply oply )
 {
     for( unsigned int i = 0; i <  mesh->face_count(); i++ )
     {
-        test::Face face = mesh->get_face( i );
+        Face face = mesh->get_face( i );
         ply_write ( oply, face.model() );
         for ( int j = 0; j < face.model(); j++ )
         {

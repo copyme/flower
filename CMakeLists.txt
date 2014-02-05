@@ -14,7 +14,6 @@ set(PROJECT_FILES
   ${PROJECT_SRC_DIR}/IO/rply.c
   ${PROJECT_SRC_DIR}/IO/plydatareader.cpp
   ${PROJECT_SRC_DIR}/IO/plydatawriter.cpp
-  ${PROJECT_SRC_DIR}/datastructure.cpp
   ${PROJECT_SRC_DIR}/edgeextractor.cpp
   ${PROJECT_SRC_DIR}/mesh.cpp
 )

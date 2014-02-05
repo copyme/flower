@@ -17,8 +17,6 @@
 #include <algorithm>
 #include "mesh.h"
 
-namespace test {
-
 Vertex::Vertex(CVertexIterator begin, CVertexIterator end)
 {
     if ( std::distance (  begin, end ) != 3 )
@@ -99,5 +97,4 @@ void Mesh::verify()
         throw std::runtime_error ( "Not all vertisies were fully added!" );
     if ( faces.size() % face_model != 0 )
         throw std::runtime_error ( "According to given model not all faces were fully added!" );
-}
 }
