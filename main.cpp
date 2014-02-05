@@ -19,6 +19,8 @@ int main(int argc, char *argv[])
     reader.set ( &mesh );
     reader.read ( argv[1] );
     
+    mesh.verify();
+    
     EdgeExtractor edgeExtractor;
     edgeExtractor.set ( &mesh );
     

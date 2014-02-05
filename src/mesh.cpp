@@ -92,7 +92,7 @@ Face Mesh::get_face ( unsigned int index ) const
 void Mesh::verify()
 {
     if ( face_model == -1 )
-        throw std::runtime_error ( "Face model was not set!");
+        throw std::runtime_error ( "Face's model was not set!");
     if ( vertices.size() % 3 != 0 )
         throw std::runtime_error ( "Not all vertisies were fully added!" );
     if ( faces.size() % face_model != 0 )
