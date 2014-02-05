@@ -22,19 +22,18 @@
 
 PLYDataReader::PLYDataReader()
 {
-    surface = NULL;
+    mesh = NULL;
 }
 
-void PLYDataReader::set ( Surface *surface )
+void PLYDataReader::set ( test::Mesh *mesh )
 {
-    assert ( surface != NULL );
-    this->surface = surface;
+    assert ( mesh != NULL );
+    this->mesh = mesh;
 }
 
 void PLYDataReader::read ( const char *filename )
 {
-    assert ( surface != NULL );
-    faces.clear();
+    assert ( mesh != NULL );
     
     p_ply t_ply_file = NULL;
     t_ply_file = ply_open(filename, NULL, 0, NULL);
@@ -48,29 +47,30 @@ void PLYDataReader::read ( const char *filename )
     
     if ( !ply_read( t_ply_file ) )
     {
-        throw std::runtime_error("Error occurred. Reading a PLY file was interrupted!");
+        throw std::runtime_error( "Error occurred. Reading a PLY file was interrupted!" );
     }
     ply_close ( t_ply_file );
  
 #ifndef NDEBUG
+    mesh->verify();
     std::cout << "PLYDataReader -- DEBUG REPORT " << std::endl;
     std::cout << "Verices: " << std::endl;
     
-    Surface::CVertexIterator it = surface->vertices_cbegin();
-    Surface::CVertexIterator iend = surface->vertices_cend();
-    
-    for(; it != iend; ++it )
-        std::cout << it->x << " " << it->y << " " << it->z << std::endl;
+    for ( unsigned int i = 0 ; i < mesh->vertex_count(); i++ )
+    {
+        test::Vertex vert = mesh->get_vertex( i );
+        std::cout << vert.x() << " " << vert.y() << " " << vert.z() << std::endl;
+    }
     
     std::cout << "Faces: " << std::endl;
     
-    Surface::CFaceIterator itf = surface->faces_cbegin();
-    Surface::CFaceIterator iendf = surface->faces_cend();
-    
-    for(; itf != iendf; ++itf  )
+    for ( unsigned int i = 0 ; i < mesh->face_count(); i++  )
     {
-        for (int j = 0; j < itf->size(); j++ )
-            std::cout << (*itf)[j] << " ";
+        test::Face face = mesh->get_face ( i );
+        for (int j = 0; j < face.model(); j++ )
+        {
+            std::cout << face[j];
+        }
         std::cout << std::endl;
     }
 #endif
@@ -83,19 +83,19 @@ void PLYDataReader::check_file ( p_ply file )
     
     if ( ply_read_header ( file ) != 1 )
     {
-        throw std::runtime_error("Header of the file is not correct!");
+        throw std::runtime_error ( "Header of the file is not correct!" );
     }
     
     nvertices = ply_set_read_cb ( file, "vertex", "x", NULL, NULL, 0 );
     if ( nvertices == 0 )
     {
-        throw std::runtime_error("PLY does not contain vertices!");
+        throw std::runtime_error ( "PLY does not contain vertices!" );
     }
     
     nvfaces = ply_set_read_cb ( file, "face", "vertex_index", NULL, NULL, 0 );
     if ( nvertices == 0 )
     {
-        throw std::runtime_error("PLY does not contain faces!");
+        throw std::runtime_error ( "PLY does not contain faces!" );
     }
 }
 
@@ -104,66 +104,50 @@ void PLYDataReader::check_file ( p_ply file )
 static int vertex_callback ( p_ply_argument argument )
 {
     long eol;
-    Surface * surface = NULL;
+    test::Mesh * mesh = NULL;
     void * data_mapper = NULL;
     ply_get_argument_user_data ( argument, &data_mapper, &eol );
-    surface = reinterpret_cast < Surface * > ( data_mapper );
-    if ( eol == 0 ) 
-    {
-        Vertex vertex;
-        vertex.x = ply_get_argument_value ( argument );
-        surface->add_vertex( vertex );
-    }
-    else if ( eol == 1 )
-    {
-        Surface::VertexIterator vertex = surface->vertices_end()-1;
-        vertex->y = ply_get_argument_value ( argument );
-    } 
-    else if ( eol == 2 )
-    {
-        Surface::VertexIterator vertex = surface->vertices_end()-1;
-        vertex->z = ply_get_argument_value ( argument );
-    }
-    else
-        return 0;
+    mesh = reinterpret_cast < test::Mesh * > ( data_mapper );
+    double value = ply_get_argument_value ( argument );
+    mesh->add_vertex_coord ( value );
     return 1;
 }
 
 void PLYDataReader::map_callbacks_vertices(p_ply t_ply_file)
 {
-    ply_set_read_cb ( t_ply_file, "vertex", "x", vertex_callback, reinterpret_cast < void * >( surface ), 0 );
-    ply_set_read_cb ( t_ply_file, "vertex", "y", vertex_callback, reinterpret_cast < void * >( surface ), 1 );
-    ply_set_read_cb ( t_ply_file, "vertex", "z", vertex_callback, reinterpret_cast < void * >( surface ), 2 );    
+    ply_set_read_cb ( t_ply_file, "vertex", "x", vertex_callback, reinterpret_cast < void * >( mesh ), 0 );
+    ply_set_read_cb ( t_ply_file, "vertex", "y", vertex_callback, reinterpret_cast < void * >( mesh ), 1 );
+    ply_set_read_cb ( t_ply_file, "vertex", "z", vertex_callback, reinterpret_cast < void * >( mesh ), 2 );    
 }
 
 //! \todo move to different compilation unit
 static int face_callback ( p_ply_argument argument )
 {
     long length = 0, value_index = -2;
-    Surface * surface = NULL;
+    test::Mesh * mesh = NULL;
     void * data_mapper = NULL;
     ply_get_argument_user_data ( argument, &data_mapper, NULL );
     ply_get_argument_property ( argument, NULL, &length, &value_index );
-    surface = reinterpret_cast < Surface * > ( data_mapper );
+    mesh = reinterpret_cast < test::Mesh * > ( data_mapper );
     
-    if( value_index == 0 )
+    if( value_index == -1 )
     {
-        Face face;
-        double vertex_index = ply_get_argument_value ( argument );
-        face.add_vertex( vertex_index );
-        surface->add_face ( face );
+        double model = ply_get_argument_value ( argument );
+        if ( mesh->get_model() == -1 )
+            mesh->set_model( model );
+        else if ( mesh->get_model() != model )
+            throw std::runtime_error ( "Can't work with faces of diffrent models!" );
     }
-    else if ( value_index > 0 && value_index < length )
+    else
     {
-        Surface::FaceIterator face = surface->faces_end()-1;
         double vertex_index = ply_get_argument_value ( argument );
-        face->add_vertex ( vertex_index );
+        mesh->add_face_vertex ( vertex_index );
     }
     return 1;
 }
 
 void PLYDataReader::map_callbacks_faces(p_ply t_ply_file)
 {
-    ply_set_read_cb(t_ply_file, "face", "vertex_indices", face_callback, reinterpret_cast < void * >( surface ), 0);
-    ply_set_read_cb(t_ply_file, "face", "vertex_index", face_callback, reinterpret_cast < void * >( surface ), 0);    
+    ply_set_read_cb(t_ply_file, "face", "vertex_indices", face_callback, reinterpret_cast < void * >( mesh ), 0);
+    ply_set_read_cb(t_ply_file, "face", "vertex_index", face_callback, reinterpret_cast < void * >( mesh ), 0);    
 }

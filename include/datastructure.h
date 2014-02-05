@@ -61,7 +61,7 @@ class Surface
 {
 private:
     std::vector < Vertex > vertices;
-    std::vector < Face > faces;
+    std::vector < Face > faces; //! Face can be very heavy so we should collect pointers not instances
 public:
     typedef std::vector < Vertex >::const_iterator CVertexIterator;
     typedef std::vector < Vertex >::iterator VertexIterator;
@@ -101,7 +101,7 @@ public:
     {
         return faces.end();
     }
-    void add_face ( Face face )
+    void add_face ( Face & face )
     {
         faces.push_back( face );
     }

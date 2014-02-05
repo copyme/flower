@@ -17,23 +17,23 @@
 #ifndef EDGEEXTRACTOR_H
 #define EDGEEXTRACTOR_H
 #include <vector>
-#include "datastructure.h"
+#include "mesh.h"
 
 //! This class allows to extract edges which contain a given vertex from faces
 class EdgeExtractor
 {
 private:
-    Surface const * surface;
-    std::vector < Edge > edges;
+    const test::Mesh *mesh;
+    std::vector < test::Edge > edges;
 public:
     EdgeExtractor();
-    void set( Surface const * surface );
+    void set( const test::Mesh *mesh );
     
     /** \param index of a given vertex
      * \return indexes of vertices which are an end of edges which have a beginning in \param index
      */
     void extract( unsigned int index );
-    std::vector < Edge > const & get() const { return edges; }
+    std::vector < test::Edge > const & get() const { return edges; }
 };
 
 #endif // EDGEEXTRACTOR_H

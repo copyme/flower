@@ -21,50 +21,49 @@
 
 EdgeExtractor::EdgeExtractor()
 {
-    surface = NULL;
+    mesh = NULL;
 }
 
-void EdgeExtractor::set ( const Surface *surface )
+void EdgeExtractor::set ( const test::Mesh *mesh )
 {
-    assert ( surface != NULL );
-    this->surface = surface;
+    assert ( mesh != NULL );
+    this->mesh = mesh;
 }
 
 void EdgeExtractor::extract ( unsigned int index )
 {
-    assert ( surface != NULL );
+    assert ( mesh != NULL );
     edges.clear();
-    Surface::CFaceIterator iface = surface->faces_cbegin();
-    Surface::CFaceIterator iend = surface->faces_cend();
     
-    for (; iface != iend; ++iface )
+    for ( unsigned int i = 0; i < mesh->face_count(); i++ )
     {
-        for ( unsigned int j = 0; j < iface->size(); j++ )
+        test::Face face = mesh->get_face ( i );
+        for ( unsigned int j = 0; j < face.model(); j++ )
         {
-            if ( (*iface)[j] == index )
+            if ( face[j] == index )
             {
                 //beginning
                 if ( j ==  0 )
                 {
-                    Edge t_edge( (*iface)[iface->size() - 1], (*iface)[j] );
-                    edges.push_back(t_edge);  
+                    test::Edge t_edge( face.end() - 1, face.begin()+j );
+                    edges.push_back(t_edge);
                 }
                 //middle - left
                 if( j > 0 )
                 {
-                    Edge t_edge ( (*iface)[j - 1], (*iface)[j] );
+                    test::Edge t_edge ( face.begin() + j - 1, face.begin()+j );
                     edges.push_back ( t_edge );
                 }
                 //middle - right
-                if ( j + 1 <  iface->size() )
+                if ( j + 1 <  face.model() )
                 {
-                    Edge t_edge( (*iface)[j], (*iface)[j  + 1] );
+                    test::Edge t_edge( face.begin() + j , face.begin()+ j +1 );
                     edges.push_back(t_edge);
                 }
                 //end
-                if ( j == iface->size() - 1 )
+                if ( j == face.model() - 1 )
                 {
-                    Edge t_edge( (*iface)[j], (*iface)[0] );
+                    test::Edge t_edge( face.begin()+j, face.begin() );
                     edges.push_back(t_edge);
                 }
             }

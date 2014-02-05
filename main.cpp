@@ -14,17 +14,17 @@ int main(int argc, char *argv[])
         exit ( EXIT_FAILURE );
     }
     
-    Surface surface;
+    test::Mesh mesh;
     PLYDataReader reader;
-    reader.set ( &surface );
+    reader.set ( &mesh );
     reader.read ( argv[1] );
     
     EdgeExtractor edgeExtractor;
-    edgeExtractor.set ( &surface );
+    edgeExtractor.set ( &mesh );
     
     edgeExtractor.extract ( 0 );
     
-    std::vector < Edge > const & edges = edgeExtractor.get();
+    std::vector < test::Edge > const & edges = edgeExtractor.get();
     std::cout << "Edges for vertex 0:" << std::endl;
     for(int i = 0; i < edges.size(); i++ )
     {
@@ -32,7 +32,7 @@ int main(int argc, char *argv[])
     }
     
     PLYDataWriter writer;
-    writer.set ( &surface );
+    writer.set ( &mesh );
     writer.write( argv[2] );
     return 0;
 }

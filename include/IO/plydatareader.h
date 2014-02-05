@@ -18,22 +18,20 @@
 #define PLYDATAREADER_H
 #include <vector>
 #include "IO/rply.h"
-#include "datastructure.h"
+#include "mesh.h"
 
 class PLYDataReader
 {
 private:
-    std::vector < Face > faces;
-    Surface * surface;
+    test::Mesh * mesh;
     
     void check_file( p_ply file );
     void map_callbacks_vertices(p_ply t_ply_file);
     void map_callbacks_faces(p_ply t_ply_file);
 public:
     PLYDataReader ();
-    void set ( Surface * surface );
-    void read ( const char * filename );
-    std::vector < Face > const & get_faces() const { return faces; }    
+    void set ( test::Mesh * mesh );
+    void read ( const char * filename );  
 };
 
 #endif // PLYDATAREADER_H

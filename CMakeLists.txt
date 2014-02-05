@@ -16,15 +16,21 @@ set(PROJECT_FILES
   ${PROJECT_SRC_DIR}/IO/plydatawriter.cpp
   ${PROJECT_SRC_DIR}/datastructure.cpp
   ${PROJECT_SRC_DIR}/edgeextractor.cpp
+  ${PROJECT_SRC_DIR}/mesh.cpp
+)
+
+set(TESTS
+  ${PROJECT_TEST_DIR}/meshtests.cpp
 )
 
 aux_source_directory(. SRC_LIST)
 add_executable(${PROJECT_NAME} ${SRC_LIST} ${PROJECT_FILES})
 
-#FIND_PACKAGE(CppUnit)
-#if(CppUnit_FOUND)
-#  add_executable( testCases ${PROJECT_TEST_DIR}/testCases.cpp ${PROJECT_FILES} )
-#  target_link_libraries( testCases ${CPPUNIT_LIBRARIES} )
-#else()
-#  MESSAGE("CPPUNIT not found!")
-#endif()
+FIND_PACKAGE(CppUnit)
+if(CppUnit_FOUND)
+  include_directories( ${CppUnit_INCLUDE_DIRS} )
+  add_executable( testCases ${PROJECT_TEST_DIR}/testCases.cpp ${PROJECT_FILES} ${TESTS})
+  target_link_libraries( testCases ${CppUnit_LIBRARIES} )
+else()
+  MESSAGE("CPPUNIT not found!")
+endif()
