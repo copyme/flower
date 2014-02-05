@@ -30,7 +30,7 @@ int main(int argc, char *argv[])
     std::cout << "Edges for vertex 0:" << std::endl;
     for(int i = 0; i < edges.size(); i++ )
     {
-        std::cout << *(edges[i].begin()) << " " << *(edges[i].end()) << std::endl;
+        std::cout << edges[i].begin() << " " << edges[i].end() << std::endl;
     }
     
     PLYDataWriter writer;

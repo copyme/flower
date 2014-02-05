@@ -37,7 +37,7 @@ void EdgeExtractor::extract ( unsigned int index )
     
     for ( unsigned int i = 0; i < mesh->face_count(); i++ )
     {
-        Face face = mesh->get_face ( i );
+        Face const face = mesh->get_face ( i );
         for ( unsigned int j = 0; j < face.model(); j++ )
         {
             if ( face[j] == index )
