@@ -17,7 +17,6 @@ set(PROJECT_FILES
   ${PROJECT_SRC_DIR}/edgeextractor.cpp
   ${PROJECT_SRC_DIR}/meanflowfilter.cpp
   ${PROJECT_SRC_DIR}/mesh.cpp
-  ${PROJECT_SRC_DIR}/Vector.cpp
 )
 
 set(TESTS

@@ -4,6 +4,7 @@
   Module:    <>
   
   Copyright (c) Kacper Pluta <kacper.pluta@dbslabs.com.br>
+                Meri-nut Zago <meri_zago@hotmail.fr>
   All rights reserved.
   See Copyright.txt for details.
   
@@ -22,19 +23,21 @@
 #include <cmath>
 #include "mesh.h"
 
+template < class Type = double >
 class Vector
 {
 private:
     static const int dim = 3;
-    double coords[dim];
+    Type coords[dim];
 public:
-    Vector ();
+    Vector () { coords[0] =  coords[1] = coords[2] = 0; }
    
-    Vector ( Vertex const &start, Vertex const &end );
-    
-    Vector ( Vector const & vec );
-    
-    Vector & operator = ( Vector const & vec );
+    Vector ( Vertex const &start, Vertex const &end )
+    {
+        coords[0] = end[0] - start[0];
+        coords[1] = end[1] - start[1];
+        coords[2] = end[2] - start[2];
+    }
     
     double & operator [] ( unsigned int index ) 
     {
