@@ -52,27 +52,27 @@ void PLYDataReader::read ( const char *filename )
     ply_close ( t_ply_file );
  
 #ifndef NDEBUG
-    mesh->verify();
-    std::cout << "PLYDataReader -- DEBUG REPORT " << std::endl;
-    std::cout << "Verices: " << std::endl;
+//    mesh->verify();
+//    std::cout << "PLYDataReader -- DEBUG REPORT " << std::endl;
+//    std::cout << "Verices: " << std::endl;
     
-    for ( unsigned int i = 0 ; i < mesh->vertex_count(); i++ )
-    {
-        Vertex vert = mesh->get_vertex( i );
-        std::cout << vert.x() << " " << vert.y() << " " << vert.z() << std::endl;
-    }
+//    for ( unsigned int i = 0 ; i < mesh->vertex_count(); i++ )
+//    {
+//        Vertex vert = mesh->get_vertex( i );
+//        std::cout << vert.x() << " " << vert.y() << " " << vert.z() << std::endl;
+//    }
     
-    std::cout << "Faces: " << std::endl;
+//    std::cout << "Faces: " << std::endl;
     
-    for ( unsigned int i = 0 ; i < mesh->face_count(); i++  )
-    {
-        Face face = mesh->get_face ( i );
-        for (int j = 0; j < face.model(); j++ )
-        {
-            std::cout << face[j];
-        }
-        std::cout << std::endl;
-    }
+//    for ( unsigned int i = 0 ; i < mesh->face_count(); i++  )
+//    {
+//        Face face = mesh->get_face ( i );
+//        for (int j = 0; j < face.model(); j++ )
+//        {
+//            std::cout << face[j];
+//        }
+//        std::cout << std::endl;
+//    }
 #endif
 }
 

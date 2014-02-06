@@ -5,15 +5,15 @@
 #include "edgeextractor.h"
 #include "mesh.h"
 #include "plydatawriter.h"
+#include "meanflowfilter.h"
 
-int main(int argc, char *argv[])
+int main ( int argc, char *argv[] )
 {
     if ( argc < 3 )
     {
         std::cerr << "Please define input and output: PLY files.\n";
         exit ( EXIT_FAILURE );
     }
-    
     Mesh mesh;
     PLYDataReader reader;
     reader.set ( &mesh );
@@ -21,20 +21,24 @@ int main(int argc, char *argv[])
     
     mesh.verify();
     
-    EdgeExtractor edgeExtractor;
-    edgeExtractor.set ( &mesh );
     
-    edgeExtractor.extract ( 0 );
+    Mesh mesh_out;
+    mesh_out.set_model( mesh.get_model() );
     
-    std::vector < Edge > const & edges = edgeExtractor.get();
-    std::cout << "Edges for vertex 0:" << std::endl;
-    for(int i = 0; i < edges.size(); i++ )
+    for ( unsigned int i = 0; i < mesh.face_count(); i++ )
     {
-        std::cout << edges[i].begin() << " " << edges[i].end() << std::endl;
+        Face face = mesh.get_face(i);
+        for (unsigned int j = 0; j < face.model(); j++ )
+            mesh_out.add_face_vertex(face[j]);
     }
     
+    MeanFlowFilter test;
+    test.input ( &mesh );
+    test.output ( &mesh_out );
+    test.execute();
+    
     PLYDataWriter writer;
-    writer.set ( &mesh );
+    writer.set ( &mesh_out );
     writer.write( argv[2] );
     return 0;
 }
