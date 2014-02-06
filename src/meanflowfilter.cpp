@@ -29,14 +29,8 @@ void MeanFlowFilter::execute()
     for ( unsigned int i = 0; i < mesh_in->vertex_count(); i++ )
     {
         extractor.extract ( i );
-        calculate_vector ( extractor.get(), i );
         Vector < double > vector;
-        for ( unsigned int j = 0; j < vectors.size(); j++ )
-        {
-            vector += vectors[j];
-        }
-        vector /= vector.length();
-        vector *= step;
+        vector = calculate_vector ( extractor.get(), i );
         Point < double > point ( mesh_in->get_vertex ( i ) );
         point += vector;
         mesh_out->add_vertex_coord ( point[0] );
@@ -45,9 +39,9 @@ void MeanFlowFilter::execute()
     }
 }
 
-void MeanFlowFilter::calculate_vector( std::vector<Edge> const &edges, unsigned int point)
+Vector < double > MeanFlowFilter::calculate_vector( std::vector<Edge> const &edges, unsigned int point)
 {
-    vectors.clear();
+    Vector < double > vector;
     std::vector< Edge >::const_iterator it = edges.begin();
     std::vector< Edge >::const_iterator end = edges.end();
     for ( ; it != end; ++it )
@@ -57,8 +51,11 @@ void MeanFlowFilter::calculate_vector( std::vector<Edge> const &edges, unsigned 
             Vertex start = mesh_in->get_vertex ( point );
             Vertex end = mesh_in->get_vertex ( (*it).end() );
             Vector < double > tmpVector ( start, end );
-            vectors.push_back ( tmpVector );
+            vector += tmpVector;
         }
     }
+    vector /= vector.length();
+    vector *= step;
+    return vector;
 }
 
