@@ -31,7 +31,7 @@ int main ( int argc, char *argv[] )
     }
     
     MeanFlowFilter meanFlowFilter;
-    meanFlowFilter.set_step ( 0.6 );
+    meanFlowFilter.set_step ( .1 );
     meanFlowFilter.input ( &mesh );
     meanFlowFilter.output ( &mesh_out );
     meanFlowFilter.execute();

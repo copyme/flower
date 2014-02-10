@@ -48,14 +48,13 @@ Vector < double > MeanFlowFilter::calculate_vector( std::vector<Edge> const &edg
     {
         if ( (*it).begin() == point )
         {
-            Vertex start = mesh_in->get_vertex ( point );
-            Vertex end = mesh_in->get_vertex ( (*it).end() );
+            Vertex end = mesh_in->get_vertex ( point );
+            Vertex start = mesh_in->get_vertex ( (*it).end() );
             Vector < double > tmpVector ( start, end );
             vector += tmpVector;
         }
     }
-    vector /= vector.length();
+    vector *= -0.5;
     vector *= step;
     return vector;
 }
-
