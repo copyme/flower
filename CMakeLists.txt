@@ -31,12 +31,13 @@ include_directories(${GLFW_INCLUDE_DIRS})
 
 
 find_package(OpenGL REQUIRED)
-include_directories(${OpenGL_INCLUDE_DIRS})
-link_directories(${OpenGL_LIBRARY_DIRS})
-add_definitions(${OpenGL_DEFINITIONS})
-if(NOT OPENGL_FOUND)
+if(OPENGL_FOUND)
+    include_directories(${OpenGL_INCLUDE_DIRS})
+    link_directories(${OpenGL_LIBRARY_DIRS})
+    add_definitions(${OpenGL_DEFINITIONS})
+else()
     message(ERROR " OPENGL not found!")
-endif(NOT OPENGL_FOUND)
+endif()
 
 FIND_PACKAGE(GLEW REQUIRED)
 if(GLEW_FOUND)
