@@ -10,7 +10,7 @@
  *   This program is free software; you can redistribute it and/or modify  *
  *   it under the terms of the GNU General Public License as published by  *
  *   the Free Software Foundation; either version 2 of the License, or     *
- *   (at your option) any later version.                                   * 
+ *   (at your option) any later version.                                   *
  *                                                                         *
  ***************************************************************************/
 
@@ -23,16 +23,39 @@
 #include <cstring>
 #include <string>
 
-/** \namespace STP3D 
-  * STP3D for Simple_Teaching_Platform_for_3D is a simple (and naive) C++ 3D library for 3D programming. 
+/** \namespace STP3D
+  * STP3D for Simple_Teaching_Platform_for_3D is a simple (and naive) C++ 3D library for 3D programming.
   * Inspired by GLM
-  * Deals essentially with basic maths, basic image loading, basic shader and mesh handling, basic stufs. 
+  * Deals essentially with basic maths, basic image loading, basic shader and mesh handling, basic stufs.
   * \author Venceslas BIRI
   */
 namespace STP3D {
 
-#define STP3D_VERSION 0.2
 #define STP3D_EPSILON 1e-6
+#define GL_DEFINED
+
+#ifdef GL_DEFINED
+
+#include <GL/glew.h>
+#include <GL/gl.h>
+#include <GL/glu.h>
+#include <GL/glext.h>
+#include <GL/glx.h>
+
+// ///////////////////////////////////////////////////////////////////////////
+// GL check tool
+// ///////////////////////////////////////////////////////////////////////////
+inline void checkGL(int line, const char *filename) {
+    int err = glGetError();
+    if(err != GL_NO_ERROR) {
+        std::cerr << "ERROR GL : erreur dans le fichier " << filename << " à la ligne " ;
+        std::cerr << line << " : " << gluErrorString(err) << std::endl;
+        exit(0);
+    }
+}
+#define CHECK_GL STP3D::checkGL(__LINE__, __FILE__);
+
+#endif // GL_DEFINED
 
 // ///////////////////////////////////////////////////////////////////////////
 // Error msg mechanism
@@ -54,34 +77,34 @@ inline std::string intToString(int in) {std::stringstream out;out<<in;return out
 // ///////////////////////////////////////////////////////////////////////////
 static struct ZeroTy
 {
-	inline operator          double   ( ) const { return 0; }
-	inline operator          float    ( ) const { return 0; }
-	inline operator          long long( ) const { return 0; }
-	inline operator unsigned long long( ) const { return 0; }
-	inline operator          long     ( ) const { return 0; }
-	inline operator unsigned long     ( ) const { return 0; }
-	inline operator          int      ( ) const { return 0; }
-	inline operator unsigned int      ( ) const { return 0; }
-	inline operator          short    ( ) const { return 0; }
-	inline operator unsigned short    ( ) const { return 0; }
-	inline operator          char     ( ) const { return 0; }
-	inline operator unsigned char     ( ) const { return 0; }
+    inline operator          double   ( ) const { return 0; }
+    inline operator          float    ( ) const { return 0; }
+    inline operator          long long( ) const { return 0; }
+    inline operator unsigned long long( ) const { return 0; }
+    inline operator          long     ( ) const { return 0; }
+    inline operator unsigned long     ( ) const { return 0; }
+    inline operator          int      ( ) const { return 0; }
+    inline operator unsigned int      ( ) const { return 0; }
+    inline operator          short    ( ) const { return 0; }
+    inline operator unsigned short    ( ) const { return 0; }
+    inline operator          char     ( ) const { return 0; }
+    inline operator unsigned char     ( ) const { return 0; }
 } zero;
 
 static struct OneTy
 {
-	inline operator          double   ( ) const { return 1; }
-	inline operator          float    ( ) const { return 1; }
-	inline operator          long long( ) const { return 1; }
-	inline operator unsigned long long( ) const { return 1; }
-	inline operator          long     ( ) const { return 1; }
-	inline operator unsigned long     ( ) const { return 1; }
-	inline operator          int      ( ) const { return 1; }
-	inline operator unsigned int      ( ) const { return 1; }
-	inline operator          short    ( ) const { return 1; }
-	inline operator unsigned short    ( ) const { return 1; }
-	inline operator          char     ( ) const { return 1; }
-	inline operator unsigned char     ( ) const { return 1; }
+    inline operator          double   ( ) const { return 1; }
+    inline operator          float    ( ) const { return 1; }
+    inline operator          long long( ) const { return 1; }
+    inline operator unsigned long long( ) const { return 1; }
+    inline operator          long     ( ) const { return 1; }
+    inline operator unsigned long     ( ) const { return 1; }
+    inline operator          int      ( ) const { return 1; }
+    inline operator unsigned int      ( ) const { return 1; }
+    inline operator          short    ( ) const { return 1; }
+    inline operator unsigned short    ( ) const { return 1; }
+    inline operator          char     ( ) const { return 1; }
+    inline operator unsigned char     ( ) const { return 1; }
 } one;
 
 

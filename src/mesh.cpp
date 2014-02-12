@@ -29,7 +29,7 @@ Vertex::Vertex(CVertexIterator begin, CVertexIterator end)
     this->end = end;
 }
 
-double Vertex::operator [] ( unsigned int index ) const
+float Vertex::operator [] ( unsigned int index ) const
 {
     if ( index > 2 )
     {

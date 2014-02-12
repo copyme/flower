@@ -25,8 +25,30 @@ set(TESTS
   ${PROJECT_TEST_DIR}/pointtests.cpp
 )
 
+find_package(PkgConfig REQUIRED)
+pkg_search_module(GLFW REQUIRED glfw3)
+include_directories(${GLFW_INCLUDE_DIRS})
+
+
+find_package(OpenGL REQUIRED)
+include_directories(${OpenGL_INCLUDE_DIRS})
+link_directories(${OpenGL_LIBRARY_DIRS})
+add_definitions(${OpenGL_DEFINITIONS})
+if(NOT OPENGL_FOUND)
+    message(ERROR " OPENGL not found!")
+endif(NOT OPENGL_FOUND)
+
+FIND_PACKAGE(GLEW REQUIRED)
+if(GLEW_FOUND)
+  include_directories( ${GLEW_INCLUDE_PATH} )
+else()
+  MESSAGE("GLEW not found!")
+endif()
+
+
 aux_source_directory(. SRC_LIST)
 add_executable(${PROJECT_NAME} ${SRC_LIST} ${PROJECT_FILES})
+target_link_libraries(${PROJECT_NAME} ${GLFW_LIBRARIES} ${OPENGL_LIBRARIES} ${GLEW_LIBRARY})
 
 #FIND_PACKAGE(CppUnit)
 #if(CppUnit_FOUND)

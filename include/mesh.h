@@ -21,16 +21,16 @@
 class Vertex
 {
 public:
-    typedef std::vector < double >::const_iterator CVertexIterator;
+    typedef std::vector < float >::const_iterator CVertexIterator;
 private:   
     CVertexIterator begin;
     CVertexIterator end;
 public:
     Vertex ( CVertexIterator begin, CVertexIterator end );
-    double x() const { return *begin; }
-    double y() const { return *(begin + 1); }
-    double z() const { return *(end - 1); }
-    double operator[] ( unsigned int index ) const;
+    float x() const { return *begin; }
+    float y() const { return *(begin + 1); }
+    float z() const { return *(end - 1); }
+    float operator[] ( unsigned int index ) const;
 };
 
 class Edge
@@ -73,8 +73,8 @@ public:
 class Mesh
 {
     
-private:
-    std::vector < double > vertices;
+public:
+    std::vector < float > vertices;
     std::vector < unsigned int > faces;
     unsigned int face_model;
 public:
@@ -82,7 +82,7 @@ public:
     /*** Coordinates are evenly stored in memory - only 3-dim vertices are supported!
      * \param coord - vertex coord e.g. x, y, z
      */
-    void add_vertex_coord ( double coord )
+    void add_vertex_coord ( float coord )
     {
         vertices.push_back ( coord );        
     }
