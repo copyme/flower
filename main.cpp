@@ -64,7 +64,7 @@ int main ( int argc, char *argv[] )
         return -1;
 
     /* Create a windowed mode window and its OpenGL context */
-    window = glfwCreateWindow(640, 480, "Hello World", NULL, NULL);
+    window = glfwCreateWindow(640, 480, "Flow studio", NULL, NULL);
     if (!window)
     {
         glfwTerminate();
@@ -101,7 +101,8 @@ int main ( int argc, char *argv[] )
     GLuint flatShaderPrg = STP3D::ShaderManager::loadShader(shaderFileVer,shaderFileFrag,true);
 
     STP3D::IndexedMesh glMesh;
-    glMesh.changeType(GL_TRIANGLE_STRIP);
+    if ( mesh.get_model() != 3 )
+        glMesh.changeType(GL_TRIANGLE_STRIP);
     glMesh.setNbElt(mesh.face_count());
     glMesh.setNbIndex(mesh.face_count());
     glMesh.addIndexBuffer(&mesh.faces[0],false);

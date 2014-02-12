@@ -42,6 +42,7 @@ namespace STP3D {
             attr_id.clear();
             attr_semantic.clear();
             vbo_id.clear();
+            memory_buffers_owner.clear();
             gl_type_mesh = new_gl_type;
             nb_primitive = n_prim;
             index_buffer = NULL;
@@ -51,6 +52,7 @@ namespace STP3D {
             }
             nb_elts = elts;
             id_index = 0;
+            memory_index_owner = false;
         }
         ~IndexedMesh();
 
@@ -97,16 +99,19 @@ namespace STP3D {
     private:
         uint nb_idx_per_primitive;
         uint getNbIdxPerPrimitive();
+        bool memory_index_owner;
+        std::vector < bool > memory_buffers_owner;
 
     };
 
     inline IndexedMesh::~IndexedMesh() {
         if (buffers.size()>0) {
             for(std::vector<int>::size_type i = 0; i < buffers.size(); ++i) {
-                if (buffers[i]) delete[](buffers[i]);
+                if ( memory_buffers_owner[i] == true )
+                    if (buffers[i]) delete[](buffers[i]);
             }
         }
-        if (index_buffer) delete[](index_buffer);
+        if (index_buffer && memory_index_owner == true) delete[](index_buffer);
     }
 
     inline uint IndexedMesh::getNbIdxPerPrimitive() {
@@ -172,10 +177,12 @@ namespace STP3D {
     inline void IndexedMesh::addIndexBuffer(uint* data,bool copy) {
         if (copy) {
             memcpy(index_buffer,data,nb_idx_per_primitive*nb_primitive*sizeof(uint));
+            memory_index_owner = true;
         }
         else {
             if (index_buffer) delete[](index_buffer);
             index_buffer = data;
+            memory_index_owner = false;
         }
     }
 
@@ -185,8 +192,14 @@ namespace STP3D {
             float* tab = new float[one_elt_size*nb_elts];
             memcpy(tab,data,one_elt_size*nb_elts*sizeof(float));
             buffers.push_back(tab);
+            memory_buffers_owner.push_back(true);
+
         }
-        else buffers.push_back(data);
+        else
+        {
+            buffers.push_back(data);
+            memory_buffers_owner.push_back(false);
+        }
         attr_id.push_back(id_attribute);
         size_one_elt.push_back(one_elt_size);
         attr_semantic.push_back(semantic);
