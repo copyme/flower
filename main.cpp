@@ -80,7 +80,6 @@ int main ( int argc, char *argv[] )
         exit ( EXIT_FAILURE );
     }
 
-    glewExperimental=GL_TRUE;
     GLenum err = glewInit();
     if (GLEW_OK != err)
     {
@@ -88,14 +87,17 @@ int main ( int argc, char *argv[] )
           exit( EXIT_FAILURE );
     }
 
+    // Enable vertical sync (on cards that support it)
+    glfwSwapInterval( 1 );
+
     Mesh mesh;
     PLYDataReader reader;
     reader.set ( &mesh );
     reader.read ( argv[1] );
     mesh.verify();
 
-    const char * shaderFileVer = "shaders/flat_shading.vert";
-    const char * shaderFileFrag = "shaders/flat_shading.frag";
+    const char * shaderFileVer = "../shaders/flat_shading.vert";
+    const char * shaderFileFrag = "../shaders/flat_shading.frag";
 
 
     GLuint flatShaderPrg = STP3D::ShaderManager::loadShader(shaderFileVer,shaderFileFrag,true);
@@ -108,9 +110,13 @@ int main ( int argc, char *argv[] )
     glMesh.addIndexBuffer(&mesh.faces[0],false);
     glMesh.addOneBuffer(0, mesh.get_model(), &mesh.vertices[0], std::string("position"),false);
     glMesh.createVAO();
+
+
+     glViewport( 0, 0, 640, 480 );
     /* Loop until the user closes the window */
     while (!glfwWindowShouldClose(window))
     {
+        glEnable(GL_DEPTH_TEST);
         /* Render here */
         glClearColor ( 0.0f, 0.0f, 0.0f, 0.0f );
         glClear ( GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT );
