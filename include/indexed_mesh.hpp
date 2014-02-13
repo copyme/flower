@@ -118,7 +118,7 @@ namespace STP3D {
         if(gl_type_mesh == GL_POINTS) return 1;
         if(gl_type_mesh == GL_LINES) return 2;
         if(gl_type_mesh == GL_TRIANGLES) return 3;
-        if(gl_type_mesh == GL_TRIANGLE_STRIP) return 4;
+        if(gl_type_mesh == GL_QUADS) return 4;
         STP3D::setError("Wrong type of type in getNbIdxPerPrimitive");
         return 0;
     }
