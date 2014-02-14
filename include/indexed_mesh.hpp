@@ -72,6 +72,7 @@ namespace STP3D {
             attr_semantic.clear();
             vbo_id.clear();
             memory_buffers_owner.clear();
+	    index_buffer = NULL;
             nb_idx_per_primitive = getNbIdxPerPrimitive();
             memory_index_owner = false;
             nb_elts = mesh.vertex_count();

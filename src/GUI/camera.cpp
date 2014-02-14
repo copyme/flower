@@ -1,5 +1,5 @@
-#include "camera.h"
 #include <cmath>
+#include "camera.h"
 
 const float Camera::MOUSE_PAN_SPEED = 0.001f;
 const float Camera::MOUSE_ZOOM_SPEED = 0.05f;
@@ -28,7 +28,7 @@ void Camera::zoom ( float factor )
 void Camera::turn(float phi, float theta)
 {
   phi *= MOUSE_TURN_SPEED;
-  theta *= MOUSE_ZOOM_SPEED;
+  theta *= MOUSE_TURN_SPEED;
   this->theta += 1.f * theta;
   this->phi   -= 1.f * phi;
   if ( this->phi >= ( 2. * M_PI ) - 0.1 )
@@ -60,5 +60,5 @@ void Camera::compute()
   eye.x = cos ( theta ) * sin ( phi ) * radius + o.x;
   eye.y = cos ( phi ) * radius + o.y ;
   eye.z = sin ( theta ) * sin ( phi ) * radius + o.z;
-  up = glm::vec3 ( 0.f, phi < M_PI ?1.f:-1.f, 0.f );
+  up = glm::vec3 ( 0.f, phi < M_PI ? 1.f: -1.f, 0.f );
 }

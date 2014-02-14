@@ -25,9 +25,9 @@ private:
     bool zoomLock;
     double lockPositionX;
     double lockPositionY;
-    int camera;
-    double time;
-    bool playing;
+//     int camera;
+//     double time;
+//     bool playing;
 public:
     GUIStateMonitor();
     static const float MOUSE_PAN_SPEED;
@@ -51,8 +51,8 @@ public:
     double get_position_x () const { return lockPositionX; }
     double get_position_y () const { return lockPositionY; }
     
-    void set_time ( double time ) { this->time = time; }
-    double get_time () const { return time; }
+//     void set_time ( double time ) { this->time = time; }
+//     double get_time () const { return time; }
     
 };
 

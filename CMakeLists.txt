@@ -19,6 +19,7 @@ set(PROJECT_FILES
   ${PROJECT_SRC_DIR}/GUI/camera.cpp
   ${PROJECT_SRC_DIR}/GUI/statemonitor.cpp
   ${PROJECT_SRC_DIR}/GUI/interface.cpp
+  ${PROJECT_SRC_DIR}/GUI/input.cpp
   ${PROJECT_SRC_DIR}/mesh.cpp
 )
 
