@@ -63,38 +63,7 @@
 #include "camera.h"
 #include "indexed_mesh.hpp"
 #include "shaders.hpp"
-
-struct GUIStates
-{
-    bool panLock;
-    bool turnLock;
-    bool zoomLock;
-    double lockPositionX;
-    double lockPositionY;
-    int camera;
-    double time;
-    bool playing;
-    static const float MOUSE_PAN_SPEED;
-    static const float MOUSE_ZOOM_SPEED;
-    static const float MOUSE_TURN_SPEED;
-};
-const float GUIStates::MOUSE_PAN_SPEED = 0.001f;
-const float GUIStates::MOUSE_ZOOM_SPEED = 0.05f;
-const float GUIStates::MOUSE_TURN_SPEED = 0.005f;
-
-
-void init_gui_states(GUIStates & guiStates)
-{
-    guiStates.panLock = false;
-    guiStates.turnLock = false;
-    guiStates.zoomLock = false;
-    guiStates.lockPositionX = 0;
-    guiStates.lockPositionY = 0;
-    guiStates.camera = 0;
-    guiStates.time = 0.0;
-    guiStates.playing = false;
-}
-
+#include "statemonitor.h"
 
 int main ( int argc, char *argv[] )
 {
@@ -133,8 +102,7 @@ int main ( int argc, char *argv[] )
     glfwSwapInterval( 1 );
 
     Camera camera;
-    GUIStates guiStates;
-    init_gui_states(guiStates);
+    GUIStateMonitor guiStates;
 
     Mesh mesh;
     PLYDataReader reader;
@@ -168,19 +136,19 @@ int main ( int argc, char *argv[] )
         int middleButton = glfwGetMouseButton( window, GLFW_MOUSE_BUTTON_MIDDLE );
 
         if( leftButton == GLFW_PRESS )
-            guiStates.turnLock = true;
+            guiStates.lock_turn();
         else
-            guiStates.turnLock = false;
+            guiStates.unlock_turn();
 
         if( rightButton == GLFW_PRESS )
-            guiStates.zoomLock = true;
+            guiStates.lock_zoom();
         else
-            guiStates.zoomLock = false;
+            guiStates.unlock_zoom();
 
         if( middleButton == GLFW_PRESS )
-            guiStates.panLock = true;
+            guiStates.lock_pan();
         else
-            guiStates.panLock = false;
+            guiStates.unlock_pan();
 
         // Camera movements
         int altPressed = glfwGetKey( window, GLFW_KEY_LEFT_SHIFT );
@@ -188,38 +156,36 @@ int main ( int argc, char *argv[] )
         {
             double x; double y;
             glfwGetCursorPos(window,&x, &y);
-            guiStates.lockPositionX = x;
-            guiStates.lockPositionY = y;
+            guiStates.set_position_x( x );
+            guiStates.set_position_y( y );
         }
 
         if (altPressed == GLFW_PRESS)
         {
             double mousex; double mousey;
             glfwGetCursorPos(window,&mousex, &mousey);
-            double diffLockPositionX = mousex - guiStates.lockPositionX;
-            double diffLockPositionY = mousey - guiStates.lockPositionY;
-            if (guiStates.zoomLock)
+            double diffLockPositionX = mousex - guiStates.get_position_x();
+            double diffLockPositionY = mousey - guiStates.get_position_y();
+            if (guiStates.zoom())
             {
                 float zoomDir = 0.0;
                 if (diffLockPositionX > 0.)
                     zoomDir = -1.f;
                 else if (diffLockPositionX < 0. )
                     zoomDir = 1.f;
-                camera.zoom(zoomDir * GUIStates::MOUSE_ZOOM_SPEED);
+                camera.zoom(zoomDir);
             }
-            else if (guiStates.turnLock)
+            else if (guiStates.turn())
             {
-                camera.turn(diffLockPositionY * GUIStates::MOUSE_TURN_SPEED,
-                            diffLockPositionX * GUIStates::MOUSE_TURN_SPEED);
+                camera.turn(diffLockPositionY, diffLockPositionX);
 
             }
-            else if (guiStates.panLock)
+            else if (guiStates.pan())
             {
-                camera.pan(diffLockPositionX * GUIStates::MOUSE_PAN_SPEED,
-                            diffLockPositionY * GUIStates::MOUSE_PAN_SPEED);
+                camera.pan(diffLockPositionX, diffLockPositionY);
             }
-            guiStates.lockPositionX = mousex;
-            guiStates.lockPositionY = mousey;
+            guiStates.set_position_x ( mousex );
+            guiStates.set_position_y ( mousey );
         }
 
 

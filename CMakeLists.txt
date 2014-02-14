@@ -8,7 +8,7 @@ set(PROJECT_HEADERS_DIR ${CMAKE_CURRENT_SOURCE_DIR}/include)
 set(PROJECT_TEST_DIR ${CMAKE_CURRENT_SOURCE_DIR}/test)
 
 
-include_directories(${PROJECT_HEADERS_DIR} ${PROJECT_HEADERS_DIR}/IO)
+include_directories(${PROJECT_HEADERS_DIR} ${PROJECT_HEADERS_DIR}/IO ${PROJECT_HEADERS_DIR}/GUI)
 
 set(PROJECT_FILES 
   ${PROJECT_SRC_DIR}/IO/rply.c
@@ -16,6 +16,9 @@ set(PROJECT_FILES
   ${PROJECT_SRC_DIR}/IO/plydatawriter.cpp
   ${PROJECT_SRC_DIR}/edgeextractor.cpp
   ${PROJECT_SRC_DIR}/meanflowfilter.cpp
+  ${PROJECT_SRC_DIR}/GUI/camera.cpp
+  ${PROJECT_SRC_DIR}/GUI/statemonitor.cpp
+  ${PROJECT_SRC_DIR}/GUI/interface.cpp
   ${PROJECT_SRC_DIR}/mesh.cpp
 )
 
