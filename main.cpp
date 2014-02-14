@@ -216,22 +216,21 @@ int main ( int argc, char *argv[] )
     GLuint viewLocation = glGetUniformLocation(flatShaderPrg, "View");
 
     STP3D::IndexedMesh glMesh;
-    if ( mesh.get_model() != 3 )
-        glMesh.changeType(GL_QUADS);
-    glMesh.setNbElt(mesh.face_count());
-    glMesh.setNbIndex(mesh.face_count());
+    if ( mesh.get_model() == 4 )
+        glMesh.changeType(GL_TRIANGLE_FAN);
+    glMesh.setNbElt ( mesh.vertex_count() );
+    glMesh.setNbIndex ( mesh.face_count() );
     glMesh.addIndexBuffer(&mesh.faces[0],false);
-    glMesh.addOneBuffer(0, mesh.get_model(), &mesh.vertices[0], std::string("position"),false);
+    glMesh.addOneBuffer(0, 3, &mesh.vertices[0], std::string("position"),false);
     glMesh.createVAO();
     // Ensure we can capture the escape key being pressed below
     glfwSetInputMode( window, GLFW_STICKY_KEYS, GL_TRUE );
 
-     glViewport( 0, 0, 640, 480 );
+     glViewport( 0, 0, width, height );
     /* Loop until the user closes the window */
     while (!glfwWindowShouldClose(window))
     {
         glEnable(GL_DEPTH_TEST);
-
 
         // Mouse states
         int leftButton = glfwGetMouseButton( window, GLFW_MOUSE_BUTTON_LEFT );
