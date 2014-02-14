@@ -70,10 +70,13 @@ public:
     friend class EdgeExtractor;
 };
 
+
+namespace STP3D{ class IndexedMesh; } // Predefinition of a decorator;
+
 class Mesh
 {
-    
-public:
+private:
+    friend class STP3D::IndexedMesh; // For decorator which can show mesh using OpenGL
     std::vector < float > vertices;
     std::vector < unsigned int > faces;
     unsigned int face_model;

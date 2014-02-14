@@ -21,6 +21,7 @@
 #include <iostream>
 #include <vector>
 #include "globals.hpp"
+#include "mesh.h"
 
 
 namespace STP3D {
@@ -54,6 +55,31 @@ namespace STP3D {
             id_index = 0;
             memory_index_owner = false;
         }
+
+        //! Decorator for Mesh
+        IndexedMesh(Mesh const & mesh) {
+            if ( mesh.get_model() == 1 )
+                gl_type_mesh = GL_POINTS;
+            else if ( mesh.get_model() == 2 )
+                gl_type_mesh = GL_LINES;
+            else if ( mesh.get_model() == 3 )
+                gl_type_mesh = GL_TRIANGLES;
+            else
+                gl_type_mesh = GL_TRIANGLE_FAN;
+            buffers.clear();
+            size_one_elt.clear();
+            attr_id.clear();
+            attr_semantic.clear();
+            vbo_id.clear();
+            memory_buffers_owner.clear();
+            nb_idx_per_primitive = getNbIdxPerPrimitive();
+            memory_index_owner = false;
+            nb_elts = mesh.vertex_count();
+            nb_primitive = mesh.face_count();
+            addIndexBuffer( const_cast < uint * > ( &mesh.faces[0] ),false);
+            addOneBuffer(0, 3, const_cast < float * > ( &mesh.vertices[0] ), std::string("position"),false);
+        }
+
         ~IndexedMesh();
 
         //  User defined members

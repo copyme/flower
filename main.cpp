@@ -3,7 +3,7 @@
 #include <vector>
 #include "plydatareader.h"
 #include "edgeextractor.h"
-#include "mesh.h"
+
 //#include "plydatawriter.h"
 //#include "meanflowfilter.h"
 
@@ -59,19 +59,10 @@
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
 
+#include "mesh.h"
+#include "camera.h"
 #include "indexed_mesh.hpp"
 #include "shaders.hpp"
-
-
-struct Camera
-{
-    float radius;
-    float theta;
-    float phi;
-    glm::vec3 o;
-    glm::vec3 eye;
-    glm::vec3 up;
-};
 
 struct GUIStates
 {
@@ -102,60 +93,6 @@ void init_gui_states(GUIStates & guiStates)
     guiStates.camera = 0;
     guiStates.time = 0.0;
     guiStates.playing = false;
-}
-
-
-void camera_compute(Camera & c)
-{
-    c.eye.x = cos(c.theta) * sin(c.phi) * c.radius + c.o.x;
-    c.eye.y = cos(c.phi) * c.radius + c.o.y ;
-    c.eye.z = sin(c.theta) * sin(c.phi) * c.radius + c.o.z;
-    c.up = glm::vec3(0.f, c.phi < M_PI ?1.f:-1.f, 0.f);
-}
-
-void camera_defaults(Camera & c)
-{
-    c.phi = 3.14/2.f;
-    c.theta = 3.14/2.f;
-    c.radius = 10.f;
-    camera_compute(c);
-}
-
-void camera_zoom(Camera & c, float factor)
-{
-    c.radius += factor * c.radius ;
-    if (c.radius < 0.1)
-    {
-        c.radius = 10.f;
-        c.o = c.eye + glm::normalize(c.o - c.eye) * c.radius;
-    }
-    camera_compute(c);
-}
-
-void camera_turn(Camera & c, float phi, float theta)
-{
-    c.theta += 1.f * theta;
-    c.phi   -= 1.f * phi;
-    if (c.phi >= (2 * M_PI) - 0.1 )
-        c.phi = 0.00001;
-    else if (c.phi <= 0 )
-        c.phi = 2 * M_PI - 0.1;
-    camera_compute(c);
-}
-
-void camera_pan(Camera & c, float x, float y)
-{
-    glm::vec3 up(0.f, c.phi < M_PI ?1.f:-1.f, 0.f);
-    glm::vec3 fwd = glm::normalize(c.o - c.eye);
-    glm::vec3 side = glm::normalize(glm::cross(fwd, up));
-    c.up = glm::normalize(glm::cross(side, fwd));
-    c.o[0] += up[0] * y * c.radius * 2;
-    c.o[1] += up[1] * y * c.radius * 2;
-    c.o[2] += up[2] * y * c.radius * 2;
-    c.o[0] -= side[0] * x * c.radius * 2;
-    c.o[1] -= side[1] * x * c.radius * 2;
-    c.o[2] -= side[2] * x * c.radius * 2;
-    camera_compute(c);
 }
 
 
@@ -196,7 +133,6 @@ int main ( int argc, char *argv[] )
     glfwSwapInterval( 1 );
 
     Camera camera;
-    camera_defaults(camera);
     GUIStates guiStates;
     init_gui_states(guiStates);
 
@@ -215,13 +151,7 @@ int main ( int argc, char *argv[] )
     GLuint projectionLocation = glGetUniformLocation(flatShaderPrg, "Projection");
     GLuint viewLocation = glGetUniformLocation(flatShaderPrg, "View");
 
-    STP3D::IndexedMesh glMesh;
-    if ( mesh.get_model() == 4 )
-        glMesh.changeType(GL_TRIANGLE_FAN);
-    glMesh.setNbElt ( mesh.vertex_count() );
-    glMesh.setNbIndex ( mesh.face_count() );
-    glMesh.addIndexBuffer(&mesh.faces[0],false);
-    glMesh.addOneBuffer(0, 3, &mesh.vertices[0], std::string("position"),false);
+    STP3D::IndexedMesh glMesh ( mesh );
     glMesh.createVAO();
     // Ensure we can capture the escape key being pressed below
     glfwSetInputMode( window, GLFW_STICKY_KEYS, GL_TRUE );
@@ -275,17 +205,17 @@ int main ( int argc, char *argv[] )
                     zoomDir = -1.f;
                 else if (diffLockPositionX < 0. )
                     zoomDir = 1.f;
-                camera_zoom(camera, zoomDir * GUIStates::MOUSE_ZOOM_SPEED);
+                camera.zoom(zoomDir * GUIStates::MOUSE_ZOOM_SPEED);
             }
             else if (guiStates.turnLock)
             {
-                camera_turn(camera, diffLockPositionY * GUIStates::MOUSE_TURN_SPEED,
+                camera.turn(diffLockPositionY * GUIStates::MOUSE_TURN_SPEED,
                             diffLockPositionX * GUIStates::MOUSE_TURN_SPEED);
 
             }
             else if (guiStates.panLock)
             {
-                camera_pan(camera, diffLockPositionX * GUIStates::MOUSE_PAN_SPEED,
+                camera.pan(diffLockPositionX * GUIStates::MOUSE_PAN_SPEED,
                             diffLockPositionY * GUIStates::MOUSE_PAN_SPEED);
             }
             guiStates.lockPositionX = mousex;
@@ -293,8 +223,8 @@ int main ( int argc, char *argv[] )
         }
 
 
-        /* Render here */
-        glClearColor ( 0.0f, 0.0f, 0.0f, 0.0f );
+        /* Blender like background color */
+        glClearColor ( 0.2235f, 0.2235f, 0.2235f, 0.0f );
         glClear ( GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT );
         glUseProgram(flatShaderPrg);
 
