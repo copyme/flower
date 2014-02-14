@@ -36,10 +36,10 @@ void PLYDataReader::read ( const char *filename )
     assert ( mesh != NULL );
     
     p_ply t_ply_file = NULL;
-    t_ply_file = ply_open(filename, NULL, 0, NULL);
+    t_ply_file = ply_open ( filename, NULL, 0, NULL);
     if ( t_ply_file == NULL )
     {
-        return; // We will get std error message from RPLy.
+        throw std::runtime_error( "Error occurred. Reading a PLY file not found!" );
     }
     check_file(t_ply_file);
     map_callbacks_vertices(t_ply_file);
