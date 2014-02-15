@@ -64,8 +64,10 @@ namespace STP3D {
                 gl_type_mesh = GL_LINES;
             else if ( mesh.get_model() == 3 )
                 gl_type_mesh = GL_TRIANGLES;
-            else
-                gl_type_mesh = GL_TRIANGLE_FAN;
+            else if ( mesh.get_model() == 4 ) // We have to remove it!!!
+                gl_type_mesh = GL_QUADS;
+	    else
+	      gl_type_mesh = GL_TRIANGLE_FAN;
             buffers.clear();
             size_one_elt.clear();
             attr_id.clear();
@@ -73,7 +75,7 @@ namespace STP3D {
             vbo_id.clear();
             memory_buffers_owner.clear();
 	    index_buffer = NULL;
-            nb_idx_per_primitive = getNbIdxPerPrimitive();
+            nb_idx_per_primitive = mesh.get_model();
             memory_index_owner = false;
             nb_elts = mesh.vertex_count();
             nb_primitive = mesh.face_count();
@@ -148,7 +150,7 @@ namespace STP3D {
         if(gl_type_mesh == GL_POINTS) return 1;
         if(gl_type_mesh == GL_LINES) return 2;
         if(gl_type_mesh == GL_TRIANGLES) return 3;
-        if(gl_type_mesh == GL_TRIANGLE_FAN) return 4;
+        if(gl_type_mesh == GL_QUADS) return 4; // remove it and change eg to TRIANGLE_FAN
         STP3D::setError("Wrong type of type in getNbIdxPerPrimitive");
         return 0;
     }

@@ -80,6 +80,7 @@ void Interface::init ()
     
     projectionLocation = glGetUniformLocation(shaderProgram, "Projection");
     viewLocation = glGetUniformLocation(shaderProgram, "View");
+    color = glGetUniformLocation(shaderProgram, "color");
     
 }
 int Interface::exec ( Mesh & mesh)
@@ -89,8 +90,6 @@ int Interface::exec ( Mesh & mesh)
   /* Loop until the user closes the window */
   while ( !glfwWindowShouldClose ( window ) )
   {
-    glEnable(GL_DEPTH_TEST);
-    
     //Interactiion with mouse need to be trigged for each frame -- so we can not use callbacks
     Input::mouse( window, camera );
     
@@ -107,7 +106,24 @@ int Interface::exec ( Mesh & mesh)
     glUniformMatrix4fv ( projectionLocation, 1, 0, glm::value_ptr ( projection ) );
     glUniformMatrix4fv ( viewLocation, 1, 0, glm::value_ptr ( worldToView ) );
     
+    glEnable (GL_LINE_SMOOTH);
+    glLineWidth (1.5);
+    glm::vec4 colorEdges (1., 1., 1., 1. );
+    glUniform4fv ( color, 1, glm::value_ptr ( colorEdges ) );
+    glPolygonMode( GL_FRONT_AND_BACK, GL_LINE );
     glMesh.draw();
+    
+    glm::vec4 colorFaces ( .7, 0.9, 0.4, .3 );
+    glUniform4fv ( color, 1, glm::value_ptr ( colorFaces ) );
+    glPolygonMode( GL_FRONT_AND_BACK, GL_FILL );
+    
+    glDisable ( GL_DEPTH_TEST );
+    glEnable ( GL_BLEND );
+    glBlendFunc ( GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA );
+    glDepthMask( false );
+    glMesh.draw();
+    
+    glEnable(GL_DEPTH_TEST);
     
     glUseProgram(0);
     
