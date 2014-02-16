@@ -21,20 +21,33 @@
 #include "Vector.h"
 #include <vector>
 
-class MeanFlowFilter
+class FlowFilter
+{
+public:
+    virtual void input ( Mesh const * mesh ) = 0;
+    virtual Mesh const * get_input () const = 0; 
+    virtual void output ( Mesh * mesh ) = 0;
+    virtual float get_step() const = 0;
+    virtual void set_step ( float value) = 0;
+    virtual void execute() = 0;
+};
+
+
+class MeanFlowFilter : public FlowFilter
 {
 private:
     Mesh const * mesh_in;
     Mesh * mesh_out;
-    double step;
+    float step;
     Vector < double > calculate_vector (const std::vector<Edge> &edges, unsigned int point );
 public:
     MeanFlowFilter () { step = 0.; }
     void input ( Mesh const * mesh ) { this->mesh_in = mesh; }
+    Mesh const * get_input () const { return mesh_in; }
     void output ( Mesh * mesh ) { this->mesh_out = mesh; }
+    inline float get_step () const { return step; }
+    inline void set_step (float value) { step = value; }
     void execute();
-    inline double get_step() const { return step; }
-    inline void set_step(double value) { step = value; }
 };
 
 #endif // MEANFLOWFILTER_H

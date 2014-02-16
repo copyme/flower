@@ -57,7 +57,7 @@ namespace STP3D {
         }
 
         //! Decorator for Mesh
-        IndexedMesh(Mesh const & mesh) {
+        IndexedMesh(Mesh const & mesh) : id_vao(0) {
             if ( mesh.get_model() == 1 )
                 gl_type_mesh = GL_POINTS;
             else if ( mesh.get_model() == 2 )
@@ -157,7 +157,9 @@ namespace STP3D {
 
 
     inline bool IndexedMesh::createVAO() {
-        // Create and use the VAO
+      if ( id_vao != 0)
+	return true;
+      // Create and use the VAO
         glGenVertexArrays(1,&id_vao);
         if (id_vao == 0) {
             STP3D::setError("Unable to find a value for a VAO");
