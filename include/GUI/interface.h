@@ -19,8 +19,6 @@
 
 #include <list>
 #include <GL/glew.h>
-#include <GL/gl.h>
-#include <GL/glext.h>
 #include <GLFW/glfw3.h>
 #include "statemonitor.h"
 #include "indexed_mesh.hpp"

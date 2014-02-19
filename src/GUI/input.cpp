@@ -70,7 +70,6 @@ void Input::mouse_button_impl ( GLFWwindow * window, Camera & camera )
       else if (guiStates.turn())
       {
 	camera.turn(diffLockPositionY, diffLockPositionX);
-	
       }
       else if (guiStates.pan())
       {

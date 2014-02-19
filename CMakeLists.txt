@@ -10,7 +10,7 @@ set(PROJECT_LIB_DIR ${CMAKE_CURRENT_SOURCE_DIR}/lib)
 
 add_definitions( "-std=c++11" )
 
-include_directories(${PROJECT_HEADERS_DIR} ${PROJECT_HEADERS_DIR}/IO ${PROJECT_HEADERS_DIR}/GUI ${PROJECT_LIB_DIR}/imgui )
+include_directories(${PROJECT_HEADERS_DIR} ${PROJECT_HEADERS_DIR}/IO ${PROJECT_HEADERS_DIR}/GUI ${PROJECT_LIB_DIR}/imgui)
 
 set(PROJECT_FILES 
   ${PROJECT_SRC_DIR}/IO/rply.c
@@ -38,11 +38,6 @@ set(TESTS
   ${PROJECT_TEST_DIR}/pointtests.cpp
 )
 
-find_package(PkgConfig REQUIRED)
-pkg_search_module(GLFW REQUIRED glfw3)
-include_directories(${GLFW_INCLUDE_DIRS})
-
-
 find_package(OpenGL REQUIRED)
 if(OPENGL_FOUND)
     include_directories(${OpenGL_INCLUDE_DIRS})
@@ -51,6 +46,10 @@ if(OPENGL_FOUND)
 else()
     message(ERROR " OPENGL not found!")
 endif()
+
+find_package(PkgConfig REQUIRED)
+pkg_search_module(GLFW REQUIRED glfw3)
+include_directories(${GLFW_INCLUDE_DIRS})
 
 FIND_PACKAGE(GLEW REQUIRED)
 if(GLEW_FOUND)
