@@ -26,7 +26,6 @@
 #include "shaders.hpp"
 #include "input.h"
 
-#include <cstdio>
 #include "imgui.h"
 #include "imguiRenderGL3.h"
 
