@@ -38,9 +38,6 @@ namespace STP3D {
 
 #include <GL/glew.h>
 #include <GL/gl.h>
-#include <GL/glu.h>
-#include <GL/glext.h>
-#include <GL/glx.h>
 
 // ///////////////////////////////////////////////////////////////////////////
 // GL check tool
