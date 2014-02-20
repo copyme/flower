@@ -93,7 +93,7 @@ Vertex Mesh::get_vertex ( unsigned int index ) const
 
 Face Mesh::get_face ( unsigned int index ) const
 {
-    int face_count = faces.size() / 3;
+    int face_count = faces.size() / face_model;
     
     if ( index > face_count )
     {
@@ -112,7 +112,7 @@ Vector < float > Mesh::get_normal ( unsigned int index ) const
     
     if ( index > normals_count )
     {
-        throw std::range_error ( "Index over the range of vertices!" );
+        throw std::range_error ( "Normal over the range of normals!" );
     }
     std::vector < float >::const_iterator begin = normals.begin() + ( index * 3);
     Vector < float > _vector;
