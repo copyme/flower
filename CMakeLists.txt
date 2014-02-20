@@ -10,7 +10,7 @@ set(PROJECT_LIB_DIR ${CMAKE_CURRENT_SOURCE_DIR}/lib)
 
 add_definitions( "-std=c++11" )
 
-include_directories(${PROJECT_HEADERS_DIR} ${PROJECT_HEADERS_DIR}/IO ${PROJECT_HEADERS_DIR}/GUI ${PROJECT_LIB_DIR}/imgui)
+include_directories(${PROJECT_HEADERS_DIR} ${PROJECT_HEADERS_DIR}/IO ${PROJECT_LIB_DIR}/imgui)
 
 set(PROJECT_FILES 
   ${PROJECT_SRC_DIR}/IO/rply.c
@@ -18,19 +18,21 @@ set(PROJECT_FILES
   ${PROJECT_SRC_DIR}/IO/plydatawriter.cpp
   ${PROJECT_SRC_DIR}/edgeextractor.cpp
   ${PROJECT_SRC_DIR}/meanflowfilter.cpp
-  ${PROJECT_SRC_DIR}/GUI/camera.cpp
-  ${PROJECT_SRC_DIR}/GUI/statemonitor.cpp
-  ${PROJECT_SRC_DIR}/GUI/interface.cpp
-  ${PROJECT_SRC_DIR}/GUI/input.cpp
+  ${PROJECT_SRC_DIR}/normalsfinder.cpp
+  ${PROJECT_SRC_DIR}/facefinder.cpp
+#  ${PROJECT_SRC_DIR}/GUI/camera.cpp
+#  ${PROJECT_SRC_DIR}/GUI/statemonitor.cpp
+#  ${PROJECT_SRC_DIR}/GUI/interface.cpp
+#  ${PROJECT_SRC_DIR}/GUI/input.cpp
   ${PROJECT_SRC_DIR}/mesh.cpp
-  ${PROJECT_SRC_DIR}/GUI/flowrunner.cpp
+#  ${PROJECT_SRC_DIR}/GUI/flowrunner.cpp
 )
 
-set(PROJECT_LIB
-  ${PROJECT_LIB_DIR}/imgui/imguiRenderGL3.cpp
-  ${PROJECT_LIB_DIR}/imgui/imgui.cpp
-  ${PROJECT_LIB_DIR}/imgui/DroidSans.cpp
-)
+#set(PROJECT_LIB
+#  ${PROJECT_LIB_DIR}/imgui/imguiRenderGL3.cpp
+#  ${PROJECT_LIB_DIR}/imgui/imgui.cpp
+#  ${PROJECT_LIB_DIR}/imgui/DroidSans.cpp
+#)
 
 set(TESTS
   ${PROJECT_TEST_DIR}/meshtests.cpp
@@ -38,30 +40,10 @@ set(TESTS
   ${PROJECT_TEST_DIR}/pointtests.cpp
 )
 
-find_package(OpenGL REQUIRED)
-if(OPENGL_FOUND)
-    include_directories(${OpenGL_INCLUDE_DIRS})
-    link_directories(${OpenGL_LIBRARY_DIRS})
-    add_definitions(${OpenGL_DEFINITIONS})
-else()
-    message(ERROR " OPENGL not found!")
-endif()
-
-find_package(PkgConfig REQUIRED)
-pkg_search_module(GLFW REQUIRED glfw3)
-include_directories(${GLFW_INCLUDE_DIRS})
-
-FIND_PACKAGE(GLEW REQUIRED)
-if(GLEW_FOUND)
-  include_directories( ${GLEW_INCLUDE_PATH} )
-else()
-  MESSAGE("GLEW not found!")
-endif()
-
 
 aux_source_directory(. SRC_LIST)
 add_executable(${PROJECT_NAME} ${SRC_LIST} ${PROJECT_FILES})
-target_link_libraries(${PROJECT_NAME} ${GLFW_LIBRARIES} ${OPENGL_LIBRARIES} ${GLEW_LIBRARY} ${PROJECT_LIB})
+target_link_libraries(${PROJECT_NAME})
 
 #FIND_PACKAGE(CppUnit)
 #if(CppUnit_FOUND)

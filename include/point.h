@@ -22,6 +22,11 @@
 #include "Vector.h"
 #include "mesh.h"
 
+/**
+ * @brief The Point class is a general class which provide interface to interact with \ref Vertex and \ref Vecotr
+ * \ref Vertex class does not provide any interface to change data because is strict related to memory of mesh. This class
+ * provide interface to map a \ref Vertex data for computations.
+ */
 template < class Type = double >
 class Point
 {
@@ -42,7 +47,7 @@ public:
         if ( index < 3 )
             return coords[index];
     }
-    virtual Point < Type > operator+ ( Vector < Type > & vec )
+    virtual Point < Type > operator + ( Vector < Type > & vec )
     {
         Point < Type > t_point;
         for ( unsigned int i = 0; i < dim; i++ )
@@ -65,10 +70,6 @@ public:
     
     virtual Point < Type > & operator = ( Vertex const & vertex )
     {
-        if ( dim != 3 )
-        {
-            throw std::runtime_error ( "Vertex can be assigned only to the 3D points!" );
-        }
         this->coords[0] = vertex[0];
         this->coords[1] = vertex[1];
         this->coords[2] = vertex[2];

@@ -19,6 +19,9 @@
 #include <vector>
 #include "mesh.h"
 
+/**
+ * \brief The PLYDataWriter class provide an interface to write instance of a class \ref Mesh as PLY file.
+ */
 class PLYDataWriter
 {
 private:
@@ -28,7 +31,9 @@ private:
    void write_faces ( p_ply oply );
 public:
     PLYDataWriter();
+    //! Set a mesh to write as PLY 
     void set ( Mesh  const *  mesh );
+    //! Write a PLY file on the hard drive
     void write ( const char * filename );
 };
 

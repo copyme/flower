@@ -17,7 +17,14 @@
 #ifndef MESH_H
 #define MESH_H
 #include <vector>
+#include <utility>
 
+/**
+ * @brief The Vertex class provide an efficient way to get information about each vertex from the memory of a \ref Mesh
+ * In general any mesh should not be changed during computations so this class should not provide any interface which allows
+ * to change memory of mesh. If you want to manipulate of Vertex params you shoud map it to the \ref Point and after that
+ * create a new mesh.
+ */
 class Vertex
 {
 public:
@@ -33,17 +40,32 @@ public:
     float operator[] ( unsigned int index ) const;
 };
 
+/**
+ * @brief The Edge class Read only interface for memory of the \Mesh
+ */
 class Edge
 {
 public:
     typedef std::vector < unsigned int >::const_iterator CEdgeAccessor;
 private:
+    std::pair<int,int> faces;
     CEdgeAccessor _begin;
     CEdgeAccessor _end;
 public:
-    Edge ( CEdgeAccessor _begin, CEdgeAccessor _end ) { this->_begin = _begin; this->_end = _end; }
+    bool operator== ( Edge const & rh )
+    {
+        if ( ( *_begin == rh.begin()  &&  *_end == rh.end() ) || 
+             ( *_end == rh.begin()  &&  *_begin == rh.end() ) )
+        {
+            return true;
+        }
+        return false;
+    }
+    Edge ( CEdgeAccessor _begin, CEdgeAccessor _end );
     unsigned int begin() const { return *_begin; }
     unsigned int end() const { return *_end; }
+    void add_face( unsigned int index );
+    std::pair < int, int > const & get_faces() const { return faces; }
 };
 
 class EdgeExtractor;
@@ -63,14 +85,15 @@ public:
     Face ( CFaceIterator _begin, CFaceIterator _end, unsigned int model );
     unsigned int model() const { return _model; }
     unsigned int operator[] ( unsigned int index ) const;
-    /**
+    /*
      * I am unhappy with this strange construction but I have to hide begin() and 
      * end()
      */
     friend class EdgeExtractor;
 };
 
-
+template < class Type >
+class Vector;
 namespace STP3D{ class IndexedMesh; } // Predefinition of a decorator;
 
 class Mesh
@@ -79,6 +102,7 @@ private:
     friend class STP3D::IndexedMesh; // For decorator which can show mesh using OpenGL
     std::vector < float > vertices;
     std::vector < unsigned int > faces;
+    std::vector < float > normals; 
     unsigned int face_model;
 public:
     Mesh() { face_model = -1; }
@@ -102,6 +126,11 @@ public:
     unsigned int face_count () const { return faces.size() / face_model; }
     Vertex get_vertex ( unsigned int index ) const;
     Face get_face ( unsigned int index ) const;
+    void add_normal_coord ( float coord )
+    {
+        normals.push_back( coord );
+    }
+    Vector < float > get_normal ( unsigned int index ) const;
     void verify();
 };
 

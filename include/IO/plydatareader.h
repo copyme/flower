@@ -19,18 +19,22 @@
 #include <vector>
 #include "IO/rply.h"
 #include "mesh.h"
-
+/**
+ * \brief The PLYDataReader class provide an interface for reading PLY files from the hard drive.
+ */
 class PLYDataReader
 {
 private:
     Mesh * mesh;
-    
+
     void check_file( p_ply file );
     void map_callbacks_vertices(p_ply t_ply_file);
     void map_callbacks_faces(p_ply t_ply_file);
 public:
     PLYDataReader ();
+    //! \param mesh pointer to instace of mesh class in which geometry will be stored
     void set ( Mesh * mesh );
+    //! \param path to the PLY file
     void read ( const char * filename );  
 };
 

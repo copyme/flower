@@ -21,7 +21,8 @@
 #include <cassert>
 #include <cstring>
 #include <cmath>
-#include "mesh.h"
+
+class Vertex;
 
 template < class Type = double >
 class Vector
@@ -39,7 +40,7 @@ public:
         coords[2] = end[2] - start[2];
     }
     
-    double & operator [] ( unsigned int index ) 
+    Type & operator [] ( unsigned int index ) 
     {
         if ( index < 3 )
             return coords[index];
@@ -54,14 +55,15 @@ public:
         return vec;
     }
     
-    Vector & operator*= (double value)
+    Vector & operator *= ( double value )
     {
         this->coords[0] *= value;
         this->coords[1] *= value;
         this->coords[2] *= value;
         return *this;
     }
-    Vector & operator/= (double value)
+    
+    Vector & operator /= ( double value )
     {
         this->coords[0] /= value;
         this->coords[1] /= value;
@@ -78,6 +80,15 @@ public:
         return vec;
     }
     
+    Vector operator / ( double value ) const
+    {
+        Vector vec;
+        vec[0] = this->coords[0] / value;
+        vec[1] = this->coords[1] / value;
+        vec[2] = this->coords[2] / value;
+        return vec;
+    }
+    
     Vector & operator+= ( Vector  & vector )
     {
         this->coords[0] += vector[0];
@@ -91,6 +102,10 @@ public:
       double len = this->coords[0] * this->coords[0] + this->coords[1] * this->coords[1];
       len += this->coords[2] * this->coords[2];
       return sqrt(len);
+    }
+    double dot ( Vector  & vector )
+    {
+        return coords[0] * vector[0] + coords[1] * vector[1] + coords[2] * vector[2];
     }
 };
 

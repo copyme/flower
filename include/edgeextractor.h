@@ -25,15 +25,17 @@ class EdgeExtractor
 private:
     const Mesh *mesh;
     std::vector < Edge > edges;
+    void init_faces ( Edge & t_edge, unsigned int i );
 public:
     EdgeExtractor();
-    void set( const Mesh *mesh );
+    void init( const Mesh *mesh );
     
     /** \param index of a given vertex
-     * \return indexes of vertices which are an end of edges which have a beginning in \param index
      */
     void extract( unsigned int index );
+    //! \return edges which contain a vertex given as input to \ref extract( unsigned int index ) function 
     std::vector < Edge > const & get() const { return edges; }
+
 };
 
 #endif // EDGEEXTRACTOR_H

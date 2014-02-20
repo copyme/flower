@@ -17,6 +17,7 @@
 #include <stdexcept>
 #include <algorithm>
 #include "mesh.h"
+#include "Vector.h"
 
 Vertex::Vertex(CVertexIterator begin, CVertexIterator end)
 {
@@ -36,6 +37,21 @@ float Vertex::operator [] ( unsigned int index ) const
         throw std::range_error ( "Index out of range!" );
     }
     return *(begin + index);
+}
+
+Edge::Edge ( CEdgeAccessor _begin, CEdgeAccessor _end )
+{
+    this->_begin = _begin; this->_end = _end;
+    faces.first = faces.second = -1;
+}
+void Edge::add_face ( unsigned int index )
+{
+    if ( faces.first == -1 )
+        faces.first = index;
+    else if ( faces.second == -1)
+        faces.second = index;
+//    else
+//        throw std::runtime_error ( "Edge can not belongs to more then 2 faces!" );
 }
 
 
@@ -88,6 +104,22 @@ Face Mesh::get_face ( unsigned int index ) const
     Face::CFaceIterator end = begin + face_model;
     
     return Face ( begin, end, face_model );
+}
+
+Vector < float > Mesh::get_normal ( unsigned int index ) const
+{
+    int normals_count = normals.size() / 3;
+    
+    if ( index > normals_count )
+    {
+        throw std::range_error ( "Index over the range of vertices!" );
+    }
+    std::vector < float >::const_iterator begin = normals.begin() + ( index * 3);
+    Vector < float > _vector;
+    _vector[0] = *begin;
+    _vector[1] = *(begin+1);
+    _vector[2] = *(begin+2);
+    return _vector;  
 }
 
 void Mesh::verify()
