@@ -51,8 +51,8 @@ Vector < float > MeanFlowFilter::calculate_vector( std::vector<Edge> const &edge
         {
             Vector < float > N1 = mesh_in->get_normal( it->get_faces().first );
             Vector < float > N2 = mesh_in->get_normal( it->get_faces().second );
-            double theta = std::acos( N1.dot( N2 ) / ( N1.length() * N2.length() ) );
-            if ( std::isnan ( theta ) || std::isinf ( theta ) )
+            float theta = std::acos( N1.dot( N2 ) / ( N1.length() * N2.length() ) );
+            if ( std::isnan ( theta ) )
                 theta = 0.;
             Vector < float > N_E = ( N1 + N2 ) / ( 2. * std::cos ( theta / 2. ) );
 
