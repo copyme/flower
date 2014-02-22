@@ -17,6 +17,7 @@
 #ifndef INTERFACE_H
 #define INTERFACE_H
 
+#include <memory>
 #include <list>
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
@@ -39,18 +40,17 @@ private:
     GLFWwindow * window;
     GLFWvidmode const * screen;
     Camera camera;
-    STP3D::IndexedMesh * glMesh;
+    std::shared_ptr < STP3D::IndexedMesh > glMesh;
     GUIStateMonitor guiStates;
     std::list < GUIListener * > listeners;
     void mouse_button_callback(GLFWwindow * window, int button, int action, int mods);
 public:
-    virtual void data_generated ( Mesh * mesh );
+    virtual void data_generated ( std::shared_ptr< Mesh > mesh );
     Interface();
     void register_listener ( GUIListener * listener );
     void remove_listener ( GUIListener * listener );
     void init( Mesh & mesh );
     int exec ();
-    ~Interface() { delete glMesh; }
 };
 
 #endif // INTERFACE_H

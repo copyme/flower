@@ -21,7 +21,6 @@
 
 FlowRunner::FlowRunner ( FlowFilter & flow ): _flow ( flow ) {
     runnning = false;
-    _output = NULL;
     _input = _flow.get_input();
 }
 
@@ -51,8 +50,7 @@ void FlowRunner::time_changed ( float time )
 
 void FlowRunner::run ()
 {
-    Mesh * tmp = _output;
-    _output = new Mesh;
+    _output = std::shared_ptr< Mesh > ( new Mesh );
     _output->set_model( _input->get_model() );
 
     //copy faces to output
@@ -62,10 +60,9 @@ void FlowRunner::run ()
         for (unsigned int j = 0; j < face.model(); j++ )
             _output->add_face_vertex(face[j]);
     }
-    _flow.output(_output);
+    _flow.output( _output.get() );
     _flow.execute();
     emit();
-    delete tmp;
     runnning = false;
 }
 
@@ -75,6 +72,6 @@ void FlowRunner::emit ()
     std::list < FlowRunnerListener * >::const_iterator end = listeners.cend();
     for (; it != end; ++it )
     {
-        (*it)->data_generated ( (Mesh *) _output );
+        (*it)->data_generated ( _output );
     }
 }

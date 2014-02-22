@@ -104,13 +104,11 @@ void Interface::init ( Mesh & mesh )
     viewLocation = glGetUniformLocation(shaderProgram, "View");
     color = glGetUniformLocation(shaderProgram, "color");
 
-    delete glMesh;
-    glMesh = new STP3D::IndexedMesh ( mesh );
+    glMesh = std::shared_ptr < STP3D::IndexedMesh > ( new STP3D::IndexedMesh (mesh) );
 }
-void Interface::data_generated ( Mesh * mesh )
+void Interface::data_generated ( std::shared_ptr< Mesh > mesh )
 {
-    delete glMesh;
-    glMesh = new STP3D::IndexedMesh (*mesh);
+    glMesh = std::shared_ptr < STP3D::IndexedMesh > ( new STP3D::IndexedMesh (*mesh) );
 }
 
 int Interface::exec ()
