@@ -1,17 +1,17 @@
 /*=========================================================================
-  
-  Program:   
+
+  Program:
   Module:    <>
-  
+
   Copyright (c) Kacper Pluta <kacper.pluta@dbslabs.com.br>
                 Meri-nut Zago <meri_zago@hotmail.fr>
   All rights reserved.
   See Copyright.txt for details.
-  
+
      This software is distributed WITHOUT ANY WARRANTY; without even
      the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR
      PURPOSE.  See the above copyright notice for more information.
-     
+
 =========================================================================*/
 
 #include <cassert>
@@ -24,7 +24,7 @@ void MeanFlowFilter::execute()
 {
     assert ( mesh_in != NULL );
     assert ( mesh_out != NULL );
-    
+
     EdgeExtractor extractor;
     extractor.init ( mesh_in );
     for ( unsigned int i = 0; i < mesh_in->vertex_count(); i++ )
@@ -51,15 +51,15 @@ Vector < float > MeanFlowFilter::calculate_vector( std::vector<Edge> const &edge
         {
             Vector < float > N1 = mesh_in->get_normal( it->get_faces().first );
             Vector < float > N2 = mesh_in->get_normal( it->get_faces().second );
-            double theta = N1.dot( N2 ) / ( N1.length() * N2.length() );
-            if ( theta == 0. )
-                theta = M_2_PI;
+            double theta = std::acos( N1.dot( N2 ) / ( N1.length() * N2.length() ) );
+            if ( std::isnan ( theta ) || std::isinf ( theta ) )
+                theta = 0.;
             Vector < float > N_E = ( N1 + N2 ) / ( 2. * std::cos ( theta / 2. ) );
-            
+
             Vertex end = mesh_in->get_vertex ( point );
             Vertex start = mesh_in->get_vertex ( (*it).end() );
             Vector < float > tmpVector ( start, end );
-            
+
             N_E *= tmpVector.length() * std::sin( theta / 2. );
             vector += N_E;
         }

@@ -44,7 +44,7 @@ void FlowRunner::time_changed ( float time )
     if ( runnning )
         return;
     runnning = true;
-    _flow.set_step ( time );
+    _flow.set_time ( time );
     std::thread _thred = std::thread ( &FlowRunner::run, this );
     _thred.detach();
 }

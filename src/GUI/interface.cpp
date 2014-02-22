@@ -180,7 +180,7 @@ int Interface::exec ()
         int logScroll = 0;
         imguiBeginScrollArea("Mean curvature flow", width - 210, height - 310, 200, 300, &logScroll);
         static float time  = 0;
-        imguiSlider("Time", &time, 0.0, 1.0, 0.001);
+        imguiSlider("Time", &time, 0.0, 44.5, 0.001);
         if ( imguiButton("Jump to time!") )
         {
             std::list < GUIListener * >::iterator it = listeners.begin();
