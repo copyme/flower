@@ -42,6 +42,9 @@ Interface::Interface()
         throw std::runtime_error ( "Main GUI system could not be initiated!" );
     }
 
+    glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, OPENGL_MAJOR_VERSION);
+    glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, OPENGL_MINOR_VERSION);
+    
     GLFWmonitor * monitor = glfwGetPrimaryMonitor ();
     if ( monitor == NULL )
     {
@@ -66,7 +69,7 @@ void Interface::remove_listener ( GUIListener * listener )
 void Interface::init ( Mesh & mesh )
 {
     /* Create a windowed mode window and its OpenGL context */
-    window = glfwCreateWindow ( screen->width / 2, screen->height / 2, "Flow studio", NULL, NULL );
+    window = glfwCreateWindow ( screen->width / 2, screen->height / 2, "FlowER", NULL, NULL );
     if ( !window )
     {
         glfwTerminate ();
@@ -84,8 +87,7 @@ void Interface::init ( Mesh & mesh )
 
     glfwSetWindowSizeCallback ( window, &Input::window_size_callback );
 
-    GLenum err = glewInit();
-    if (GLEW_OK != err)
+    if ( GLEW_OK != glewInit() )
     {
         throw std::runtime_error ( "The OpenGL support library initialization faild!" );
     }
@@ -104,11 +106,11 @@ void Interface::init ( Mesh & mesh )
     viewLocation = glGetUniformLocation(shaderProgram, "View");
     color = glGetUniformLocation(shaderProgram, "color");
 
-    glMesh = std::shared_ptr < STP3D::IndexedMesh > ( new STP3D::IndexedMesh (mesh) );
+    glMesh = std::shared_ptr < STP3D::IndexedMesh > ( new STP3D::IndexedMesh ( mesh ) );
 }
 void Interface::data_generated ( std::shared_ptr< Mesh > mesh )
 {
-    glMesh = std::shared_ptr < STP3D::IndexedMesh > ( new STP3D::IndexedMesh (*mesh) );
+    glMesh = std::shared_ptr < STP3D::IndexedMesh > ( new STP3D::IndexedMesh ( *mesh ) );
 }
 
 int Interface::exec ()

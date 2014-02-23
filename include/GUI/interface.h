@@ -27,6 +27,8 @@
 #include <mesh.h>
 #include "listeners.h"
 
+#define OPENGL_MAJOR_VERSION 3
+#define OPENGL_MINOR_VERSION 0 //! Obligatory thus we use GL_QUADS
 
 class Interface : public FlowRunnerListener
 {
