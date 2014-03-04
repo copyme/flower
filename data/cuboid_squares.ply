@@ -1,0 +1,25 @@
+ply
+format ascii 1.0
+comment publisher: lightwave3d.com
+comment author: username
+element vertex 8
+property float x
+property float y
+property float z
+element face 6
+property list uchar uint vertex_indices
+end_header
+-0.825 1 -1.525 
+-0.825 1 2.475 
+-2.825 1 2.475 
+-2.825 1 -1.525 
+-0.825 -1 -1.525 
+-0.825 -1 2.475 
+-2.825 -1 2.475 
+-2.825 -1 -1.525 
+4 7 4 5 6 
+4 7 6 2 3 
+4 6 5 1 2 
+4 4 0 1 5 
+4 7 3 0 4 
+4 3 2 1 0 
