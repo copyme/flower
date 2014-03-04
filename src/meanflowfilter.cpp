@@ -40,7 +40,7 @@ void MeanFlowFilter::execute()
     }
 }
 
-Vector < float > MeanFlowFilter::calculate_vector( std::vector<Edge> const &edges, unsigned int point)
+Vector < float > MeanFlowFilter::calculate_vector( std::vector<Edge> const &edges, unsigned int point )
 {
     Vector < float > vector;
     std::vector< Edge >::const_iterator it = edges.begin();

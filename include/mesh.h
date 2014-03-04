@@ -131,6 +131,7 @@ public:
         normals.push_back( coord );
     }
     Vector < float > get_normal ( unsigned int index ) const;
+    unsigned int normal_count () const { return normals.size () / 3; }
     void verify();
 };
 

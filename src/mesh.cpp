@@ -50,8 +50,8 @@ void Edge::add_face ( unsigned int index )
         faces.first = index;
     else if ( faces.second == -1)
         faces.second = index;
-//    else
-//        throw std::runtime_error ( "Edge can not belongs to more then 2 faces!" );
+   else
+       throw std::runtime_error ( "Edge can not belongs to more then 2 faces!" );
 }
 
 
