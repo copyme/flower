@@ -36,7 +36,6 @@ extern const unsigned int DroidSans_ttf_len;
 
 Interface::Interface()
 {
-    glMesh = NULL;
     if ( !glfwInit() )
     {
         throw std::runtime_error ( "Main GUI system could not be initiated!" );
@@ -106,11 +105,12 @@ void Interface::init ( Mesh & mesh )
     viewLocation = glGetUniformLocation(shaderProgram, "View");
     color = glGetUniformLocation(shaderProgram, "color");
 
-    glMesh = std::shared_ptr < STP3D::IndexedMesh > ( new STP3D::IndexedMesh ( mesh ) );
+    glMesh = STP3D::IndexedMesh ( mesh );
+    glMesh.createVAO();
 }
 void Interface::data_generated ( std::shared_ptr< Mesh > mesh )
 {
-    glMesh = std::shared_ptr < STP3D::IndexedMesh > ( new STP3D::IndexedMesh ( *mesh ) );
+    this->mesh = mesh;
 }
 
 int Interface::exec ()
@@ -121,7 +121,11 @@ int Interface::exec ()
     /* Loop until the user closes the window */
     while ( !glfwWindowShouldClose ( window ) )
     {
-        glMesh->createVAO(); // moving it tot data_generated occurs a crash -- find a way
+	if (mesh != nullptr)
+	{
+	  glMesh.update(*mesh);
+	  mesh = nullptr;
+	}
         //Interactiion with mouse need to be trigged for each frame -- so we can not use callbacks
         Input::mouse( window, camera );
 
@@ -143,13 +147,13 @@ int Interface::exec ()
         glLineWidth (1.5);
         glUniform4fv ( color, 1, glm::value_ptr ( colorEdges ) );
         glPolygonMode( GL_FRONT_AND_BACK, GL_LINE );
-        glMesh->draw();
+        glMesh.draw();
 
         // Draw vertices
         glPointSize (4);
         glUniform4fv ( color, 1, glm::value_ptr ( colorPoints ) );
         glPolygonMode( GL_FRONT_AND_BACK, GL_POINT );
-        glMesh->draw();
+        glMesh.draw();
 
         // Draw faces
         glUniform4fv ( color, 1, glm::value_ptr ( colorFaces ) );
@@ -159,7 +163,7 @@ int Interface::exec ()
         glEnable ( GL_BLEND );
         glBlendFunc ( GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA );
         glDepthMask( false );
-        glMesh->draw();
+        glMesh.draw();
 
         glUseProgram(0);
 

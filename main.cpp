@@ -20,16 +20,29 @@ int main ( int argc, char *argv[] )
     setlocale ( LC_NUMERIC, "en_US" );
 
     Mesh mesh;
-    PLYDataReader reader;
-    reader.set ( &mesh );
-    reader.read ( argv[1] );
+    PLYDataReader *reader = new PLYDataReader;
+    reader->set ( &mesh );
+    reader->read ( argv[1] );
     mesh.verify();
+    
+    delete reader;
 
-    NormalsFinder normalsFinder;
-    normalsFinder.set(&mesh);
-    normalsFinder.execute();
+    NormalsFinder * normalsFinder = new NormalsFinder;
+    normalsFinder->set(&mesh);
+    normalsFinder->execute();
+    
+    delete normalsFinder;
 
-    std::cout << "Normals " << mesh.normal_count() << " faces " << mesh.face_count() << " vertices " << mesh.vertex_count() << std::endl;
+    EdgeExtractor * extractor = new EdgeExtractor;
+    extractor->init ( &mesh );
+    
+    for ( unsigned int i = 0; i < mesh.vertex_count(); i++ )
+    {
+      extractor->extract(i);
+      mesh.set_star_of(i, extractor->get() );
+    }
+    
+    delete extractor;
 
     MeanFlowFilter meanFlowFilter;
     meanFlowFilter.input ( &mesh );

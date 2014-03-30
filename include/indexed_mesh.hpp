@@ -17,9 +17,10 @@
 #ifndef _STP3D_INDEXED_MESH_HPP_
 #define _STP3D_INDEXED_MESH_HPP_
 
-
+#include <algorithm>
 #include <iostream>
 #include <vector>
+#include <stdexcept>
 #include "globals.hpp"
 #include "mesh.h"
 
@@ -82,6 +83,26 @@ namespace STP3D {
             addIndexBuffer( const_cast < uint * > ( &mesh.faces[0] ),false);
             addOneBuffer(0, 3, const_cast < float * > ( &mesh.vertices[0] ), std::string("position"),false);
         }
+        //! \todo add checks for faces model etc.
+        inline void update(Mesh const & mesh)
+	{
+	  int index = std::find ( attr_semantic.begin(), attr_semantic.end(), std::string ( "position" ) ) - attr_semantic.begin();
+	  if ( index >= attr_semantic.size() )
+	    std::runtime_error ( "First init by using Mesh!" );
+	  
+	  buffers[index] = const_cast < float * > ( &mesh.vertices[0] );
+	  glBindVertexArray(id_vao);
+	  glEnableVertexAttribArray(attr_id[index]);
+	  
+	  glBindBuffer(GL_ARRAY_BUFFER,vbo_id[index]);
+	  
+	  glBufferData(GL_ARRAY_BUFFER,nb_elts*size_one_elt[index]*sizeof(GLfloat),buffers[index],GL_STATIC_DRAW);
+	  
+	  glVertexAttribPointer(attr_id[index], size_one_elt[index], GL_FLOAT, GL_FALSE, 0, 0);
+	  
+	  glBindBuffer(GL_ARRAY_BUFFER,0);
+	  glBindVertexArray(0);
+	}
 
         ~IndexedMesh();
 
@@ -157,8 +178,10 @@ namespace STP3D {
 
 
     inline bool IndexedMesh::createVAO() {
+      
       if ( id_vao != 0)
 	return true;
+      
       // Create and use the VAO
         glGenVertexArrays(1,&id_vao);
         if (id_vao == 0) {

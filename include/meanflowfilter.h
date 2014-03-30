@@ -47,7 +47,7 @@ private:
     Mesh const * mesh_in;
     Mesh * mesh_out;
     float step;
-    Vector < float > calculate_vector (const std::vector<Edge> &edges, unsigned int point );
+    Vector < float > calculate_vector ( unsigned int point );
 public:
     MeanFlowFilter () { step = 0.; }
     void input ( Mesh const * mesh ) { this->mesh_in = mesh; }

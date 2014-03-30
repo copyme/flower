@@ -23,7 +23,4 @@ GUIStateMonitor::GUIStateMonitor()
   zoomLock = false;
   lockPositionX = 0;
   lockPositionY = 0;
-//   camera = 0;
-//   time = 0.0;
-//   playing = false;
 }

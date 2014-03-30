@@ -42,7 +42,8 @@ private:
     GLFWwindow * window;
     GLFWvidmode const * screen;
     Camera camera;
-    std::shared_ptr < STP3D::IndexedMesh > glMesh;
+    STP3D::IndexedMesh glMesh;
+    std::shared_ptr< Mesh > mesh;
     GUIStateMonitor guiStates;
     std::list < GUIListener * > listeners;
     void mouse_button_callback(GLFWwindow * window, int button, int action, int mods);

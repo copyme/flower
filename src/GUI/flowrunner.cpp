@@ -13,7 +13,6 @@
  *    PURPOSE.  See the above copyright notice for more information.
  *
  = *========================================================================*/
-
 #include <algorithm>
 #include <thread>
 #include "flowrunner.h"
@@ -52,14 +51,8 @@ void FlowRunner::run ()
 {
     _output = std::shared_ptr< Mesh > ( new Mesh );
     _output->set_model( _input->get_model() );
-
-    //copy faces to output
-    for ( unsigned int i = 0; i < _input->face_count(); i++ )
-    {
-        Face face = _input->get_face(i);
-        for (unsigned int j = 0; j < face.model(); j++ )
-            _output->add_face_vertex(face[j]);
-    }
+    
+    _output->copy_faces(_input);
     _flow.output( _output.get() );
     _flow.execute();
     emit();

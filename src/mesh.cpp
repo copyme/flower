@@ -131,3 +131,16 @@ void Mesh::verify()
     if ( faces.size() % face_model != 0 )
         throw std::runtime_error ( "According to given model not all faces were fully added!" );
 }
+
+void Mesh::set_star_of( unsigned int p, std::vector< Edge > const & edges )
+{
+  std::vector< Edge >::const_iterator it = edges.begin();
+  std::vector< Edge >::const_iterator end = edges.end();
+  for ( ; it != end; ++it )
+  {
+    if ( (*it).begin() == p )
+    {
+      stars.insert( std::pair< unsigned int, Edge >( p, *it ) );
+    }
+  }
+}

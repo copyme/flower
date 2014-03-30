@@ -21,10 +21,9 @@
 #include <cassert>
 #include <cstring>
 #include <cmath>
+#include "mesh.h"
 
-class Vertex;
-
-template < class Type = double >
+template < class Type >
 class Vector
 {
 private:

@@ -61,7 +61,7 @@ void EdgeExtractor::extract ( unsigned int index )
                     edges.push_back ( t_edge );
                 }
                 //middle - left
-                if( j > 0 )
+                if ( j > 0 )
                 {
                     Edge t_edge ( face.begin() + j - 1, face.begin()+j );
                     init_faces(t_edge, i);
@@ -84,8 +84,4 @@ void EdgeExtractor::extract ( unsigned int index )
             }
         }
     }
-//    for ( unsigned int i = 0; i < edges.size(); i++ )
-//    {
-//        std::cout << edges[i].get_faces().first << " " << edges[i].get_faces().second << std::endl;
-//    }
 }
