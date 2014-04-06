@@ -37,32 +37,29 @@ void MeanFlowFilter::execute()
 
 Vector < float > MeanFlowFilter::calculate_vector( unsigned int point )
 {
-    Vector < float > vector;
+  Vector < float > vector;
+  
+  std::pair< Mesh::StarConstIter, Mesh::StarConstIter > range = mesh_in->get_start ( point );
+  
+  Mesh::StarConstIter it = range.first;
+  Mesh::StarConstIter end = range.second;
+  for ( ; it != end; ++it )
+  {
+    Vector < float > N1 = mesh_in->get_normal( it->second.get_faces().first );
+    Vector < float > N2 = mesh_in->get_normal( it->second.get_faces().second );
+    float theta = std::acos( N1.dot( N2 ) / ( N1.length() * N2.length() ) );
+    if ( std::isnan ( theta ) )
+      theta = 0.f;
+    Vector < float > N_E = ( N1 + N2 ) / ( 2.f * std::cos ( theta / 2.f ) );
     
-    std::pair< Mesh::StarConstIter, Mesh::StarConstIter > range = mesh_in->get_start ( point );
+    Vertex end = mesh_in->get_vertex ( point );
+    Vertex start = mesh_in->get_vertex ( it->second.end() );
+    Vector < float > tmpVector ( start, end );
     
-    Mesh::StarConstIter it = range.first;
-    Mesh::StarConstIter end = range.second;
-    for ( ; it != end; ++it )
-    {
-        if ( it->first == point )
-        {
-            Vector < float > N1 = mesh_in->get_normal( it->second.get_faces().first );
-            Vector < float > N2 = mesh_in->get_normal( it->second.get_faces().second );
-            float theta = std::acos( N1.dot( N2 ) / ( N1.length() * N2.length() ) );
-            if ( std::isnan ( theta ) )
-                theta = 0.f;
-            Vector < float > N_E = ( N1 + N2 ) / ( 2.f * std::cos ( theta / 2.f ) );
-
-            Vertex end = mesh_in->get_vertex ( point );
-            Vertex start = mesh_in->get_vertex ( it->second.end() );
-            Vector < float > tmpVector ( start, end );
-
-            N_E *= tmpVector.length() * std::sin( theta / 2.f );
-            vector += N_E;
-        }
-    }
-    vector *= -0.5f;
-    vector *= step;
-    return vector;
+    N_E *= tmpVector.length() * std::sin( theta / 2.f );
+    vector += N_E;
+  }
+  vector *= -0.5f;
+  vector *= step;
+  return vector;
 }

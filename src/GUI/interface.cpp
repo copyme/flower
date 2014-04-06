@@ -128,7 +128,8 @@ int Interface::exec ()
 	}
         //Interactiion with mouse need to be trigged for each frame -- so we can not use callbacks
         Input::mouse( window, camera );
-
+	
+        glDepthMask( false );
         /* Blender like background color */
         glClearColor ( 0.2235f, 0.2235f, 0.2235f, 0.0f );
         glClear ( GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT );
@@ -162,7 +163,7 @@ int Interface::exec ()
         glDisable ( GL_DEPTH_TEST );
         glEnable ( GL_BLEND );
         glBlendFunc ( GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA );
-        glDepthMask( false );
+
         glMesh.draw();
 
         glUseProgram(0);
