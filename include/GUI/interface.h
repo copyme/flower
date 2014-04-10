@@ -26,6 +26,7 @@
 #include <mesh.h>
 #include "listeners.h"
 #include "glines.h"
+#include <plydatawriter.h>
 
 #define OPENGL_MAJOR_VERSION 3
 #define OPENGL_MINOR_VERSION 0 //! Obligatory thus we use GL_QUADS
@@ -46,10 +47,13 @@ private:
     STP3D::IndexedMesh glMesh;
     GLines gLines;
     Mesh * mesh;
+    bool mesh_reinit;
     GUIStateMonitor guiStates;
     std::vector < float > * vectors;
     std::list < GUIListener * > listeners;
     void mouse_button_callback(GLFWwindow * window, int button, int action, int mods);
+    void emit_jump_to_time();
+    void write_mesh ( const char * filename );
 public:
     virtual void data_generated ( Mesh * mesh, std::vector < float > * vectors  );
     Interface();

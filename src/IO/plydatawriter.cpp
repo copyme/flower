@@ -17,7 +17,6 @@
 #include <cstddef>
 #include <cassert>
 #include <stdexcept>
-#include "IO/rply.h"
 #include "plydatawriter.h"
 
 PLYDataWriter::PLYDataWriter()

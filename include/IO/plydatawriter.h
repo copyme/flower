@@ -17,6 +17,7 @@
 #ifndef PLYDATAWRITER_H
 #define PLYDATAWRITER_H
 #include <vector>
+#include "rply.h"
 #include "mesh.h"
 
 /**

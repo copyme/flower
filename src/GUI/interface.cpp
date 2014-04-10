@@ -34,9 +34,12 @@ const char * Interface::shaderFileFrag = "../shaders/basic.frag";
 extern const unsigned char DroidSans_ttf[];
 extern const unsigned int DroidSans_ttf_len;
 
+static float time_ = 0.f; // We need C-like pointer
+
 Interface::Interface()
 {
   show_vectors = false;
+  mesh_reinit = false;
   vectors = nullptr;
   if ( !glfwInit() )
   {
@@ -114,6 +117,7 @@ void Interface::init ( Mesh & mesh )
 void Interface::data_generated ( Mesh * mesh, std::vector < float > * vectors )
 {
   this->mesh = mesh;
+  mesh_reinit = true;
   this->vectors = vectors; 
 }
 
@@ -126,10 +130,10 @@ int Interface::exec ()
   /* Loop until the user closes the window */
   while ( !glfwWindowShouldClose ( window ) )
   {
-    if (mesh != nullptr)
+    if ( mesh_reinit )
     {
       glMesh.update(*mesh);
-      mesh = nullptr;
+      mesh_reinit = false;
     }
     if ( vectors != nullptr )
     {
@@ -198,15 +202,10 @@ int Interface::exec ()
     imguiBeginFrame(mousex, mousey, mbut, mscroll);
     int logScroll = 0;
     imguiBeginScrollArea("Mean curvature flow", width - 210, height - 310, 200, 300, &logScroll);
-    static float time  = 0;
-    imguiSlider("Time", &time, 0.0, 10.0, 0.001);
+    imguiSlider("Time", &time_, 0.0, 10.0, 0.001);
     if ( imguiButton("Jump to time!") )
     {
-      std::list < GUIListener * >::iterator it = listeners.begin();
-      for ( ; it != listeners.end(); ++it )
-      {
-	(*it)->time_changed(time);
-      }
+      emit_jump_to_time();
     }
     
     if ( imguiButton("Show vectors") )
@@ -214,8 +213,12 @@ int Interface::exec ()
       show_vectors = !show_vectors;
     }
     char text[50];
-    sprintf(text,"Save to %1.2f-flow.ply",time);
-    imguiButton(text);
+    sprintf(text,"Save to %1.2f-flow.ply",time_);
+    if ( imguiButton(text) )
+    {
+      sprintf(text,"%1.2f-flow.ply",time_);
+      write_mesh ( text );
+    }
     imguiEndScrollArea();
     imguiEndFrame();
     imguiRenderGLDraw(width, height);
@@ -234,4 +237,22 @@ int Interface::exec ()
   
   glfwTerminate();
   return 0;
+}
+
+void Interface::emit_jump_to_time()
+{
+  std::list < GUIListener * >::iterator it = listeners.begin();
+  for ( ; it != listeners.end(); ++it )
+  {
+    (*it)->time_changed( time_ );
+  }  
+}
+
+void Interface::write_mesh ( const char * filename )
+{
+  if ( mesh == nullptr )
+    return;
+    PLYDataWriter writer;
+    writer.set ( mesh );
+    writer.write ( filename );
 }
