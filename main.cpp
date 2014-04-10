@@ -24,24 +24,24 @@ int main ( int argc, char *argv[] )
     reader->set ( &mesh );
     reader->read ( argv[1] );
     mesh.verify();
-    
+
     delete reader;
 
     NormalsFinder * normalsFinder = new NormalsFinder;
     normalsFinder->set(&mesh);
     normalsFinder->execute();
-    
+
     delete normalsFinder;
 
     EdgeExtractor * extractor = new EdgeExtractor;
     extractor->init ( &mesh );
-    
+
     for ( unsigned int i = 0; i < mesh.vertex_count(); i++ )
     {
-      extractor->extract(i);
-      mesh.set_star_of(i, extractor->get() );
+        extractor->extract(i);
+        mesh.set_star_of(i, extractor->get() );
     }
-    
+
     delete extractor;
 
     MeanFlowFilter meanFlowFilter;

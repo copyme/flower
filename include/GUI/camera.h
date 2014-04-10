@@ -7,9 +7,9 @@
 class Camera
 {
 private:
-static const float MOUSE_PAN_SPEED;
-static const float MOUSE_ZOOM_SPEED;
-static const float MOUSE_TURN_SPEED;
+    static const float MOUSE_PAN_SPEED;
+    static const float MOUSE_ZOOM_SPEED;
+    static const float MOUSE_TURN_SPEED;
     float radius;
     float theta;
     float phi;

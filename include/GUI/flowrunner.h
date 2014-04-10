@@ -27,6 +27,7 @@ class FlowRunner : public GUIListener
 {
 private:
     std::shared_ptr< Mesh > _output;
+    std::vector < float > vectors;
     Mesh const * _input;
     bool runnning;
     std::list < FlowRunnerListener * > listeners;
@@ -34,7 +35,7 @@ private:
     void run ();
     void emit();
 public:
-    FlowRunner ( FlowFilter & flow ); 
+    FlowRunner ( FlowFilter & flow );
     virtual void time_changed ( float time );
     void register_listener ( FlowRunnerListener * listener );
     void remove_listener ( FlowRunnerListener * listener );

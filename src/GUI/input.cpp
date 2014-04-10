@@ -26,56 +26,58 @@ void Input::mouse_button_impl ( GLFWwindow * window, Camera & camera )
     int leftButton = glfwGetMouseButton( window, GLFW_MOUSE_BUTTON_LEFT );
     int rightButton = glfwGetMouseButton( window, GLFW_MOUSE_BUTTON_RIGHT );
     int middleButton = glfwGetMouseButton( window, GLFW_MOUSE_BUTTON_MIDDLE );
-    
+
     if( leftButton == GLFW_PRESS )
-      guiStates.lock_turn();
+        guiStates.lock_turn();
     else
-      guiStates.unlock_turn();
-    
+        guiStates.unlock_turn();
+
     if( rightButton == GLFW_PRESS )
-      guiStates.lock_zoom();
+        guiStates.lock_zoom();
     else
-      guiStates.unlock_zoom();
-    
+        guiStates.unlock_zoom();
+
     if( middleButton == GLFW_PRESS )
-      guiStates.lock_pan();
+        guiStates.lock_pan();
     else
-      guiStates.unlock_pan();
-    
+        guiStates.unlock_pan();
+
     // Camera movements
     int altPressed = glfwGetKey( window, GLFW_KEY_LEFT_SHIFT );
     if (!altPressed && (leftButton == GLFW_PRESS || rightButton == GLFW_PRESS || middleButton == GLFW_PRESS))
     {
-      double x; double y;
-      glfwGetCursorPos(window,&x, &y);
-      guiStates.set_position_x( x );
-      guiStates.set_position_y( y );
+        double x;
+        double y;
+        glfwGetCursorPos(window,&x, &y);
+        guiStates.set_position_x( x );
+        guiStates.set_position_y( y );
     }
-    
+
     if (altPressed == GLFW_PRESS)
     {
-      double mousex; double mousey;
-      glfwGetCursorPos(window,&mousex, &mousey);
-      double diffLockPositionX = mousex - guiStates.get_position_x();
-      double diffLockPositionY = mousey - guiStates.get_position_y();
-      if (guiStates.zoom())
-      {
-	float zoomDir = 0.0;
-	if (diffLockPositionX > 0.)
-	  zoomDir = -1.f;
-	else if (diffLockPositionX < 0. )
-	  zoomDir = 1.f;
-	camera.zoom(zoomDir);
-      }
-      else if (guiStates.turn())
-      {
-	camera.turn(diffLockPositionY, diffLockPositionX);
-      }
-      else if (guiStates.pan())
-      {
-	camera.pan(diffLockPositionX, diffLockPositionY);
-      }
-      guiStates.set_position_x ( mousex );
-      guiStates.set_position_y ( mousey );
+        double mousex;
+        double mousey;
+        glfwGetCursorPos(window,&mousex, &mousey);
+        double diffLockPositionX = mousex - guiStates.get_position_x();
+        double diffLockPositionY = mousey - guiStates.get_position_y();
+        if (guiStates.zoom())
+        {
+            float zoomDir = 0.0;
+            if (diffLockPositionX > 0.)
+                zoomDir = -1.f;
+            else if (diffLockPositionX < 0. )
+                zoomDir = 1.f;
+            camera.zoom(zoomDir);
+        }
+        else if (guiStates.turn())
+        {
+            camera.turn(diffLockPositionY, diffLockPositionX);
+        }
+        else if (guiStates.pan())
+        {
+            camera.pan(diffLockPositionX, diffLockPositionY);
+        }
+        guiStates.set_position_x ( mousex );
+        guiStates.set_position_y ( mousey );
     }
 }

@@ -2,11 +2,12 @@
 #define LISTENERS_H
 
 #include <memory>
+#include <vector>
 
 class FlowRunnerListener
 {
 public:
-    virtual void data_generated ( std::shared_ptr< Mesh > mesh ) = 0;
+    virtual void data_generated ( std::shared_ptr< Mesh > mesh, std::vector < float > * vectors ) = 0;
 };
 
 class GUIListener

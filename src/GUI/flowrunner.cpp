@@ -21,6 +21,7 @@
 FlowRunner::FlowRunner ( FlowFilter & flow ): _flow ( flow ) {
     runnning = false;
     _input = _flow.get_input();
+    _flow.set_debug ( &vectors );
 }
 
 void FlowRunner::register_listener ( FlowRunnerListener * listener )
@@ -42,6 +43,7 @@ void FlowRunner::time_changed ( float time )
     if ( runnning )
         return;
     runnning = true;
+    vectors.clear();
     _flow.set_time ( time );
     std::thread _thred = std::thread ( &FlowRunner::run, this );
     _thred.detach();
@@ -51,7 +53,7 @@ void FlowRunner::run ()
 {
     _output = std::shared_ptr< Mesh > ( new Mesh );
     _output->set_model( _input->get_model() );
-    
+
     _output->copy_faces(_input);
     _flow.output( _output.get() );
     _flow.execute();
@@ -65,6 +67,6 @@ void FlowRunner::emit ()
     std::list < FlowRunnerListener * >::const_iterator end = listeners.cend();
     for (; it != end; ++it )
     {
-        (*it)->data_generated ( _output );
+        (*it)->data_generated ( _output, &vectors );
     }
 }

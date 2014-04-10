@@ -33,27 +33,53 @@ public:
     static const float MOUSE_PAN_SPEED;
     static const float MOUSE_ZOOM_SPEED;
     static const float MOUSE_TURN_SPEED;
-    void lock_pan () { panLock = true; }
-    void unlock_pan () { panLock = false; }
-    bool pan () const { return panLock; }
-    
-    void lock_turn () { turnLock = true; }
-    void unlock_turn () { turnLock = false; }
-    bool turn () const { return turnLock; }
-    
-    void lock_zoom () { zoomLock = true; }
-    void unlock_zoom () { zoomLock = false; }
-    bool zoom () const { return zoomLock; }
-    
-    void set_position_x ( double x ) { lockPositionX = x; }
-    void set_position_y ( double y ) { lockPositionY = y; }
-    
-    double get_position_x () const { return lockPositionX; }
-    double get_position_y () const { return lockPositionY; }
-    
+    void lock_pan () {
+        panLock = true;
+    }
+    void unlock_pan () {
+        panLock = false;
+    }
+    bool pan () const {
+        return panLock;
+    }
+
+    void lock_turn () {
+        turnLock = true;
+    }
+    void unlock_turn () {
+        turnLock = false;
+    }
+    bool turn () const {
+        return turnLock;
+    }
+
+    void lock_zoom () {
+        zoomLock = true;
+    }
+    void unlock_zoom () {
+        zoomLock = false;
+    }
+    bool zoom () const {
+        return zoomLock;
+    }
+
+    void set_position_x ( double x ) {
+        lockPositionX = x;
+    }
+    void set_position_y ( double y ) {
+        lockPositionY = y;
+    }
+
+    double get_position_x () const {
+        return lockPositionX;
+    }
+    double get_position_y () const {
+        return lockPositionY;
+    }
+
 //     void set_time ( double time ) { this->time = time; }
 //     double get_time () const { return time; }
-    
+
 };
 
 #endif // GUISTATEMONITOR_H

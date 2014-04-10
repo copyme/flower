@@ -18,43 +18,22 @@
  *
  */
 
-#ifndef INPUT_H
-#define INPUT_H
-
+#ifndef GLINES_H
+#define GLINES_H
 #include <GL/glew.h>
-#include <GL/gl.h>
-#include <GL/glext.h>
-#include <GLFW/glfw3.h>
-#include "camera.h"
-#include "statemonitor.h"
+#include <vector>
 
-class Input
+class GLines
 {
 private:
-    GUIStateMonitor guiStates;
-    Input() {}
-    void window_size_impl ( int width, int height )
-    {
-        glViewport( 0, 0, width, height );
-    }
-
-    void mouse_button_impl ( GLFWwindow * window, Camera & camera );
+  GLuint VertexArrayID;
+  GLuint vbo;
+  unsigned int size;
 public:
-    static Input & instance()
-    {
-        static Input _instance;
-        return _instance;
-    }
-
-    static void window_size_callback ( GLFWwindow* window, int width, int height )
-    {
-        instance().window_size_impl ( width, height );
-    }
-
-    static void mouse ( GLFWwindow * window, Camera & camera )
-    {
-        instance().mouse_button_impl ( window, camera );
-    }
+  GLines();
+  void init();
+  void set_data( std::vector < float > * vectors );
+  void draw();
 };
 
-#endif // INPUT_H
+#endif // GLINES_H

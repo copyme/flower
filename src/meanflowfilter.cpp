@@ -18,6 +18,12 @@
 #include "meanflowfilter.h"
 #include "point.h"
 
+static float clamp(float val, int precision)
+{
+  float prec = std::pow ( 10.f, precision - 1 );
+  return std::floor ( val * prec ) / prec;
+}
+
 void MeanFlowFilter::execute()
 {
     assert ( mesh_in != NULL );
@@ -28,10 +34,23 @@ void MeanFlowFilter::execute()
         Vector < float > vector;
         vector = calculate_vector ( i );
         Point < float > point ( mesh_in->get_vertex ( i ) );
+	if ( vectors != nullptr )
+	{
+	  vectors->push_back(point[0]);
+	  vectors->push_back(point[1]);
+	  vectors->push_back(point[2]);
+	}
 	point += vector;
         mesh_out->add_vertex_coord ( point[0] );
         mesh_out->add_vertex_coord ( point[1] );
         mesh_out->add_vertex_coord ( point[2] );
+	
+	if ( vectors != nullptr )
+	{
+	  vectors->push_back(point[0]);
+	  vectors->push_back(point[1]);
+	  vectors->push_back(point[2]);
+	}
     }
 }
 
@@ -63,3 +82,5 @@ Vector < float > MeanFlowFilter::calculate_vector( unsigned int point )
   vector *= step;
   return vector;
 }
+
+

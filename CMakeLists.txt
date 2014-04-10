@@ -25,6 +25,7 @@ set(PROJECT_FILES
  ${PROJECT_SRC_DIR}/GUI/input.cpp
  ${PROJECT_SRC_DIR}/mesh.cpp
  ${PROJECT_SRC_DIR}/GUI/flowrunner.cpp
+ ${PROJECT_SRC_DIR}/GUI/glines.cpp
 )
 
 set(PROJECT_LIB

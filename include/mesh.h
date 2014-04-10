@@ -94,11 +94,17 @@ private:
     CFaceIterator _begin;
     CFaceIterator _end;
     unsigned int _model;
-    CFaceIterator begin() const { return _begin; }
-    CFaceIterator end() const { return _end; }
+    CFaceIterator begin() const {
+        return _begin;
+    }
+    CFaceIterator end() const {
+        return _end;
+    }
 public:
     Face ( CFaceIterator _begin, CFaceIterator _end, unsigned int model );
-    unsigned int model() const { return _model; }
+    unsigned int model() const {
+        return _model;
+    }
     unsigned int operator[] ( unsigned int index ) const;
     /*
      * I am unhappy with this strange construction but I have to hide begin() and
@@ -165,8 +171,12 @@ public:
         normals.push_back( coord );
     }
     void set_star_of( unsigned int p, std::vector< Edge > const & edges );
-    std::pair< StarConstIter, StarConstIter > get_start ( unsigned int p ) const { return stars.equal_range( p ); }
-    void copy_faces( const Mesh * mesh ) { std::copy( mesh->faces.begin(), mesh->faces.end(), std::back_inserter( this->faces ) ); }
+    std::pair< StarConstIter, StarConstIter > get_start ( unsigned int p ) const {
+        return stars.equal_range( p );
+    }
+    void copy_faces( const Mesh * mesh ) {
+        std::copy( mesh->faces.begin(), mesh->faces.end(), std::back_inserter( this->faces ) );
+    }
     Vector < float > get_normal ( unsigned int index ) const;
     unsigned int normal_count () const {
         return normals.size () / 3;

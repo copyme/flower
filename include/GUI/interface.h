@@ -26,6 +26,7 @@
 #include "camera.h"
 #include <mesh.h>
 #include "listeners.h"
+#include "glines.h"
 
 #define OPENGL_MAJOR_VERSION 3
 #define OPENGL_MINOR_VERSION 0 //! Obligatory thus we use GL_QUADS
@@ -39,16 +40,19 @@ private:
     GLuint viewLocation;
     GLuint color;
     GLuint shaderProgram;
+    bool show_vectors;
     GLFWwindow * window;
     GLFWvidmode const * screen;
     Camera camera;
     STP3D::IndexedMesh glMesh;
+    GLines gLines;
     std::shared_ptr< Mesh > mesh;
     GUIStateMonitor guiStates;
+    std::vector < float > * vectors;
     std::list < GUIListener * > listeners;
     void mouse_button_callback(GLFWwindow * window, int button, int action, int mods);
 public:
-    virtual void data_generated ( std::shared_ptr< Mesh > mesh );
+    virtual void data_generated ( std::shared_ptr< Mesh > mesh, std::vector < float > * vectors  );
     Interface();
     void register_listener ( GUIListener * listener );
     void remove_listener ( GUIListener * listener );
