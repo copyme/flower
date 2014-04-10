@@ -23,21 +23,21 @@
 
 GLines::GLines()
 {
-  VertexArrayID = vbo = 0; 
+  vai = vbo = 0; 
 }
 
 void GLines::init()
 {
-  glGenVertexArrays(1, &VertexArrayID);
+  glGenVertexArrays(1, &vai);
   glGenBuffers(1, &vbo);
   
-  if ( VertexArrayID == 0 || vbo == 0 )
+  if ( vai == 0 || vbo == 0 )
     throw std::runtime_error ( "Init of GLines faild!" );
 }
 
 void GLines::set_data( std::vector < float > * vectors )
 {
-  glBindVertexArray(VertexArrayID);
+  glBindVertexArray(vai);
   glBindBuffer(GL_ARRAY_BUFFER, vbo);
   glBufferData(GL_ARRAY_BUFFER, sizeof( float ) * vectors->size(), &(*vectors)[0], GL_STATIC_DRAW);
   glBindVertexArray(0);
@@ -46,9 +46,9 @@ void GLines::set_data( std::vector < float > * vectors )
 }
 void GLines::draw()
 {
-  if(size == 0 || VertexArrayID == 0 || vbo == 0)
+  if(size == 0 || vai == 0 || vbo == 0)
     return;
-  glBindVertexArray(VertexArrayID);
+  glBindVertexArray(vai);
   glBindBuffer(GL_ARRAY_BUFFER, vbo);
   glEnableVertexAttribArray(0);
   glVertexAttribPointer( 0, 3, GL_FLOAT, GL_FALSE, 0, 0 );

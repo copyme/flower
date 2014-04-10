@@ -18,7 +18,6 @@
 #define FLOWRUNNER_H
 
 #include <list>
-#include <memory>
 #include "mesh.h"
 #include "listeners.h"
 #include "meanflowfilter.h"
@@ -26,7 +25,7 @@
 class FlowRunner : public GUIListener
 {
 private:
-    std::shared_ptr< Mesh > _output;
+    Mesh _output;
     std::vector < float > vectors;
     Mesh const * _input;
     bool runnning;

@@ -7,7 +7,7 @@
 class FlowRunnerListener
 {
 public:
-    virtual void data_generated ( std::shared_ptr< Mesh > mesh, std::vector < float > * vectors ) = 0;
+    virtual void data_generated ( Mesh * mesh, std::vector < float > * vectors ) = 0;
 };
 
 class GUIListener

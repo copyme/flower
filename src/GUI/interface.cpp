@@ -111,7 +111,7 @@ void Interface::init ( Mesh & mesh )
   gLines.init();
   glMesh.createVAO();
 }
-void Interface::data_generated ( std::shared_ptr< Mesh > mesh, std::vector < float > * vectors )
+void Interface::data_generated ( Mesh * mesh, std::vector < float > * vectors )
 {
   this->mesh = mesh;
   this->vectors = vectors; 

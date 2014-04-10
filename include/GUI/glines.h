@@ -26,7 +26,7 @@
 class GLines
 {
 private:
-  GLuint VertexArrayID;
+  GLuint vai;
   GLuint vbo;
   unsigned int size;
 public:

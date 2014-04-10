@@ -181,6 +181,7 @@ public:
     unsigned int normal_count () const {
         return normals.size () / 3;
     }
+    void clear_vertices() { vertices.clear(); };
     void verify();
 };
 
