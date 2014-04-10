@@ -186,32 +186,27 @@ int Interface::exec ()
     
     glUseProgram(0);
     
-    //////////////////////////////////////// REFACTORISATION!!!!
-    // Draw UI
-    
+    //** Draw UI \todo refactorisation
     unsigned char mbut = 0;
     int mscroll = 0;
     double mousex;
     double mousey;
     glfwGetCursorPos(window,&mousex, &mousey);
     mousey = height - mousey;
-    int leftButton = glfwGetMouseButton( window, GLFW_MOUSE_BUTTON_LEFT );
-    if( leftButton == GLFW_PRESS )
+    if( glfwGetMouseButton( window, GLFW_MOUSE_BUTTON_LEFT ) == GLFW_PRESS )
       mbut |= IMGUI_MBUT_LEFT;
     
     imguiBeginFrame(mousex, mousey, mbut, mscroll);
     int logScroll = 0;
     imguiBeginScrollArea("Mean curvature flow", width - 210, height - 310, 200, 300, &logScroll);
     imguiSlider("Time", &time_, 0.0, 10.0, 0.001);
+    
     if ( imguiButton("Jump to time!") )
-    {
       emit_jump_to_time();
-    }
     
     if ( imguiButton("Show vectors") )
-    {
       show_vectors = !show_vectors;
-    }
+    
     char text[50];
     sprintf(text,"Save to %1.2f-flow.ply",time_);
     if ( imguiButton(text) )
@@ -224,7 +219,7 @@ int Interface::exec ()
     imguiRenderGLDraw(width, height);
     
     glDisable(GL_BLEND);
-    ///////////////////////////////////////
+    // Draw UI
     
     glEnable(GL_DEPTH_TEST);
     
