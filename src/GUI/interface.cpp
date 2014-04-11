@@ -186,7 +186,7 @@ int Interface::exec ()
     
     glUseProgram(0);
     
-    //** Draw UI \todo refactorisation
+    //! Draw UI \todo refactorisation
     unsigned char mbut = 0;
     int mscroll = 0;
     double mousex;
