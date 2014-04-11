@@ -18,26 +18,10 @@
 #define MEANFLOWFILTER_H
 
 #include "mesh.h"
+#include "flowfilter.h"
 #include "Vector.h"
 #include <vector>
 
-/** \brief This abstract class is an interface for classes which implement flows.
- * \todo move to another file.
- */
-class FlowFilter
-{
-public:
-    //! \param mesh which will be under flow. This mesh will be unchanged
-    virtual void input ( Mesh const * mesh ) = 0;
-    virtual Mesh const * get_input () const = 0;
-    //! \param mesh where filter will store new mesh parameters after flowing
-    virtual void output ( Mesh * mesh ) = 0;
-    virtual float get_time() const = 0;
-    virtual void set_time ( float value ) = 0;
-    //! Implementation should throw exception if one of meshes wes not set.
-    virtual void execute() = 0;
-    virtual void set_debug( std::vector < float > * vectors ) = 0;
-};
 
 /** \brief Implementation of mean curvature flow
  * \todo change assertions to exceptions
