@@ -45,7 +45,7 @@ public:
     Mesh const * get_input () const {
         return mesh_in;
     }
-    void output ( Mesh * mesh ) {
+    void set_output ( Mesh * mesh ) {
         this->mesh_out = mesh;
     }
     inline float get_time () const {

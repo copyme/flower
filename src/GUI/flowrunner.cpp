@@ -55,7 +55,7 @@ void FlowRunner::run ()
 {    
   vectors.clear();
   _output.clear_vertices();
-  _flow.output( &_output );
+  _flow.set_output ( &_output );
   _flow.execute();
   emit();
   runnning = false;

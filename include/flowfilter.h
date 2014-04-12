@@ -27,11 +27,12 @@ public:
     virtual void input ( Mesh const * mesh ) = 0;
     virtual Mesh const * get_input () const = 0;
     //! \param mesh where filter will store new mesh parameters after flowing
-    virtual void output ( Mesh * mesh ) = 0;
+    virtual void set_output ( Mesh * mesh ) = 0;
     virtual float get_time() const = 0;
     virtual void set_time ( float value ) = 0;
-    //! Implementation should throw exception if one of meshes wes not set.
+    //! Implementation should throw exception if at least one of meshes is not set.
     virtual void execute() = 0;
+    //! For access to curvature vectors of vertices
     virtual void set_debug( std::vector < float > * vectors ) = 0;
 };
 
