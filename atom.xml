@@ -4,7 +4,7 @@
   <title><![CDATA[FlowER]]></title>
   <link href="copyme.github.io/flower/atom.xml" rel="self"/>
   <link href="copyme.github.io/flower/"/>
-  <updated>2014-04-12T13:20:05+02:00</updated>
+  <updated>2014-04-13T12:46:41+02:00</updated>
   <id>copyme.github.io/flower/</id>
   <author>
     <name><![CDATA[Copyme & Meri-nut]]></name>
@@ -14,11 +14,19 @@
 
   
   <entry>
-    <title type="html"><![CDATA[Zombie Ninjas Attack: A Survivor's Retrospective]]></title>
-    <link href="copyme.github.io/flower/blog/2014/04/12/zombie-ninjas-attack-a-survivors-retrospective/"/>
+    <title type="html"><![CDATA[Let's Get Ready to Rumble!]]></title>
+    <link href="copyme.github.io/flower/blog/2014/04/12/Lets-get-ready-to-rumble/"/>
     <updated>2014-04-12T02:41:13+02:00</updated>
-    <id>copyme.github.io/flower/blog/2014/04/12/zombie-ninjas-attack-a-survivors-retrospective</id>
-    <content type="html"><![CDATA[
+    <id>copyme.github.io/flower/blog/2014/04/12/Lets-get-ready-to-rumble</id>
+    <content type="html"><![CDATA[<p>Last few weeks we have been spending on study of curvature flows and fruit of this work is a piece of software &ndash; FlowER. At the beginning we wanted to generate only some output files
+and forget about whole code. But during one rainy weekend one of us added support for OpenGL and cleaned up some strange parts of the code.
+After that we started to think about releasing of our work. And finally we give you access to it under agreements of great license &ndash; GPL 2. On this page we will share some news and e.g. movies
+which presents given flows in action. Maybe we will add some theoretical parts too.</p>
+
+<p>We done some efforts to make FlowER easy to use for students which are interested in implementations of flows. Also if you are a teacher probably you will be interested to use FlowER during your
+courses to show how flows work and also FlowER allows you to give students some homeworks, and they can directly focus on flows and forget about all other stuff like data presentation.</p>
+
+<p>We have a hope that FlowER will be useful and thus we are waiting for any feedback from you!</p>
 ]]></content>
   </entry>
   

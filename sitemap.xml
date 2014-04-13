@@ -1,14 +1,12 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <urlset xmlns='http://www.sitemaps.org/schemas/sitemap/0.9'>
     <url>
-        <loc>
-            copyme.github.io/flower/blog/2014/04/12/zombie-ninjas-attack-a-survivors-retrospective/
-        </loc>
-        <lastmod>2014-04-12T02:41:13+02:00</lastmod>
+        <loc>copyme.github.io/flower/blog/2014/04/12/Lets-get-ready-to-rumble/</loc>
+        <lastmod>2014-04-13T12:46:26+02:00</lastmod>
     </url>
     <url>
         <loc>copyme.github.io/flower/blog/archives/</loc>
-        <lastmod>2014-04-12T02:41:13+02:00</lastmod>
+        <lastmod>2014-04-13T12:46:26+02:00</lastmod>
     </url>
     <url>
         <loc>copyme.github.io/flower/robots.txt</loc>
@@ -16,7 +14,7 @@
     </url>
     <url>
         <loc>copyme.github.io/flower/</loc>
-        <lastmod>2014-04-12T11:02:19+02:00</lastmod>
+        <lastmod>2014-04-13T12:46:26+02:00</lastmod>
     </url>
     <url>
         <loc>copyme.github.io/flower/media/</loc>
