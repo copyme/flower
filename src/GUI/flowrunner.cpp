@@ -57,6 +57,7 @@ void FlowRunner::run ()
   _output.clear_vertices();
   _flow.set_output ( &_output );
   _flow.execute();
+  _output.verify();
   emit();
   runnning = false;
 }

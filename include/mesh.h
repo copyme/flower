@@ -144,7 +144,7 @@ public:
     /*** Coordinates are evenly stored in memory - only 3-dim vertices are supported!
      * \param coord - vertex coord e.g. x, y, z
      */
-    void add_vertex_coord ( float coord )
+    void add_vertexs_coord ( float coord )
     {
         vertices.push_back ( coord );
     }

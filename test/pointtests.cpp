@@ -24,9 +24,9 @@ void PointTests::setUp()
 {
     mesh_ = new Mesh();
     //0
-    mesh_->add_vertex_coord(1.);
-    mesh_->add_vertex_coord(2.);
-    mesh_->add_vertex_coord(3);
+    mesh_->add_vertexs_coord(1.);
+    mesh_->add_vertexs_coord(2.);
+    mesh_->add_vertexs_coord(3);
 }
 
 void PointTests::tearDown()

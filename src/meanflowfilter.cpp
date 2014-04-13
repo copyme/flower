@@ -41,9 +41,9 @@ void MeanFlowFilter::execute()
 	  vectors->push_back(point[2]);
 	}
 	point += vector;
-        mesh_out->add_vertex_coord ( point[0] );
-        mesh_out->add_vertex_coord ( point[1] );
-        mesh_out->add_vertex_coord ( point[2] );
+        mesh_out->add_vertexs_coord ( point[0] );
+        mesh_out->add_vertexs_coord ( point[1] );
+        mesh_out->add_vertexs_coord ( point[2] );
 	
 	if ( vectors != nullptr )
 	{

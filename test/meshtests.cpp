@@ -24,37 +24,37 @@ void MeshTests::setUp()
     mesh = new Mesh();
     mesh->set_model( 4 );
     //0
-    mesh->add_vertex_coord(0);
-    mesh->add_vertex_coord(0);
-    mesh->add_vertex_coord(0);
+    mesh->add_vertexs_coord(0);
+    mesh->add_vertexs_coord(0);
+    mesh->add_vertexs_coord(0);
     //1
-    mesh->add_vertex_coord(0);
-    mesh->add_vertex_coord(0);
-    mesh->add_vertex_coord(1);
+    mesh->add_vertexs_coord(0);
+    mesh->add_vertexs_coord(0);
+    mesh->add_vertexs_coord(1);
     //2
-    mesh->add_vertex_coord(0);
-    mesh->add_vertex_coord(1);
-    mesh->add_vertex_coord(1);
+    mesh->add_vertexs_coord(0);
+    mesh->add_vertexs_coord(1);
+    mesh->add_vertexs_coord(1);
     //3
-    mesh->add_vertex_coord(0);
-    mesh->add_vertex_coord(1);
-    mesh->add_vertex_coord(0);
+    mesh->add_vertexs_coord(0);
+    mesh->add_vertexs_coord(1);
+    mesh->add_vertexs_coord(0);
     //4
-    mesh->add_vertex_coord(1);
-    mesh->add_vertex_coord(0);
-    mesh->add_vertex_coord(0);
+    mesh->add_vertexs_coord(1);
+    mesh->add_vertexs_coord(0);
+    mesh->add_vertexs_coord(0);
     //5
-    mesh->add_vertex_coord(1);
-    mesh->add_vertex_coord(0);
-    mesh->add_vertex_coord(1);
+    mesh->add_vertexs_coord(1);
+    mesh->add_vertexs_coord(0);
+    mesh->add_vertexs_coord(1);
     //6
-    mesh->add_vertex_coord(1);
-    mesh->add_vertex_coord(1);
-    mesh->add_vertex_coord(1);
+    mesh->add_vertexs_coord(1);
+    mesh->add_vertexs_coord(1);
+    mesh->add_vertexs_coord(1);
     //7
-    mesh->add_vertex_coord(1);
-    mesh->add_vertex_coord(1);
-    mesh->add_vertex_coord(0);
+    mesh->add_vertexs_coord(1);
+    mesh->add_vertexs_coord(1);
+    mesh->add_vertexs_coord(0);
 
     //0
     mesh->add_face_vertex ( 0 );

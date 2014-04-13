@@ -109,7 +109,7 @@ static int vertex_callback ( p_ply_argument argument )
     ply_get_argument_user_data ( argument, &data_mapper, &eol );
     mesh = reinterpret_cast < Mesh * > ( data_mapper );
     double value = ply_get_argument_value ( argument );
-    mesh->add_vertex_coord ( value );
+    mesh->add_vertexs_coord ( value );
     return 1;
 }
 
