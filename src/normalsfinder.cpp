@@ -39,8 +39,8 @@ void NormalsFinder::execute()
         Vector < float > normal;
         normal = vector1 * vector0;
         normal /= normal.length();
-        _mesh->add_normal_coord ( normal[0] );
-        _mesh->add_normal_coord ( normal[1] );
-        _mesh->add_normal_coord ( normal[2] );
+        _mesh->add_normals_coord ( normal[0] );
+        _mesh->add_normals_coord ( normal[1] );
+        _mesh->add_normals_coord ( normal[2] );
     }
 }

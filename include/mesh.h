@@ -72,13 +72,16 @@ public:
         return false;
     }
     Edge ( CEdgeAccessor _begin, CEdgeAccessor _end );
+    //! \return index of vertex
     unsigned int begin() const {
         return *_begin;
     }
+    //! \return index of vertex
     unsigned int end() const {
         return *_end;
     }
     void add_face( unsigned int index );
+    //! \return - A pair of indices of faces. -1 on on given position if face not assigned.
     std::pair < int, int > const & get_faces() const {
         return faces;
     }
@@ -166,17 +169,18 @@ public:
     }
     Vertex get_vertex ( unsigned int index ) const;
     Face get_face ( unsigned int index ) const;
-    void add_normal_coord ( float coord )
+    void add_normals_coord ( float coord )
     {
         normals.push_back( coord );
     }
-    void set_star_of( unsigned int p, std::vector< Edge > const & edges );
-    std::pair< StarConstIter, StarConstIter > get_start ( unsigned int p ) const {
-        return stars.equal_range( p );
+    void set_star_of( unsigned int vertex, std::vector< Edge > const & edges );
+    std::pair< StarConstIter, StarConstIter > get_start ( unsigned int vertex ) const {
+        return stars.equal_range( vertex );
     }
     void copy_faces( const Mesh * mesh ) {
         std::copy( mesh->faces.begin(), mesh->faces.end(), std::back_inserter( this->faces ) );
     }
+    //! \param index - index of face
     Vector < float > get_normal ( unsigned int index ) const;
     unsigned int normal_count () const {
         return normals.size () / 3;

@@ -46,7 +46,7 @@ public:
         if ( index < 3 )
             return coords[index];
     }
-
+    //! Vector product
     Vector operator * ( Vector  & vector ) const
     {
         Vector vec;

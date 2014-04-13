@@ -198,7 +198,7 @@ int Interface::exec ()
     
     imguiBeginFrame(mousex, mousey, mbut, mscroll);
     int logScroll = 0;
-    imguiBeginScrollArea("Mean curvature flow", width - 210, height - 310, 200, 300, &logScroll);
+    imguiBeginScrollArea("Toolbox", width - 210, height - 310, 200, 300, &logScroll);
     imguiSlider("Time", &time_, 0.0, 10.0, 0.001);
     
     if ( imguiButton("Jump to time!") )

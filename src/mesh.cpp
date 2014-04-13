@@ -86,7 +86,7 @@ Vertex Mesh::get_vertex ( unsigned int index ) const
         throw std::range_error ( "Index over the range of vertices!" );
     }
 
-    Vertex::CVertexIterator begin = vertices.begin() + ( index * 3);
+    Vertex::CVertexIterator begin = vertices.cbegin() + ( index * 3);
     Vertex::CVertexIterator end = begin + 3;
 
     return Vertex ( begin, end );
