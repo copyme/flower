@@ -1,11 +1,14 @@
 #include <vector>
 #include <clocale>
+#include <memory>
+#include <stdexcept>
 #include "edgeextractor.h"
 #include "normalsfinder.h"
 #include "mesh.h"
 #include "interface.h"
 #include "flowrunner.h"
 #include "plydatareader.h"
+#include "flowfactory.h"
 
 #ifndef NDEBUG
 #include <fenv.h>
@@ -18,7 +21,10 @@ int main ( int argc, char *argv[] )
 #endif
 
     setlocale ( LC_NUMERIC, "en_US" );
-
+    
+    if ( argc < 4 )
+      throw std::runtime_error ( "Run with: <mesh.ply> <MEAN | POWER_MEAN> [int | null]" );
+    
     Mesh mesh;
     PLYDataReader *reader = new PLYDataReader;
     reader->set ( &mesh );
@@ -44,10 +50,10 @@ int main ( int argc, char *argv[] )
 
     delete extractor;
 
-    MeanFlowFilter meanFlowFilter;
-    meanFlowFilter.input ( &mesh );
+    std::shared_ptr < FlowFilter > flowFilter = FlowFactory::get_flow ( argv[2], argv[3] );
+    flowFilter->input ( &mesh );
 
-    FlowRunner flowRunner ( meanFlowFilter );
+    FlowRunner flowRunner ( flowFilter );
 
     Interface interface;
     flowRunner.register_listener(&interface);

@@ -18,6 +18,7 @@
 #define FLOWRUNNER_H
 
 #include <list>
+#include <memory>
 #include "mesh.h"
 #include "listeners.h"
 #include "meanflowfilter.h"
@@ -30,11 +31,11 @@ private:
     Mesh const * _input;
     bool runnning;
     std::list < FlowRunnerListener * > listeners;
-    FlowFilter & _flow;
+    std::shared_ptr < FlowFilter >  _flow;
     void run ();
     void emit();
 public:
-    FlowRunner ( FlowFilter & flow );
+    FlowRunner ( std::shared_ptr < FlowFilter > flow );
     virtual void time_changed ( float time );
     void register_listener ( FlowRunnerListener * listener );
     void remove_listener ( FlowRunnerListener * listener );

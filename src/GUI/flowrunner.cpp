@@ -18,10 +18,10 @@
 #include "flowrunner.h"
 
 
-FlowRunner::FlowRunner ( FlowFilter & flow ): _flow ( flow ) {
+FlowRunner::FlowRunner ( std::shared_ptr < FlowFilter > flow ) : _flow ( flow ) {
     runnning = false;
-    _input = _flow.get_input();
-    _flow.set_debug ( &vectors );
+    _input = _flow->get_input();
+    _flow->set_debug ( &vectors );
     _output.copy_faces(_input);
     _output.set_model( _input->get_model() );
 }
@@ -45,7 +45,7 @@ void FlowRunner::time_changed ( float time )
   if ( runnning )
     return;
   runnning = true;
-  _flow.set_time ( time );
+  _flow->set_time ( time );
   
   std::thread _thred = std::thread ( &FlowRunner::run, this );
   _thred.detach();
@@ -55,8 +55,8 @@ void FlowRunner::run ()
 {    
   vectors.clear();
   _output.clear_vertices();
-  _flow.set_output ( &_output );
-  _flow.execute();
+  _flow->set_output ( &_output );
+  _flow->execute();
   _output.verify();
   emit();
   runnning = false;

@@ -18,12 +18,15 @@ set(PROJECT_FILES
  ${PROJECT_SRC_DIR}/IO/plydatawriter.cpp
  ${PROJECT_SRC_DIR}/edgeextractor.cpp
  ${PROJECT_SRC_DIR}/meanflowfilter.cpp
+ ${PROJECT_SRC_DIR}/powermeanflowfilter.cpp
+ ${PROJECT_SRC_DIR}/flowfactory.cpp
  ${PROJECT_SRC_DIR}/normalsfinder.cpp
  ${PROJECT_SRC_DIR}/GUI/camera.cpp
  ${PROJECT_SRC_DIR}/GUI/statemonitor.cpp
  ${PROJECT_SRC_DIR}/GUI/interface.cpp
  ${PROJECT_SRC_DIR}/GUI/input.cpp
  ${PROJECT_SRC_DIR}/mesh.cpp
+ ${PROJECT_SRC_DIR}/flowfactory.cpp
  ${PROJECT_SRC_DIR}/GUI/flowrunner.cpp
  ${PROJECT_SRC_DIR}/GUI/glines.cpp
 )

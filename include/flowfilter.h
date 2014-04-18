@@ -17,6 +17,8 @@
 #ifndef FLOWFILTER_H
 #define FLOWFILTER_H
 
+#include "mesh.h"
+
 /** \brief This abstract class is an interface for classes which implement flows.
  * \todo move to another file.
  */

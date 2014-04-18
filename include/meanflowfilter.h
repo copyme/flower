@@ -33,7 +33,8 @@ private:
     Mesh * mesh_out;
     std::vector < float > * vectors;
     float step;
-    Vector < float > calculate_vector ( unsigned int point );
+protected:
+    virtual Vector < float > calculate_vector ( unsigned int point );
 public:
     MeanFlowFilter () {
         step = 0.;
