@@ -199,7 +199,7 @@ int Interface::exec ()
     imguiBeginFrame(mousex, mousey, mbut, mscroll);
     int logScroll = 0;
     imguiBeginScrollArea("Toolbox", width - 210, height - 310, 200, 300, &logScroll);
-    imguiSlider("Time", &time_, 0.0, 100.0, 0.001);
+    imguiSlider("Time", &time_, 0.0, 6.0, 0.001);
     
     if ( imguiButton("Jump to time!") )
       emit_jump_to_time();

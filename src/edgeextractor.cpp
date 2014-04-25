@@ -32,6 +32,13 @@ void EdgeExtractor::init ( const Mesh *mesh )
     this->mesh = mesh;
 }
 
+static void insert_once ( std::vector < Edge > & edges, Edge & t_edge )
+{
+  std::vector < Edge >::iterator it = std::find(edges.begin(), edges.end(), t_edge );
+  if( it == edges.end() )
+    edges.push_back ( t_edge );
+}
+
 void EdgeExtractor::init_faces( Edge & t_edge, unsigned int i )
 {
     t_edge.add_face ( i );
@@ -53,35 +60,70 @@ void EdgeExtractor::extract ( unsigned int index )
         {
             if ( face[j] == index )
             {
-                //beginning
-                if ( j ==  0 )
-                {
-                    Edge t_edge( face.end() - 1, face.begin()+j );
-                    init_faces(t_edge, i);
-                    edges.push_back ( t_edge );
-                }
-                //middle - left
-                if ( j > 0 )
-                {
-                    Edge t_edge ( face.begin() + j - 1, face.begin()+j );
-                    init_faces(t_edge, i);
-                    edges.push_back ( t_edge );
-                }
                 //middle - right
                 if ( j + 1 <  face.model() )
                 {
-                    Edge t_edge( face.begin() + j , face.begin()+ j +1 );
+                    Edge t_edge( face.begin() + j, face.begin() + j + 1 );
                     init_faces(t_edge, i);
-                    edges.push_back(t_edge);
+		    insert_once ( edges, t_edge );
+                }
+                //beginning
+                if ( j ==  0 )
+		{
+		  Edge t_edge( face.begin(), face.end() - 1 );
+		  init_faces(t_edge, i);
+		  insert_once ( edges, t_edge );
+		}
+                //middle - left
+                if ( j > 0 )
+                {
+                    Edge t_edge ( face.begin()+j, face.begin() + j - 1 );
+                    init_faces(t_edge, i);
+		    insert_once ( edges, t_edge );
                 }
                 //end
                 if ( j == face.model() - 1 )
                 {
-                    Edge t_edge( face.begin()+j, face.begin() );
+                    Edge t_edge( face.begin() + j, face.begin() );
                     init_faces(t_edge, i);
-                    edges.push_back(t_edge);
+		    insert_once ( edges, t_edge );
                 }
             }
         }
     }
+    int check_point = check();
+    if ( check_point != -1 )
+      fix_boundary_case_order ( check_point );
+}
+
+int EdgeExtractor::check()
+{
+  for (int i = 0; i < edges.size(); i++)
+  {
+    if ( edges.at(i).get_faces().second == -1 )
+      return i;
+  }
+  return -1;
+}
+
+void EdgeExtractor::fix_boundary_case_order ( int start_index )
+{
+  std::swap( edges[start_index], edges[0] );
+  
+  for ( int i = 0; i < edges.size(); i++ )
+  {
+    for ( int j = i + 1; j < edges.size(); j++ )
+    {
+      if ( edges.at(i).get_faces().first == edges.at(j).get_faces().first || edges.at(i).get_faces().first == edges.at(j).get_faces().second )
+      {
+	std::swap( edges[i+1], edges[j] );
+	break;
+      }
+      else if ( edges.at(i).get_faces().second == edges.at(j).get_faces().first || edges.at(i).get_faces().second == edges.at(j).get_faces().second )
+      {
+	std::swap( edges[i+1], edges[j] );
+	break;
+      }
+    }
+  }
 }

@@ -62,7 +62,7 @@ private:
     CEdgeAccessor _begin;
     CEdgeAccessor _end;
 public:
-    bool operator== ( Edge const & rh )
+    bool operator== ( Edge const & rh ) const
     {
         if ( ( *_begin == rh.begin()  &&  *_end == rh.end() ) ||
                 ( *_end == rh.begin()  &&  *_begin == rh.end() ) )
@@ -71,6 +71,15 @@ public:
         }
         return false;
     }
+    bool operator < ( Edge const & rh ) const
+    {
+        if ( *_end < rh.end() )
+        {
+            return true;
+        }
+        return false;
+    }
+    
     Edge ( CEdgeAccessor _begin, CEdgeAccessor _end );
     //! \return index of vertex
     unsigned int begin() const {

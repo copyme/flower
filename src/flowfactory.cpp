@@ -19,9 +19,11 @@
  */
 
 #include <cstring>
+// #include <string>
 #include <iostream>
 #include <stdexcept>
 #include "flowfactory.h"
+// #include <CSVExtractor.h>
 #include "meanflowfilter.h"
 #include "powermeanflowfilter.h"
 
@@ -35,7 +37,13 @@ std::shared_ptr< FlowFilter > FlowFactory::get_flow ( const char * name, const c
   {
     if ( strcmp ( "null", params ) != 0 )
     {
-      int param = atoi ( params );
+      /* 
+       * You can use CSVExtractor to easily get values from comma separated string.
+       * CSVExtractor extractor;
+       * extractor.input(std::string( params) );
+       * int param = std::atoi ( extractor.getValue ( 0 ).c_str() );
+      */
+      int param = std::atoi ( params );
       return std::shared_ptr< FlowFilter > ( new PowerMeanFlowFilter( param ) );
     }
     else

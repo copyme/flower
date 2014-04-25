@@ -33,8 +33,11 @@ private:
     Mesh * mesh_out;
     std::vector < float > * vectors;
     float step;
+    float calculate_phi_minus ( Edge const & e1, Edge const & e2 );
+    float calculate_phi_plus ( Edge const & e1, Edge const & e2 );
 protected:
     virtual Vector < float > calculate_vector ( unsigned int point );
+    virtual Vector < float > calculate_boundary_vector ( unsigned int point );
 public:
     MeanFlowFilter () {
         step = 0.;

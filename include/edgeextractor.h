@@ -19,13 +19,17 @@
 #include <vector>
 #include "mesh.h"
 
-//! This class allows to extract edges which contain a given vertex from faces
+/** This class allows to extract edges which contain a given vertex from faces
+ * \bug is not working with non-closed meshes like a plane
+ */
 class EdgeExtractor
 {
 private:
     const Mesh *mesh;
     std::vector < Edge > edges;
     void init_faces ( Edge & t_edge, unsigned int i );
+    int check();
+    void fix_boundary_case_order ( int start_index );
 public:
     EdgeExtractor();
     void init( const Mesh *mesh );

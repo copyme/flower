@@ -8,9 +8,9 @@ set(PROJECT_HEADERS_DIR ${CMAKE_CURRENT_SOURCE_DIR}/include)
 set(PROJECT_TEST_DIR ${CMAKE_CURRENT_SOURCE_DIR}/test)
 set(PROJECT_LIB_DIR ${CMAKE_CURRENT_SOURCE_DIR}/lib)
 
-add_definitions( "-std=c++11" )
+set( CMAKE_CXX_FLAGS  "-std=c++11" ${CMAKE_CXX_FLAGS} )
 
-include_directories(${PROJECT_HEADERS_DIR} ${PROJECT_HEADERS_DIR}/IO ${PROJECT_HEADERS_DIR}/GUI ${PROJECT_LIB_DIR}/imgui)
+include_directories(${PROJECT_HEADERS_DIR} ${PROJECT_HEADERS_DIR}/IO ${PROJECT_HEADERS_DIR}/GUI ${PROJECT_LIB_DIR}/imgui ${PROJECT_LIB_DIR}/helpers )
 
 set(PROJECT_FILES 
  ${PROJECT_SRC_DIR}/IO/rply.c
@@ -35,6 +35,7 @@ set(PROJECT_LIB
  ${PROJECT_LIB_DIR}/imgui/imguiRenderGL3.cpp
  ${PROJECT_LIB_DIR}/imgui/imgui.cpp
  ${PROJECT_LIB_DIR}/imgui/DroidSans.cpp
+ ${PROJECT_LIB_DIR}/helpers/CSVExtractor.cpp
 )
 
 set(TESTS

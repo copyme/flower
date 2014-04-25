@@ -50,9 +50,9 @@ public:
     Vector operator * ( Vector  & vector ) const
     {
         Vector vec;
-        vec.coords[0] = ( (double)this->coords[1] * (double)vector.coords[2] ) - ( (double)vector.coords[1] * (double)this->coords[2] );
-        vec.coords[1] = ( (double)this->coords[2] * (double)vector.coords[0] ) - ( (double)vector.coords[2] * (double)this->coords[0] );
-        vec.coords[2] = ( (double)this->coords[0] * (double)vector.coords[1] ) - ( (double)vector.coords[0] * (double)this->coords[1] );
+        vec.coords[0] = ( this->coords[1] * vector.coords[2] ) - ( vector.coords[1] * this->coords[2] );
+        vec.coords[1] = ( this->coords[2] * vector.coords[0] ) - ( vector.coords[2] * this->coords[0] );
+        vec.coords[2] = ( this->coords[0] * vector.coords[1] ) - ( vector.coords[0] * this->coords[1] );
         return vec;
     }
 
@@ -98,13 +98,13 @@ public:
         return *this;
     }
 
-    double length() const
+    float length() const
     {
-        double len = this->coords[0] * this->coords[0] + this->coords[1] * this->coords[1];
+        float len = this->coords[0] * this->coords[0] + this->coords[1] * this->coords[1];
         len += this->coords[2] * this->coords[2];
         return std::sqrt ( len );
     }
-    double dot ( Vector  & vector )
+    float dot ( Vector  & vector )
     {
         return coords[0] * vector.coords[0] + coords[1] * vector.coords[1] + coords[2] * vector.coords[2];
     }
