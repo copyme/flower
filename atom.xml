@@ -4,7 +4,7 @@
   <title><![CDATA[FlowER]]></title>
   <link href="copyme.github.io/flower/atom.xml" rel="self"/>
   <link href="copyme.github.io/flower/"/>
-  <updated>2014-04-25T21:45:04+02:00</updated>
+  <updated>2014-04-25T22:00:23+02:00</updated>
   <id>copyme.github.io/flower/</id>
   <author>
     <name><![CDATA[Copyme & Meri-nut]]></name>
@@ -12,6 +12,22 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[Dragon, Bunny and New Flows]]></title>
+    <link href="copyme.github.io/flower/blog/2014/04/25/dragon/"/>
+    <updated>2014-04-25T21:52:32+02:00</updated>
+    <id>copyme.github.io/flower/blog/2014/04/25/dragon</id>
+    <content type="html"><![CDATA[<p>Last few days we sent on implementation of two new flows. Both are an extension of well known mean curvature flows. In the first case we have added a boundary case for meshes which are not close.
+Second case is a variation of mean curvature flow which is obtained by intensification of components of curvature vector by given power. As you can see e.g. for cylinder we obtained rounded result
+than for standard mean curvature flow.</p>
+
+<p>Second news is related to movies which presents mean curvature flow of more complex meshes. So in media category you can find movies which presents flow of well known Stanford dragon and bunny.</p>
+
+<p>At the end we would like to inform you that we have gotten a feedback from one person about our project and this person pointed out that we should create a section on web page about theoretical
+aspects of flows. We think this is a good idea and we will work on this in the next few day. Stay tuned!</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[Let's Get Ready to Rumble!]]></title>
