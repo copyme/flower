@@ -110,7 +110,7 @@ void EdgeExtractor::fix_boundary_case_order ( int start_index )
 {
   std::swap( edges[start_index], edges[0] );
   
-  for ( int i = 0; i < edges.size(); i++ )
+  for ( int i = 0; i < edges.size() - 1; i++ )
   {
     for ( int j = i + 1; j < edges.size(); j++ )
     {
