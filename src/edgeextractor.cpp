@@ -119,7 +119,8 @@ void EdgeExtractor::fix_boundary_case_order ( int start_index )
 	std::swap( edges[i+1], edges[j] );
 	break;
       }
-      else if ( edges.at(i).get_faces().second == edges.at(j).get_faces().first || edges.at(i).get_faces().second == edges.at(j).get_faces().second )
+      else if ( ( edges.at(i).get_faces().second == edges.at(j).get_faces().first || edges.at(i).get_faces().second == edges.at(j).get_faces().second )
+	&& (edges.at(i).get_faces().second != -1) )
       {
 	std::swap( edges[i+1], edges[j] );
 	break;
