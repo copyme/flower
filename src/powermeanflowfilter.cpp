@@ -22,7 +22,7 @@ static inline int signum ( T n )
   return n > 0 ? 1 : -1;
 }
 
-PowerMeanFlowFilter::PowerMeanFlowFilter( int power ) : MeanFlowFilter()
+PowerMeanFlowFilter::PowerMeanFlowFilter( float power ) : MeanFlowFilter()
 {
   POWER = power;
 }
@@ -31,6 +31,8 @@ Vector<float> PowerMeanFlowFilter::calculate_vector( unsigned int point )
 {
   Vector<float> vector = MeanFlowFilter::calculate_vector ( point );
   
+  vector *= std::pow ( vector.length(), POWER - 1 );
+/*  
   if ( ( POWER  % 2 ) == 0 )
   {
     vector[0] = signum < float > ( vector[0] ) * std::pow ( vector[0], POWER );
@@ -42,7 +44,7 @@ Vector<float> PowerMeanFlowFilter::calculate_vector( unsigned int point )
     vector[0] = std::pow ( vector[0], POWER );
     vector[1] = std::pow ( vector[1], POWER );
     vector[2] = std::pow ( vector[2], POWER );
-  }
+  }*/ 
   
   return vector;
 }
@@ -50,18 +52,18 @@ Vector<float> PowerMeanFlowFilter::calculate_vector( unsigned int point )
 Vector < float > PowerMeanFlowFilter::calculate_boundary_vector ( unsigned int point )
 {
   Vector<float> vector = MeanFlowFilter::calculate_boundary_vector ( point );
-  
-  if ( ( POWER  % 2 ) == 0 )
-  {
-    vector[0] = signum < float > ( vector[0] ) * std::pow ( vector[0], POWER );
-    vector[1] = signum < float > ( vector[1] ) * std::pow ( vector[1], POWER );
-    vector[2] = signum < float > ( vector[2] ) * std::pow ( vector[2], POWER );
-  }
-  else
-  {
-    vector[0] = std::pow ( vector[0], POWER );
-    vector[1] = std::pow ( vector[1], POWER );
-    vector[2] = std::pow ( vector[2], POWER );
-  }
+  vector *= std::pow ( vector.length(), POWER - 1 );
+//   if ( ( POWER  % 2 ) == 0 )
+//   {
+//     vector[0] = signum < float > ( vector[0] ) * std::pow ( vector[0], POWER );
+//     vector[1] = signum < float > ( vector[1] ) * std::pow ( vector[1], POWER );
+//     vector[2] = signum < float > ( vector[2] ) * std::pow ( vector[2], POWER );
+//   }
+//   else
+//   {
+//     vector[0] = std::pow ( vector[0], POWER );
+//     vector[1] = std::pow ( vector[1], POWER );
+//     vector[2] = std::pow ( vector[2], POWER );
+//   }
   return vector;
 }

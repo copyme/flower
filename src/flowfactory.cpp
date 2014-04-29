@@ -43,13 +43,13 @@ std::shared_ptr< FlowFilter > FlowFactory::get_flow ( const char * name, const c
        * extractor.input(std::string( params) );
        * int param = std::atoi ( extractor.getValue ( 0 ).c_str() );
       */
-      int param = std::atoi ( params );
+      float param = std::atof ( params );
       return std::shared_ptr< FlowFilter > ( new PowerMeanFlowFilter( param ) );
     }
     else
     {
       std::cerr << "Warrning: PowerMeanFlowFilter created with standard power - 2." << std::endl;
-      return std::shared_ptr< FlowFilter > (  new PowerMeanFlowFilter( 2 ) );
+      return std::shared_ptr< FlowFilter > (  new PowerMeanFlowFilter( 2.f ) );
     }
   }
   else

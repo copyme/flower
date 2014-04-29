@@ -95,12 +95,7 @@ Vector < float > MeanFlowFilter::calculate_vector( unsigned int point )
     
     Vector < float > N1 = mesh_in->get_normal( it->second.get_faces().first );
     Vector < float > N2 = mesh_in->get_normal( it->second.get_faces().second );
-    float theta = std::acos ( N1.dot( N2 ) / ( N1.length() * N2.length() ) );
-    if ( std::isnan ( theta ) )
-    {
-      theta = 0.f;
-    }
-    
+    float theta = cosine_similarity ( N1, N2 );
     Vector < float > N_E = ( N1 + N2 ) / ( 2.f * std::cos ( theta / 2.f ) );
     
     Vertex end = mesh_in->get_vertex ( point );

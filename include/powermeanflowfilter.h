@@ -21,12 +21,12 @@
 class PowerMeanFlowFilter : public MeanFlowFilter
 {
 private:
-  int POWER = 3.0f;
+  float POWER;
 protected:
     virtual Vector < float > calculate_vector ( unsigned int point );
     virtual Vector < float > calculate_boundary_vector ( unsigned int point );
 public:
-  PowerMeanFlowFilter ( int power );
+  PowerMeanFlowFilter ( float power );
 };
 
 
