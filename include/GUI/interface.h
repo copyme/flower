@@ -42,6 +42,7 @@ private:
     GLuint shaderProgram;
     bool show_vectors;
     GLFWwindow * window;
+    double max_time;
     GLFWvidmode const * screen;
     Camera camera;
     STP3D::IndexedMesh glMesh;
@@ -59,7 +60,7 @@ public:
     Interface();
     void register_listener ( GUIListener * listener );
     void remove_listener ( GUIListener * listener );
-    void init( Mesh & mesh );
+    void init( Mesh & mesh, float max_time );
     int exec ();
 };
 

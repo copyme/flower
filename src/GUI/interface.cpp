@@ -38,6 +38,7 @@ static float time_ = 0.f; // We need C-like pointer
 
 Interface::Interface()
 {
+  max_time = 0.;
   show_vectors = false;
   mesh_reinit = false;
   vectors = nullptr;
@@ -70,8 +71,9 @@ void Interface::remove_listener ( GUIListener * listener )
   listeners.remove ( listener );
 }
 
-void Interface::init ( Mesh & mesh )
+void Interface::init ( Mesh & mesh, float max_time )
 {
+  this->max_time = max_time;
   /* Create a windowed mode window and its OpenGL context */
   window = glfwCreateWindow ( screen->width / 2, screen->height / 2, "FlowER", NULL, NULL );
   if ( !window )
@@ -199,7 +201,7 @@ int Interface::exec ()
     imguiBeginFrame(mousex, mousey, mbut, mscroll);
     int logScroll = 0;
     imguiBeginScrollArea("Toolbox", width - 210, height - 310, 200, 300, &logScroll);
-    imguiSlider("Time", &time_, 0.0, 2.0, 0.001);
+    imguiSlider("Time", &time_, 0.0, max_time, 0.001);
     
     if ( imguiButton("Jump to time!") )
       emit_jump_to_time();

@@ -22,8 +22,8 @@ int main ( int argc, char *argv[] )
 
     setlocale ( LC_NUMERIC, "en_US" );
     
-    if ( argc < 4 )
-      throw std::runtime_error ( "Run with: <mesh.ply> <MEAN | POWER_MEAN> [int | null]" );
+    if ( argc < 5 )
+      throw std::runtime_error ( "Run with: <mesh.ply> <MEAN | POWER_MEAN> [int | null] <max time>" );
     
     Mesh mesh;
     PLYDataReader *reader = new PLYDataReader;
@@ -58,7 +58,7 @@ int main ( int argc, char *argv[] )
     Interface interface;
     flowRunner.register_listener(&interface);
     interface.register_listener(&flowRunner);
-    interface.init( mesh );
+    interface.init( mesh, std::atof ( argv[4] )  );
 
     return interface.exec();
 }

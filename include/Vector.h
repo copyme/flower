@@ -98,13 +98,13 @@ public:
         return *this;
     }
 
-    float length() const
+    double length() const
     {
-        float len = this->coords[0] * this->coords[0] + this->coords[1] * this->coords[1];
+        double len = this->coords[0] * this->coords[0] + this->coords[1] * this->coords[1];
         len += this->coords[2] * this->coords[2];
         return std::sqrt ( len );
     }
-    float dot ( Vector  & vector )
+    double dot ( Vector  & vector )
     {
         return coords[0] * vector.coords[0] + coords[1] * vector.coords[1] + coords[2] * vector.coords[2];
     }

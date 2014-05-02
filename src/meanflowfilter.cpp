@@ -87,7 +87,6 @@ Vector < float > MeanFlowFilter::calculate_vector( unsigned int point )
   Mesh::StarConstIter it = range.first;
   Mesh::StarConstIter end = range.second;
   
-  
   for ( ; it != end; ++it )
   {
     if ( it->second.get_faces().first == -1 ||  it->second.get_faces().second == -1 )
