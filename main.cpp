@@ -56,8 +56,8 @@ int main ( int argc, char *argv[] )
     FlowRunner flowRunner ( flowFilter );
 
     Interface interface;
-    flowRunner.register_listener(&interface);
-    interface.register_listener(&flowRunner);
+    flowRunner.register_listener ( &interface );
+    interface.register_listener ( &flowRunner );
     interface.init( mesh, std::atof ( argv[4] )  );
 
     return interface.exec();
