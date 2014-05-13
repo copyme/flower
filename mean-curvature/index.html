@@ -1,0 +1,289 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>Mean_curvature - FlowER</title>
+  <meta name="author" content="Copyme & Meri-nut">
+
+  
+  <meta name="description" content="Mean_curvature May 13th, 2014 Introduction Many Computer Science projects suffers from lack of theoretical information behind ideas which they are &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="copyme.github.io/flower/mean-curvature">
+  <link href="/flower/favicon.png" rel="icon">
+  <link href="/flower/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <link href="/flower/atom.xml" rel="alternate" title="FlowER" type="application/atom+xml">
+  <script src="/flower/javascripts/modernizr-2.0.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script>!window.jQuery && document.write(unescape('%3Cscript src="./javascripts/libs/jquery.min.js"%3E%3C/script%3E'))</script>
+  <script src="/flower/javascripts/octopress.js" type="text/javascript"></script>
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="//fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="//fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+<!-- mathjax config similar to math.stackexchange -->
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+      processEscapes: true
+    }
+  });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+      }
+    });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for(i=0; i < all.length; i += 1) {
+            all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+    });
+</script>
+
+<script type="text/javascript"
+   src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+  
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/flower/">FlowER</a></h1>
+  
+    <h2>Educational and simple software to study flows over 3D meshes.</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/flower/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="https://duckduckgo.com/?q=site%3Ahttp%3A%2F%2Fcopyme.github.io%2Fflower%2F" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:copyme.github.io/flower" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/flower/">Blog</a></li>
+  <li><a href="/flower/blog/archives">Archives</a></li>
+  <li><a href="https://github.com/copyme/flower/wiki">Wiki</a></li>
+  <li><a href="https://github.com/copyme/flower">GitHub</a></li>
+  <li><a href="/flower/media">Media</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article role="article">
+  
+  <header>
+    <h1 class="entry-title">Mean_curvature</h1>
+    <p class="meta">
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-05-13T21:33:00+02:00" pubdate data-updated="true">May 13<span>th</span>, 2014</time></p>
+  </header>
+  
+  <h1 id="introduction">Introduction</h1>
+
+<p>Many Computer Science projects suffers from lack of theoretical information behind ideas which they are implement. This project is in fact different because has been built base on simple idea that we would like to share not only code but also ideas behind it. This part of our web page contains basic explanation of several topic related to curvature and its application to smooth polyhedral meshes. The plane of this page is as fallow, at first we will introduce some notation and conditions which given mesh should fulfill to makes possible to calculate its curvature. </p>
+
+<h1 id="meshes">Meshes</h1>
+<p>We will right now give a definition of an abstract mesh and its properties and after that we will assume we always work with mesh which has same properties like this abstract one. Because we are interested only in meshes with each we can work with computers we will skip some general properties of abstract meshes like infinitely big set of vertices. </p>
+
+<ol>
+  <li>Mesh is build from finit set of vertices - V where we will denot one vertex by p<sub>index</sub></li>
+  <li>All vertices are connected by unordered edges which whole set will be denoted by E and particular edge denoted by e = (p<sub>i</sub>, p<sub>j</sub>) = (p<sub>j</sub>, p<sub>i</sub>) where p<sub>i</sub>, p<sub>j</sub> are distinct. We assume that the number of edges which go trought one vertex is finit and becouse we assumed in point 1 that set V is also finit therefore set E is also finit.</li>
+  <li>We will introduce a set F which contais closed patches build from distinct vertices (p<sub>1</sub>, p<sub>2</sub>, …, p<sub>n</sub>, p<sub>1</sub>) where p<sub>i</sub>, p<sub>i+1</sub> form an edge. We will call these closed patches faces.</li>
+</ol>
+
+<p>Some extra conditions:</p>
+
+<ol>
+  <li>Trought one vertex we can define 3 or more edges when vertex belongs to internal part of mesh or 2 when it belongs to boundary of mesh. (counter-example - figure 1. (a and b))</li>
+  <li>Each edge is incident to 2 faces when its an internal edge or only one when edges is a boundary one. (counter-example - figure 1. (b and c)) In this case mesh is not <a href="https://en.wikipedia.org/wiki/Manifold">2-manifold</a> and we will not interested in fallowed parts in this degenerated case.</li>
+  <li>Each face has at least three edges. By simplification we will work in fallowed parts with faces which are triangles or quads.</li>
+  <li>Each point belongs only to the one close mesh. This means that we can not have e.g. two close meshes connected by one point. (counter-example - figure 1. (d)) </li>
+</ol>
+
+<p><img src="bad_cases.jpg" alt="Forbidden cases" /></p>
+
+<!--add refs.-->
+<p>Figure 1. Examples of forbidden cases mentioned above. Image comes from (1)</p>
+
+<h1 id="mean-curvature">Mean curvature</h1>
+
+<p><a href="https://en.wikipedia.org/wiki/Curvature#Curvature_of_surfaces">Curvature</a> can be defined in several ways e.g. <a href="https://en.wikipedia.org/wiki/Gaussian_curvature">Gaussian curvature</a> or <a href="https://en.wikipedia.org/wiki/Mean_curvature">mean curvature</a>, in this place we will take a look only on the second one therefore it has been used so far in FlowER. But because we are planning to add some new algorithms which use also Gaussian curvature. Definition of Gaussian curvature should appear in this place too.</p>
+
+<p>Mean curvature flow for polyhedral surfaces is defined as below:</p>
+
+<!--LaTeX to install-->
+
+<script type="math/tex; mode=display">
+\vec{H(p)} = -\frac{1}{2} \nabla_p \ area(star(p))
+</script>
+
+<p>Where star of p is presented by figure 2 and is defined by given vertex p and all faces and edges which contains it.</p>
+
+<p><img src="start_p2.png" alt="Star of p" /></p>
+
+<p>Figure 2. Star of vertex p(red)</p>
+
+<script type="math/tex; mode=display">
+\vec{H} = \frac{1}{2} \over{\Sigma}{p in \e} \vec{Ne} ||e|| \sin(\frac{\theta}{2})
+</script>
+
+<p>where:</p>
+
+<script type="math/tex; mode=display">
+\vec{Ne} = \frac{\vec{N_1} + \vec{N_2}}{2\cos(\frac{\theta}{2})}
+</script>
+
+<table>
+  <tbody>
+    <tr>
+      <td>is a normal to edge defined by normals of adjacent faces which are defined as $$ \vec{N_i} = \frac{\vec{pq_i} \times \vec{pq_{i+1}}}{</td>
+      <td> </td>
+      <td>\vec{pq_i} \times \vec{pq_{i+1}}</td>
+      <td> </td>
+      <td>}$$</td>
+    </tr>
+  </tbody>
+</table>
+
+<table>
+  <tbody>
+    <tr>
+      <td>and angle $$\theta = \acos(\frac{\vec{N_i} \vec{N_{i+1}}}{</td>
+      <td> </td>
+      <td>\vec{N_i}</td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td>\vec{N_{i+1}}</td>
+      <td> </td>
+      <td>})$$</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="boundary-case">Boundary case</h2>
+
+<p><img src="boundary_case.png" alt="Boundary case" /></p>
+
+<script type="math/tex; mode=display"> \frac{\cot phi_2^-}{2}\vect{q_{1}p} + \frac{1}{2} sum_{i=2}^{n-1}(\cot phi_{i+1}^{+} + \cot phi_{i-1}^{-})\vect{q_{i}p} + \frac{\cot phi_{n-1}^{+}}{2}\vect{q_{n}p}</script>
+
+  
+    <footer>
+      <p class="meta">
+        
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-05-13T21:33:00+02:00" pubdate data-updated="true">May 13<span>th</span>, 2014</time>
+        
+      </p>
+      
+        <div class="sharing">
+  
+  
+  
+</div>
+
+      
+    </footer>
+  
+</article>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/flower/blog/2014/04/25/dragon/">Dragon, Bunny and New Flows</a>
+      </li>
+    
+      <li class="post">
+        <a href="/flower/blog/2014/04/12/Lets-get-ready-to-rumble/">Let's Get Ready to Rumble!</a>
+      </li>
+    
+  </ul>
+</section>
+
+
+
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2014 - Copyme & Meri-nut -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>

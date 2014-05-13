@@ -2,10 +2,10 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
 
   <title><![CDATA[FlowER]]></title>
-  <link href="http://copyme.github.io/flower/atom.xml" rel="self"/>
-  <link href="http://copyme.github.io/flower/"/>
-  <updated>2014-05-13T21:28:13+02:00</updated>
-  <id>http://copyme.github.io/flower/</id>
+  <link href="copyme.github.io/flower/atom.xml" rel="self"/>
+  <link href="copyme.github.io/flower/"/>
+  <updated>2014-05-13T21:44:12+02:00</updated>
+  <id>copyme.github.io/flower/</id>
   <author>
     <name><![CDATA[Copyme & Meri-nut]]></name>
     
@@ -15,9 +15,9 @@
   
   <entry>
     <title type="html"><![CDATA[Dragon, Bunny and New Flows]]></title>
-    <link href="http://copyme.github.io/flower/blog/2014/04/25/dragon/"/>
+    <link href="copyme.github.io/flower/blog/2014/04/25/dragon/"/>
     <updated>2014-04-25T21:52:32+02:00</updated>
-    <id>http://copyme.github.io/flower/blog/2014/04/25/dragon</id>
+    <id>copyme.github.io/flower/blog/2014/04/25/dragon</id>
     <content type="html"><![CDATA[<p>Last few days we sent on implementation of two new flows. Both are an extension of well known mean curvature flows. In the first case we have added a boundary case for meshes which are not close.
 Second case is a variation of mean curvature flow which is obtained by intensification of components of curvature vector by given power. As you can see e.g. for cylinder we obtained rounded result
 than for standard mean curvature flow. </p>
@@ -31,9 +31,9 @@ aspects of flows. We think this is a good idea and we will work on this in the n
   
   <entry>
     <title type="html"><![CDATA[Let's Get Ready to Rumble!]]></title>
-    <link href="http://copyme.github.io/flower/blog/2014/04/12/Lets-get-ready-to-rumble/"/>
+    <link href="copyme.github.io/flower/blog/2014/04/12/Lets-get-ready-to-rumble/"/>
     <updated>2014-04-12T02:41:13+02:00</updated>
-    <id>http://copyme.github.io/flower/blog/2014/04/12/Lets-get-ready-to-rumble</id>
+    <id>copyme.github.io/flower/blog/2014/04/12/Lets-get-ready-to-rumble</id>
     <content type="html"><![CDATA[<p>Last few weeks we have been spending on study of curvature flows and fruit of this work is a piece of software - FlowER. At the beginning we wanted to generate only some output files
 and forget about whole code. But during one rainy weekend one of us added support for OpenGL and cleaned up some strange parts of the code. 
 After that we started to think about releasing of our work. And finally we give you access to it under agreements of great license - GPL 2. On this page we will share some news and e.g. movies
