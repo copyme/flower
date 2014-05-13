@@ -176,41 +176,23 @@
 
 <p>is a normal to edge defined by normals of adjacent faces which are defined as</p>
 
-<table>
-  <tbody>
-    <tr>
-      <td>$$\vec{N_i} = \frac{\vec{pq_i} \times \vec{pq_{i+1}}}{</td>
-      <td> </td>
-      <td>\vec{pq_i} \times \vec{pq_{i+1}}</td>
-      <td> </td>
-      <td>}$$</td>
-    </tr>
-  </tbody>
-</table>
+<script type="math/tex; mode=display">
+\vec{N_i} = \frac{\vec{pq_i} \times \vec{pq_{i+1}}}{||\vec{pq_i} \times \vec{pq_{i+1}}||}
+</script>
 
 <p>and angle </p>
 
-<table>
-  <tbody>
-    <tr>
-      <td>$$\theta = \acos(\frac{\vec{N_i} \vec{N_{i+1}}}{</td>
-      <td> </td>
-      <td>\vec{N_i}</td>
-      <td> </td>
-      <td> </td>
-      <td> </td>
-      <td>\vec{N_{i+1}}</td>
-      <td> </td>
-      <td>})$$</td>
-    </tr>
-  </tbody>
-</table>
+<script type="math/tex; mode=display">
+\theta = \acos(\frac{\vec{N_i} \vec{N_{i+1}}}{||\vec{N_i}|| ||\vec{N_{i+1}}||})
+</script>
 
 <h2 id="boundary-case">Boundary case</h2>
 
 <p><img class="center" src="http://copyme.github.io/flower/mean-curvature/boundary_case.png" title="Boundary case" /></p>
 
-<script type="math/tex; mode=display"> \frac{\cot phi_2^-}{2}\vect{q_{1}p} + \frac{1}{2} sum_{i=2}^{n-1}(\cot phi_{i+1}^{+} + \cot phi_{i-1}^{-})\vect{q_{i}p} + \frac{\cot phi_{n-1}^{+}}{2}\vect{q_{n}p}</script>
+<script type="math/tex; mode=display">
+\frac{\cot phi_2^-}{2}\vect{q_{1}p} + \frac{1}{2} sum_{i=2}^{n-1}(\cot phi_{i+1}^{+} + \cot phi_{i-1}^{-})\vect{q_{i}p} + \frac{\cot phi_{n-1}^{+}}{2}\vect{q_{n}p}
+</script>
 
   
     <footer>
