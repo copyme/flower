@@ -1,4 +1,4 @@
 User-agent: *
 Disallow: 
 
-Sitemap: copyme.github.io/flower/sitemap.xml 
+Sitemap: http://copyme.github.io/flower/sitemap.xml 

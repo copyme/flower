@@ -1,27 +1,27 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <urlset xmlns='http://www.sitemaps.org/schemas/sitemap/0.9'>
     <url>
-        <loc>copyme.github.io/flower/blog/2014/04/12/Lets-get-ready-to-rumble/</loc>
-        <lastmod>2014-05-13T21:13:45+02:00</lastmod>
+        <loc>http://copyme.github.io/flower/blog/2014/04/12/Lets-get-ready-to-rumble/</loc>
+        <lastmod>2014-05-13T21:25:59+02:00</lastmod>
     </url>
     <url>
-        <loc>copyme.github.io/flower/blog/2014/04/25/dragon/</loc>
+        <loc>http://copyme.github.io/flower/blog/2014/04/25/dragon/</loc>
         <lastmod>2014-04-25T22:34:26+02:00</lastmod>
     </url>
     <url>
-        <loc>copyme.github.io/flower/blog/archives/</loc>
-        <lastmod>2014-05-13T21:13:45+02:00</lastmod>
+        <loc>http://copyme.github.io/flower/blog/archives/</loc>
+        <lastmod>2014-05-13T21:25:59+02:00</lastmod>
     </url>
     <url>
-        <loc>copyme.github.io/flower/robots.txt</loc>
+        <loc>http://copyme.github.io/flower/robots.txt</loc>
         <lastmod>2014-04-12T01:43:04+02:00</lastmod>
     </url>
     <url>
-        <loc>copyme.github.io/flower/</loc>
-        <lastmod>2014-05-13T21:13:45+02:00</lastmod>
+        <loc>http://copyme.github.io/flower/</loc>
+        <lastmod>2014-05-13T21:25:59+02:00</lastmod>
     </url>
     <url>
-        <loc>copyme.github.io/flower/media/</loc>
-        <lastmod>2014-05-13T21:17:46+02:00</lastmod>
+        <loc>http://copyme.github.io/flower/media/</loc>
+        <lastmod>2014-05-13T21:26:12+02:00</lastmod>
     </url>
 </urlset>
