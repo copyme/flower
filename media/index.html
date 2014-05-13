@@ -30,6 +30,39 @@
 <link href="//fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
 <link href="//fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
 
+<!-- mathjax config similar to math.stackexchange -->
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+      processEscapes: true
+    }
+  });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+      }
+    });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for(i=0; i < all.length; i += 1) {
+            all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+    });
+</script>
+
+<script type="text/javascript"
+   src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+<!-- <script src="http://kramdown.rubyforge.org/MathJax/MathJax.js" type="text/javascript"></script -->
   
 
 </head>
@@ -86,16 +119,15 @@
 <time datetime="2014-04-12T11:14:00+02:00" pubdate data-updated="true">Apr 12<span>th</span>, 2014</time></p>
   </header>
   
-  <h2>Mean curvature flow</h2>
+  <h2 id="mean-curvature-flow">Mean curvature flow</h2>
 
 <div class="ratio-4-3 embed-video-container" onclick="var myAnchor = document.getElementById('cegB1C3y7Rc');var tmpDiv = document.createElement('div');tmpDiv.innerHTML = '&lt;iframe style=&quot;vertical-align:top;width:100%;height:100%;position:absolute;&quot; src=&quot;http://www.youtube.com/embed/cegB1C3y7Rc?autoplay=1&quot; frameborder=&quot;0&quot; allowfullscreen&gt;&lt;/iframe&gt;';myAnchor.parentNode.replaceChild(tmpDiv.firstChild, myAnchor);return false;" title="click here to play">
 <a class="youtube-lazy-link" style="width:100%;height:100%;background:#000 url(http://i2.ytimg.com/vi/cegB1C3y7Rc/0.jpg) center center no-repeat;background-size:contain;position:absolute" href="http://www.youtube.com/watch?v=cegB1C3y7Rc" id="cegB1C3y7Rc" onclick="return false;">
 <div class="youtube-lazy-link-div"></div>
 <div class="youtube-lazy-link-info">Mean curvature flow of the cube</div>
 </a>
-<div class="video-info" >This movie presents a mean curvature flow of the cube with a time parameter equal to 0.05. Movie was rendered in the Blander 2.6 and OpenShot, also files which describe a geometry of a cube for each time were generated in upcoming open source software.</div>
+<div class="video-info">This movie presents a mean curvature flow of the cube with a time parameter equal to 0.05. Movie was rendered in the Blander 2.6 and OpenShot, also files which describe a geometry of a cube for each time were generated in upcoming open source software.</div>
 </div>
-
 
 <p>One of the first movies from first working versions. Movie was made in the Blender thus first version had not any support for drawing results. (file: data/cube.ply)</p>
 
@@ -104,9 +136,8 @@
 <div class="youtube-lazy-link-div"></div>
 <div class="youtube-lazy-link-info">First view on the FlowER</div>
 </a>
-<div class="video-info" >This movie presents an application which allows to study a flow of the given surface. This application is created especially for students of the discrete differential geometry and will be very simple thus we want to allow students to implement different kind of flows in a very simple way.</div>
+<div class="video-info">This movie presents an application which allows to study a flow of the given surface. This application is created especially for students of the discrete differential geometry and will be very simple thus we want to allow students to implement different kind of flows in a very simple way.</div>
 </div>
-
 
 <p>Movie presents first version which has a support for OpenGL. (file: data/cube.ply)</p>
 
@@ -115,9 +146,8 @@
 <div class="youtube-lazy-link-div"></div>
 <div class="youtube-lazy-link-info">Mean curvature flow over cone</div>
 </a>
-<div class="video-info" >This movie presents a mean curvature flow of the cone. Movie produced by FlowER - http://copyme.github.io/flower/ - educational and simple software to study flows over 3D meshes.</div>
+<div class="video-info">This movie presents a mean curvature flow of the cone. Movie produced by FlowER - http://copyme.github.io/flower/ - educational and simple software to study flows over 3D meshes.</div>
 </div>
-
 
 <p>Movie presents mean curvature flow of cone. (file: data/cone.ply)</p>
 
@@ -126,9 +156,8 @@
 <div class="youtube-lazy-link-div"></div>
 <div class="youtube-lazy-link-info">Mean curvature flow over cuboid</div>
 </a>
-<div class="video-info" >This movie presents a mean curvature flow of a cuboid which all faces are rectangles. Movie produced by FlowER - http://copyme.github.io/flower/ - educational and simple software to study flows over 3D meshes.</div>
+<div class="video-info">This movie presents a mean curvature flow of a cuboid which all faces are rectangles. Movie produced by FlowER - http://copyme.github.io/flower/ - educational and simple software to study flows over 3D meshes.</div>
 </div>
-
 
 <p>Movie presents mean curvature flow of a cuboid which all faces are rectangles. (file: data/cuboid_rectangle.ply)</p>
 
@@ -137,9 +166,8 @@
 <div class="youtube-lazy-link-div"></div>
 <div class="youtube-lazy-link-info">Cuboid with two square faces</div>
 </a>
-<div class="video-info" >This movie presents a mean curvature flow of a cuboid which two faces are rectangles and another two are squares. Movie produced by FlowER - http://copyme.github.io/flower/ - educational and simple software to study flows over 3D meshes.</div>
+<div class="video-info">This movie presents a mean curvature flow of a cuboid which two faces are rectangles and another two are squares. Movie produced by FlowER - http://copyme.github.io/flower/ - educational and simple software to study flows over 3D meshes.</div>
 </div>
-
 
 <p>Movie presents mean curvature flow of a cuboid which two faces are rectangles and another two are squares. (file: data/cuboid_squares.ply)</p>
 
@@ -148,9 +176,8 @@
 <div class="youtube-lazy-link-div"></div>
 <div class="youtube-lazy-link-info">Mean curvature flow over torus</div>
 </a>
-<div class="video-info" >This movie presents a mean curvature flow of torus Movie produced by FlowER - http://copyme.github.io/flower/ - educational and simple software to study flows over 3D meshes.</div>
+<div class="video-info">This movie presents a mean curvature flow of torus Movie produced by FlowER - http://copyme.github.io/flower/ - educational and simple software to study flows over 3D meshes.</div>
 </div>
-
 
 <p>Movie presents mean curvature flow of torus. (file: data/torus.ply)</p>
 
@@ -159,9 +186,8 @@
 <div class="youtube-lazy-link-div"></div>
 <div class="youtube-lazy-link-info">Mean curvature flow over cube with triangle faces</div>
 </a>
-<div class="video-info" >This movie presents a mean curvature flow of the cube with triangle faces. Also this movie presents curvature vectors(blue segments). Movie produced by FlowER - http://copyme.github.io/flower/ - educational and simple software to study flows over 3D meshes.</div>
+<div class="video-info">This movie presents a mean curvature flow of the cube with triangle faces. Also this movie presents curvature vectors(blue segments). Movie produced by FlowER - http://copyme.github.io/flower/ - educational and simple software to study flows over 3D meshes.</div>
 </div>
-
 
 <p>Movie presents mean curvature flow of cube which all faces are triangles. Also this movie presents first version of FlowER, which allows to display mean curvature vectors(blue segments)
 (file: data/cube_triangles.ply)</p>
@@ -171,11 +197,10 @@
 <div class="youtube-lazy-link-div"></div>
 <div class="youtube-lazy-link-info">Mean curvature flow of monkey&#8217;s head</div>
 </a>
-<div class="video-info" >This movie presents a mean curvature flow of the famous monkey&#8217;s head. Movie produced by FlowER - http://copyme.github.io/flower/ - educational and simple software to study flows over 3D meshes.</div>
+<div class="video-info">This movie presents a mean curvature flow of the famous monkey&#8217;s head. Movie produced by FlowER - http://copyme.github.io/flower/ - educational and simple software to study flows over 3D meshes.</div>
 </div>
 
-
-<p>Movie presents mean curvature flow of monkey&rsquo;s head. Also this movie presents mean curvature vectors(blue segments). For better visualisation <a href="http://meshlab.sourceforge.net/">MeshLab</a> was used.
+<p>Movie presents mean curvature flow of monkey’s head. Also this movie presents mean curvature vectors(blue segments). For better visualisation <a href="http://meshlab.sourceforge.net/">MeshLab</a> was used.
 (file: data/monkey.ply)</p>
 
 <div class="ratio-4-3 embed-video-container" onclick="var myAnchor = document.getElementById('Nogn4EeQjl8');var tmpDiv = document.createElement('div');tmpDiv.innerHTML = '&lt;iframe style=&quot;vertical-align:top;width:100%;height:100%;position:absolute;&quot; src=&quot;http://www.youtube.com/embed/Nogn4EeQjl8?autoplay=1&quot; frameborder=&quot;0&quot; allowfullscreen&gt;&lt;/iframe&gt;';myAnchor.parentNode.replaceChild(tmpDiv.firstChild, myAnchor);return false;" title="click here to play">
@@ -183,9 +208,8 @@
 <div class="youtube-lazy-link-div"></div>
 <div class="youtube-lazy-link-info">Mean curvature flow of Stanford dragon</div>
 </a>
-<div class="video-info" >This movie presents a mean curvature flow of the Stanford dragon. Movie produced by FlowER - http://copyme.github.io/flower/ - educational and simple software to study flows over 3D meshes.</div>
+<div class="video-info">This movie presents a mean curvature flow of the Stanford dragon. Movie produced by FlowER - http://copyme.github.io/flower/ - educational and simple software to study flows over 3D meshes.</div>
 </div>
-
 
 <p>Movie presents mean curvature flow of Stanford dragon. For better visual comparison  <a href="http://meshlab.sourceforge.net/">MeshLab</a> was used.
 (file: data/dragon.ply)</p>
@@ -195,9 +219,8 @@
 <div class="youtube-lazy-link-div"></div>
 <div class="youtube-lazy-link-info">Mean curvature flow of Stanford bunny</div>
 </a>
-<div class="video-info" >This movie presents a mean curvature flow of the Stanford bunny. Movie produced by FlowER - http://copyme.github.io/flower/ - educational and simple software to study flows over 3D meshes.</div>
+<div class="video-info">This movie presents a mean curvature flow of the Stanford bunny. Movie produced by FlowER - http://copyme.github.io/flower/ - educational and simple software to study flows over 3D meshes.</div>
 </div>
-
 
 <p>Movie presents mean curvature flow of Stanford bunny. For better visual comparison  <a href="http://meshlab.sourceforge.net/">MeshLab</a> was used.
 (file: data/bunny.ply)</p>
@@ -207,9 +230,8 @@
 <div class="youtube-lazy-link-div"></div>
 <div class="youtube-lazy-link-info">Mean curvature flow of cylinder</div>
 </a>
-<div class="video-info" >This movie presents a mean curvature flow of cylinder. Movie produced by FlowER - http://copyme.github.io/flower/ - educational and simple software to study flows over 3D meshes.</div>
+<div class="video-info">This movie presents a mean curvature flow of cylinder. Movie produced by FlowER - http://copyme.github.io/flower/ - educational and simple software to study flows over 3D meshes.</div>
 </div>
-
 
 <p>Movie presents mean curvature flow of cylinder. (file: data/cylinder.ply)</p>
 
@@ -218,24 +240,40 @@
 <div class="youtube-lazy-link-div"></div>
 <div class="youtube-lazy-link-info">Mean curvature flow of plane</div>
 </a>
-<div class="video-info" >This movie presents a mean curvature flow of plane. Movie produced by FlowER - http://copyme.github.io/flower/ - educational and simple software to study flows over 3D meshes.</div>
+<div class="video-info">This movie presents a mean curvature flow of plane. Movie produced by FlowER - http://copyme.github.io/flower/ - educational and simple software to study flows over 3D meshes.</div>
 </div>
-
 
 <p>Movie presents mean curvature flow of plane. (file: data/plane.ply)</p>
 
-<h2>(Mean curvature flow)<sup>s</sup></h2>
+<h2 id="mean-curvature-flowsupssup">(Mean curvature flow)<sup>s</sup></h2>
 
 <div class="ratio-4-3 embed-video-container" onclick="var myAnchor = document.getElementById('WSkM9gfUcKE');var tmpDiv = document.createElement('div');tmpDiv.innerHTML = '&lt;iframe style=&quot;vertical-align:top;width:100%;height:100%;position:absolute;&quot; src=&quot;http://www.youtube.com/embed/WSkM9gfUcKE?autoplay=1&quot; frameborder=&quot;0&quot; allowfullscreen&gt;&lt;/iframe&gt;';myAnchor.parentNode.replaceChild(tmpDiv.firstChild, myAnchor);return false;" title="click here to play">
 <a class="youtube-lazy-link" style="width:100%;height:100%;background:#000 url(http://i2.ytimg.com/vi/WSkM9gfUcKE/0.jpg) center center no-repeat;background-size:contain;position:absolute" href="http://www.youtube.com/watch?v=WSkM9gfUcKE" id="WSkM9gfUcKE" onclick="return false;">
 <div class="youtube-lazy-link-div"></div>
 <div class="youtube-lazy-link-info">(Mean curvature flow)^s of torus</div>
 </a>
-<div class="video-info" >This movie presents a flow of torus where all components of curvature vectors were compounded by 2. Movie produced by FlowER - http://copyme.github.io/flower/ - educational and simple software to study flows over 3D meshes.</div>
+<div class="video-info">This movie presents a flow of torus where all components of curvature vectors were compounded by 2. Movie produced by FlowER - http://copyme.github.io/flower/ - educational and simple software to study flows over 3D meshes.</div>
 </div>
 
-
 <p>Movie presents mean curvature flow of torus where all components of curvature vectors were compounded by 2.1 (file: data/torus.ply)</p>
+
+<script type="math/tex; mode=display">% <![CDATA[
+
+\begin{align*}
+  & \phi(x,y) = \phi \left(\sum_{i=1}^n x_ie_i, \sum_{j=1}^n y_je_j \right)
+  = \sum_{i=1}^n \sum_{j=1}^n x_i y_j \phi(e_i, e_j) = \\
+  & (x_1, \ldots, x_n) \left( \begin{array}{ccc}
+      \phi(e_1, e_1) & \cdots & \phi(e_1, e_n) \\
+      \vdots & \ddots & \vdots \\
+      \phi(e_n, e_1) & \cdots & \phi(e_n, e_n)
+    \end{array} \right)
+  \left( \begin{array}{c}
+      y_1 \\
+      \vdots \\
+      y_n
+    \end{array} \right)
+\end{align*}
+ %]]></script>
 
   
     <footer>
