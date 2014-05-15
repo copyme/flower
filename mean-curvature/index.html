@@ -155,9 +155,9 @@ in this place we will take a look only on the second one therefore it has been u
 
 <p>In continuous space mean curvature is defined as mean of <a href="http://en.wikipedia.org/wiki/Principal_curvature">principal curvature</a>. We can understand this idea by taking a look on figure 2 which presents a surface with two principal curvature planes defined by normal to given point. To calculate min and max curvature we have calculate curvature of curves defined by surface and principal curvature planes in place where the each plane cross the surface.</p>
 
-<p><img class="curvature in R" src="http://copyme.github.io/flower/mean-curvature/Minimalsurfacecurvatureplanes-en.jpg" title="GFDL or CC-BY-SA - Eric Gaba - Wikipedia" /></p>
+<p>«img class=”center curvature in R” src=”http://copyme.github.io/flower/mean-curvature/Minimalsurfacecurvatureplanes-en.jpg” title=”GFDL or CC-BY-SA - Eric Gaba - Wikipedia” &gt;</p>
 
-<p>Figure 2. Image comes from Wikipedia - GFDL or CC-BY-SA - Eric Gaba.</p>
+<center>Figure 2. Image comes from Wikipedia - GFDL or CC-BY-SA - Eric Gaba.</center>
 
 <p>According to figure 2 mean curvature is defined as:</p>
 
@@ -222,7 +222,7 @@ Figure 4. Start of p which belongs to boundary. Image comes from 1.</p>
 <p>As we said we can still define mean curvature vector by using below formula:</p>
 
 <script type="math/tex; mode=display">
-\vec{H} = \frac{\cot(\varphi_2^-)}{2}\vec{q_{1}p} + \frac{1}{2} \sum\limits_{i=2}^{n-1}(\cot(\varphi_{i+1}^{-}) + \cot(\varphi_{i-1}^{+}))\vec{q_{i}p} + \frac{\cot(\varphi_{n-1}^{+})}{2}\vec{q_{n}p}
+\frac{\cot(\varphi_2^-)}{2}\vec{q_{1}p} + \frac{1}{2} \sum\limits_{i=2}^{n-1}(\cot(\varphi_{i+1}^{-}) + \cot(\varphi_{i-1}^{+}))\vec{q_{i}p} + \frac{\cot(\varphi_{n-1}^{+})}{2}\vec{q_{n}p}
 </script>
 
 <p>which is equal to </p>
@@ -234,6 +234,39 @@ Figure 4. Start of p which belongs to boundary. Image comes from 1.</p>
 <p>And as we see this gives us a link between both definitions.</p>
 
 <h2 id="drawbacks-of-mean-curvature-flow">Drawbacks of mean curvature flow</h2>
+
+<p>In subpage media there are several movies which presents mean curvature flow of several meshes but there is no sphere. Some people may think we would not add it because is obvious that it should evolve to point.
+At the beginning we thought same. Below movie presents interesting movie.</p>
+
+<div class="ratio-4-3 embed-video-container" onclick="var myAnchor = document.getElementById('v_hZcjPe8-4');var tmpDiv = document.createElement('div');tmpDiv.innerHTML = '&lt;iframe style=&quot;vertical-align:top;width:100%;height:100%;position:absolute;&quot; src=&quot;http://www.youtube.com/embed/v_hZcjPe8-4?autoplay=1&quot; frameborder=&quot;0&quot; allowfullscreen&gt;&lt;/iframe&gt;';myAnchor.parentNode.replaceChild(tmpDiv.firstChild, myAnchor);return false;" title="click here to play">
+<a class="youtube-lazy-link" style="width:100%;height:100%;background:#000 url(http://i2.ytimg.com/vi/v_hZcjPe8-4/0.jpg) center center no-repeat;background-size:contain;position:absolute" href="http://www.youtube.com/watch?v=v_hZcjPe8-4" id="v_hZcjPe8-4" onclick="return false;">
+<div class="youtube-lazy-link-div"></div>
+<div class="youtube-lazy-link-info">Mean curvature flow of icosphere</div>
+</a>
+<div class="video-info">This movie presents a mean curvature flow of icosphere. As we can see there is several troubles. These troubles will be explained soon on our web page. So far movie uploded only for internal presentation. Movie produced by FlowER - http://copyme.github.io/flower/ - educational and simple software to study flows over 3D meshes.</div>
+</div>
+
+<p>As we see we do not get any excepted result. Also some of you may noticed that in case of Stanford bunny or dragon result is also not so good - mesh is not really “smoother”.
+Next movie shows as comparison Laplacian smoothing with cotangent weights(in some sense is same as mean curvature) and mean curvature map. </p>
+
+<div class="ratio-4-3 embed-video-container" onclick="var myAnchor = document.getElementById('zknFJ-aQvqU');var tmpDiv = document.createElement('div');tmpDiv.innerHTML = '&lt;iframe style=&quot;vertical-align:top;width:100%;height:100%;position:absolute;&quot; src=&quot;http://www.youtube.com/embed/zknFJ-aQvqU?autoplay=1&quot; frameborder=&quot;0&quot; allowfullscreen&gt;&lt;/iframe&gt;';myAnchor.parentNode.replaceChild(tmpDiv.firstChild, myAnchor);return false;" title="click here to play">
+<a class="youtube-lazy-link" style="width:100%;height:100%;background:#000 url(http://i2.ytimg.com/vi/zknFJ-aQvqU/0.jpg) center center no-repeat;background-size:contain;position:absolute" href="http://www.youtube.com/watch?v=zknFJ-aQvqU" id="zknFJ-aQvqU" onclick="return false;">
+<div class="youtube-lazy-link-div"></div>
+<div class="youtube-lazy-link-info">Laplacian smoothing and curvature map of icosphere</div>
+</a>
+<div class="video-info">This movie presents Laplacian smoothing with cotangent weights of icosphere and also curvature map of mean curvature in normals cycles.</div>
+</div>
+
+<p>At first you can see that mean curvature map is not really uniform.
+We have some region with higher and lower curvature - differences in color. But we have to say that is proven that its impossible to create a polyhedral mesh which will be a real uniform sphere so these results are more and less predicted.</p>
+
+<p>Also once again you can see that sphere is not evolving to point. Explanation of this problem is that because our mean curvature vector is constant and we have two different regions with smaller and bigger curvature - as we saw on the movie some points are moving faster and some slower. Before we said that mean curvature flow is a solution to decrees area in most efficient way but we have to keep in mind that this not always mean to move point inwards. Figure 5 presents hypothetical case when after evolving area decreases but we ended-up with line and we did not smoother our surface. 
+This implays that mean curvature flow is good for regular n-gones if we want smooth a mesh. But if we are looking for more general solution we should use e.g. Willmore. We will stop in this place right now. And for sure continue when implementation of Willmore flow appear in FlowER. Stay tuned and take a look on references.</p>
+
+<p><img class="left" src="http://copyme.github.io/flower/mean-curvature/spike_1.png" title="spkie" />
+<img class="right" src="http://copyme.github.io/flower/mean-curvature/spike_2.png" title="spkie" /></p>
+
+<center>Figure 5. Continuous surface after evolving. Counterexample.</center>
 
 <h2 id="references">References</h2>
 
