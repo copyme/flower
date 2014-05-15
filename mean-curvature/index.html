@@ -120,7 +120,7 @@
   
   <h2 id="introduction">Introduction</h2>
 
-<p>Many Computer Science projects suffers from lack of theoretical information behind ideas which they implement. This project is in fact different because has been built on simple idea that we would like to share not only code but also ideas behind it. This part of our web page contains basic explanation of several topic related to curvature and its application to smooth polyhedral meshes. The plan of this page is as fallow, at first we will introduce some notation and conditions which given mesh should fulfill to makes possible to calculate its curvature and in next section we will discuss properties of mean curvature and its application to smooth meshes. Finally the last part deal with drawbacks of mean curvature flow.</p>
+<p>Many Computer Science projects suffers from lack of theoretical information behind ideas which they are implement. This project is in fact different because has been built on simple idea that we would like to share not only code but also ideas behind it. This part of our web page contains basic explanation of several topic related to curvature and its application to smooth polyhedral meshes. The plan of this page is as fallow, at first we will introduce some notation and conditions which given mesh should fulfill to makes possible to calculate its curvature and in next section we will discuss properties of mean curvature and its application to smooth meshes. Finally the last part deal with drawbacks of mean curvature flow.</p>
 
 <h2 id="meshes">Meshes</h2>
 <p>We will right now give a definition of an abstract mesh and its properties and after that we will assume we always work with mesh which has same properties like this abstract one. Because we are interested only in meshes with each we can work with computers we will skip some general properties of abstract meshes like infinitely big set of vertices. </p>
@@ -128,7 +128,7 @@
 <ol>
   <li>Mesh is build from finit set of vertices - V where we will denot one vertex by p<sub>index</sub></li>
   <li>All vertices are connected by unordered edges which whole set will be denoted by E and particular edge denoted by e = (p<sub>i</sub>, p<sub>j</sub>) = (p<sub>j</sub>, p<sub>i</sub>) where p<sub>i</sub>, p<sub>j</sub> are distinct. We assume that the number of edges which go trought one vertex is finit and becouse we assumed in point 1 that set V is also finit therefore set E is also finit.</li>
-  <li>We will introduce a set F which contais closed pathes build from distinct vertices (p<sub>1</sub>, p<sub>2</sub>, …, p<sub>n</sub>, p<sub>1</sub>) where p<sub>i</sub>, p<sub>i+1</sub> form an edge. We will call these closed pathes faces.</li>
+  <li>We will introduce a set F which contais closed patches build from distinct vertices (p<sub>1</sub>, p<sub>2</sub>, …, p<sub>n</sub>, p<sub>1</sub>) where p<sub>i</sub>, p<sub>i+1</sub> form an edge. We will call these closed patches faces.</li>
 </ol>
 
 <p>Some extra conditions:</p>
@@ -145,12 +145,35 @@
 <center>Figure 1. Examples of forbidden cases mentioned above. Image comes from (1)</center>
 
 <h2 id="mean-curvature">Mean curvature</h2>
+<p>Intuitive definition of <a href="https://en.wikipedia.org/wiki/Curvature#Curvature_of_surfaces">curvature</a> is how much something departs from being flat or straight. We can also define positive curvature e.g. sphere or negative e.g. saddle surface and also zero curvature when we talk e.g. about plane. In case of curves we can define curvature e.g. by <a href="http://en.wikipedia.org/wiki/Osculating_circle">osculating circle</a>  but this definition of curvature can not be used for surfaces.
+<img class="comparison of" src="http://copyme.github.io/flower/mean-curvature/comparison_of_curvatures.png" title="diff. curvatures" /></p>
 
-<p><a href="https://en.wikipedia.org/wiki/Curvature#Curvature_of_surfaces">Curvature</a> can be defined in several ways e.g. <a href="https://en.wikipedia.org/wiki/Gaussian_curvature">Gaussian curvature</a> or <a href="https://en.wikipedia.org/wiki/Mean_curvature">mean curvature</a>, in this place we will take a look only on the second one therefore it has been used so far in FlowER. But because we are planning to add some new algorithms which use also Gaussian curvature, its definition should also appear in this place.</p>
+<p>Figure 1. From the left to right. Positive, negative and zero curvature. Image comes from <a href="http://thephysicsmill.com">thephysicsmill.com</a>. </p>
 
-<p>Mean curvature flow for polyhedral surfaces is defined as below:</p>
+<p>Curvature of surfaces can be defined in several ways e.g. <a href="https://en.wikipedia.org/wiki/Gaussian_curvature">Gaussian curvature</a> or <a href="https://en.wikipedia.org/wiki/Mean_curvature">mean curvature</a>, 
+in this place we will take a look only on the second one therefore it has been used so far in FlowER. But because we are planning to add some new algorithms which use also Gaussian curvature, its definition should also appear in this place.</p>
 
-<!--LaTeX to install-->
+<p>In continuous space mean curvature is defined as mean of <a href="http://en.wikipedia.org/wiki/Principal_curvature">principal curvature</a>. We can understand this idea by taking a look on figure 2 which presents a surface with two principal curvature planes defined by normal to given point. To calculate min and max curvature we have calculate curvature of curves defined by surface and principal curvature planes in place where the each plane cross the surface.</p>
+
+<p><img class="curvature in R" src="http://copyme.github.io/flower/mean-curvature/Minimalsurfacecurvatureplanes-en.jpg" title="GFDL or CC-BY-SA - Eric Gaba - Wikipedia" /></p>
+
+<p>Figure 2. Image comes from Wikipedia - GFDL or CC-BY-SA - Eric Gaba.
+iii
+According to figure 2 mean curvature is defined as:</p>
+
+<script type="math/tex; mode=display">
+\gamma = \frac{ \gamma_{ min } + \gamma_{max} }{2}
+</script>
+
+<p>Mean curvature vector $\vec(H) = \gamma \vec{n}$ </p>
+
+<p>on smooth surfaces provides a measure
+how much the surface area changes at constant speed along the surface
+normal. Notation of mean curvature vector allows us to evolve our surface thus we will use it directly to move given point along its normal times mean curvature. Right now we will focus on mean curvature vector in discrete space.</p>
+
+<p>As is mentioned above this definitions works in continuous space but in discrete space we have to use another approach to be able to calculate mean curvature.</p>
+
+<p>Discrete mean curvature vector for polyhedral surfaces is defined as</p>
 
 <script type="math/tex; mode=display">
 \vec{H(p)} = -\frac{1}{2} \nabla_p \ area(star(p))
@@ -160,7 +183,7 @@
 
 <p><img class="center" src="http://copyme.github.io/flower/mean-curvature/start_p2.png" title="Star of P" /></p>
 
-<center>Figure 2. Star of vertex p(red)</center>
+<center>Figure 3. Star of vertex p(red)</center>
 
 <script type="math/tex; mode=display">
 \vec{H} = \frac{1}{2} \sum\limits_{p \in e} \vec{Ne} ||e|| \sin(\frac{\theta}{2})
@@ -184,12 +207,16 @@
 \theta = \cos^{-1}(\frac{\vec{N_i} \vec{N_{i+1}}}{||\vec{N_i}|| ||\vec{N_{i+1}}||})
 </script>
 
+<p>One observation from these equation is that mean curvature vector gives information how to increase area of start of p. But we can change its direction to efficiently decrees area and there fore smooth our mesh.</p>
+
 <h2 id="boundary-case">Boundary case</h2>
+
+<p>In case of boundary we will calculate area of start of given by and move it along vector </p>
 
 <p><img class="center" src="http://copyme.github.io/flower/mean-curvature/boundary_case.png" title="Boundary case" /></p>
 
 <script type="math/tex; mode=display">
-\frac{\cot(\varphi_2^-)}{2}\vec{q_{1}p} + \frac{1}{2} \sum\limits_{i=2}^{n-1}(\cot(\varphi_{i+1}^{+}) + \cot(\varphi_{i-1}^{-}))\vec{q_{i}p} + \frac{\cot(\varphi_{n-1}^{+})}{2}\vec{q_{n}p}
+\frac{\cot(\varphi_2^-)}{2}\vec{q_{1}p} + \frac{1}{2} \sum\limits_{i=2}^{n-1}(\cot(\varphi_{i+1}^{-}) + \cot(\varphi_{i-1}^{+}))\vec{q_{i}p} + \frac{\cot(\varphi_{n-1}^{+})}{2}\vec{q_{n}p}
 </script>
 
   
