@@ -210,15 +210,30 @@ normal. Notation of mean curvature vector allows us to evolve our surface thus w
 \vec{H} = -\frac{t}{2} \sum\limits_{p \in e} \vec{Ne} ||e|| \sin(\frac{\theta}{2})
 </script>
 
+<p>In “Media” subpage you can find several movies which presents evolving of different kind of meshes by mean curvature flow.</p>
+
 <h2 id="boundary-case">Boundary case</h2>
+<p>Above part of this page deals only with close surfaces, but we can still define mean curvature flow for non-close surfaces. Figure 4 presents start of p which is on surface boundary.
+In this case there is no notation of angle $\theta$ as before therefore we can not define it for all edges. </p>
 
-<p>In case of boundary we will calculate area of start of given by and move it along vector </p>
-
-<p><img class="center" src="http://copyme.github.io/flower/mean-curvature/boundary_case.png" title="Boundary case" /></p>
+<p><img class="center" src="http://copyme.github.io/flower/mean-curvature/boundary_case.png" title="Boundary case" />
+Figure 4. Start of p which belongs to boundary. Image comes from 1.</p>
 
 <script type="math/tex; mode=display">
 \frac{\cot(\varphi_2^-)}{2}\vec{q_{1}p} + \frac{1}{2} \sum\limits_{i=2}^{n-1}(\cot(\varphi_{i+1}^{-}) + \cot(\varphi_{i-1}^{+}))\vec{q_{i}p} + \frac{\cot(\varphi_{n-1}^{+})}{2}\vec{q_{n}p}
 </script>
+
+<p>This formula is in fact equal to </p>
+
+<script type="math/tex; mode=display">
+\vec{H} = \sum\limits_{p \in e} \vec{Ne} ||e|| \sin(\frac{\theta}{2})
+</script>
+
+<p>Which give us a link between both definitions.</p>
+
+<h2 id="drawbacks-of-mean-curvature-flow">Drawbacks of mean curvature flow</h2>
+
+<h2 id="references">References</h2>
 
   
     <footer>
