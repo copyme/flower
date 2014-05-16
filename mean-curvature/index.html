@@ -120,10 +120,10 @@
   
   <h2 id="introduction">Introduction</h2>
 
-<p>Many Computer Science projects suffers from lack of theoretical information behind ideas which they are implement. This project is in fact different because has been built on simple idea that we would like to share not only code but also ideas behind it. This part of our web page contains basic explanation of several topic related to curvature and its application to smooth polyhedral meshes. The plan of this page is as fallow, at first we will introduce some notation and conditions which given mesh should fulfill to makes possible to calculate its curvature and in next section we will discuss properties of mean curvature and its application to smooth meshes. Finally the last part deal with drawbacks of mean curvature flow.</p>
+<p>Many Computer Science projects suffers from lack of theoretical information behind ideas which they are try to implement. This project is in fact different because has been built on simple idea that we would like to share not only code but also ideas behind it. This part of our web page contains basic explanation of several topic related to curvature and its application to smooth polyhedral meshes. The plan of this page is as fallow, at first we will introduce some notation and conditions which given mesh should fulfill to makes possible to calculate its curvature and in next section we will discuss properties of mean curvature to at fallow talk about mean curvature flow. Finally the last part deal with drawbacks of mean curvature flow.</p>
 
 <h2 id="meshes">Meshes</h2>
-<p>We will right now give a definition of an abstract mesh and its properties and after that we will assume we always work with mesh which has same properties like this abstract one. Because we are interested only in meshes with each we can work with computers we will skip some general properties of abstract meshes like infinitely big set of vertices. </p>
+<p>At first we will define an abstract mesh and we give condition under mesh is well defined from the perspective of future discussion. Also in this place is good to add that because we are interested only in meshes with each we can work with computers we will skip some general properties of abstract meshes like infinitely big set of vertices. </p>
 
 <ol>
   <li>Mesh is build from finit set of vertices - V where we will denot one vertex by p<sub>index</sub></li>
@@ -155,7 +155,7 @@ in this place we will take a look only on the second one therefore it has been u
 
 <p>In continuous space mean curvature is defined as mean of <a href="http://en.wikipedia.org/wiki/Principal_curvature">principal curvature</a>. We can understand this idea by taking a look on figure 2 which presents a surface with two principal curvature planes defined by normal to given point. To calculate min and max curvature we have calculate curvature of curves defined by surface and principal curvature planes in place where the each plane cross the surface.</p>
 
-<p>«img class=”center curvature in R” src=”http://copyme.github.io/flower/mean-curvature/Minimalsurfacecurvatureplanes-en.jpg” title=”GFDL or CC-BY-SA - Eric Gaba - Wikipedia” &gt;</p>
+<p>«img class=”center” src=”http://copyme.github.io/flower/mean-curvature/Minimalsurfacecurvatureplanes-en.jpg” title=”GFDL or CC-BY-SA - Eric Gaba - Wikipedia” &gt;</p>
 
 <center>Figure 2. Image comes from Wikipedia - GFDL or CC-BY-SA - Eric Gaba.</center>
 
