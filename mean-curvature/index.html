@@ -174,18 +174,20 @@ To calculate min and max curvature we have to calculate curvature of curves defi
 <p>Right now we will introduce mean curvature vector which will be exhaustively used in fallowed parts. Mean curvature vector is defined as $\vec{(H)} = \gamma \vec{n}$ and its provides information how much the surface area changes at constant speed along the surface normal and in fact tell us how to increase in efficient way surface area. 
 But we are not interested in continuous surfaces, we want to work with polyhedral meshes and we need to define mean curvature in discrete space. </p>
 
-<p>We can not apply above definition to polyhedral meshes. To define mean curvature of polyhedral surfaces we use curvature defined on edges and area of part of mesh contains given vertex. So discrete mean curvature vector for polyhedral surfaces is defined as</p>
+<p>We can not apply above definition to polyhedral meshes. To define mean curvature vector of vertices of polyhedral surfaces we use curvature defined on edges and area of part of mesh contains given vertex. So discrete mean curvature vector for polyhedral surfaces is defined as</p>
 
 <script type="math/tex; mode=display">
 \vec{H(p)} = \frac{1}{2} \nabla_p \ area(star(p))
 </script>
 
-<p>Where star of p is presented by figure 2 and is defined by for given vertex - p by all faces and edges which contains it.</p>
+<p>Where star of p is presented by figure 3 and is defined by for given vertex - p by all faces and edges which contains it.</p>
 
 <p><img class="center" src="http://copyme.github.io/flower/mean-curvature/start_p2.png" title="Star of P" /></p>
 <center>Figure 3. Star of vertex p(red)</center>
 
 <p><br /></p>
+
+<p>Below formula defines mean curvature vector in details.</p>
 
 <script type="math/tex; mode=display">
 \vec{H} = \frac{1}{2} \sum\limits_{p \in e} \vec{Ne} ||e|| \sin(\frac{\theta}{2})
@@ -203,11 +205,13 @@ But we are not interested in continuous surfaces, we want to work with polyhedra
 \vec{N_i} = \frac{\vec{pq_i} \times \vec{pq_{i+1}}}{||\vec{pq_i} \times \vec{pq_{i+1}}||}
 </script>
 
-<p>and angle </p>
+<p>and angle $\theta$ </p>
 
 <script type="math/tex; mode=display">
 \theta = \cos^{-1}(\frac{\vec{N_i} \vec{N_{i+1}}}{||\vec{N_i}|| ||\vec{N_{i+1}}||})
 </script>
+
+<p>This angle is defined between two adjacent normals to faces as presented by figure 4.</p>
 
 <p><img class="center" src="http://copyme.github.io/flower/mean-curvature/theta.png" title="angle theta" /></p>
 <center>Figure 4. Angle defined between face normals. Image comes from (1).</center>
@@ -216,7 +220,7 @@ But we are not interested in continuous surfaces, we want to work with polyhedra
 
 <!--image which presents theta-->
 
-<p>One observation from these equation is that mean curvature vector gives information how to efficiently increase area of start of p. But we can change its direction to efficiently decrees area and therefore evolve our mesh. And this is exacly what mean curvature flow does plus its adds a time which allows to “jump” to given time in evolving given mesh. So final formula for mean curvature flow is as fallow:</p>
+<p>As was said above mean curvature vector gives information how to efficiently increase area of start of p. But we can change its direction to efficiently decrees area and therefore evolve our mesh by moving given vertex by negated mean curvature vector. And this is exactly what mean curvature flow does. We can also add a time which allows to “jump” to particular evolved mesh. So final formula for mean curvature flow is as fallow:</p>
 
 <script type="math/tex; mode=display">
 \vec{H} = -\frac{t}{2} \sum\limits_{p \in e} \vec{Ne} ||e|| \sin(\frac{\theta}{2})
@@ -225,15 +229,15 @@ But we are not interested in continuous surfaces, we want to work with polyhedra
 <p>In “Media” subpage you can find several movies which presents evolving of different kind of meshes by mean curvature flow.</p>
 
 <h2 id="boundary-case">Boundary case</h2>
-<p>Above part of this page deals only with close surfaces, but we can still define mean curvature flow for non-close surfaces. Figure 4 presents start of p which is on surface boundary.
-In this case there is no notation of angle $\theta$ as before therefore we can not define it for all edges. </p>
+<p>Above part of this page deals only with close polyhedral meshes, but we can still define mean curvature flow for non-close surfaces. Figure 5 presents start of p which is on surface boundary.
+In this case there is no notation of angle $\theta$ as before since we can not define it for all edges. </p>
 
 <p><img class="center" src="http://copyme.github.io/flower/mean-curvature/boundary_case.png" title="Boundary case" /></p>
-<center>Figure 4. Start of p which belongs to boundary. Image comes from (1).</center>
+<center>Figure 5. Start of p which belongs to boundary. Image comes from (1).</center>
 
 <p><br /></p>
 
-<p>As we said we can still define mean curvature vector by using below formula:</p>
+<p>Below formula define mean curvature vector in when vertex belongs to the boundary:</p>
 
 <script type="math/tex; mode=display">
 \frac{\cot(\varphi_2^-)}{2}\vec{q_{1}p} + \frac{1}{2} \sum\limits_{i=2}^{n-1}(\cot(\varphi_{i+1}^{-}) + \cot(\varphi_{i-1}^{+}))\vec{q_{i}p} + \frac{\cot(\varphi_{n-1}^{+})}{2}\vec{q_{n}p}
@@ -245,12 +249,12 @@ In this case there is no notation of angle $\theta$ as before therefore we can n
 \sum\limits_{p \in e} \vec{Ne} ||e|| \sin(\frac{\theta}{2})
 </script>
 
-<p>And as we see this gives us a link between both definitions.</p>
+<p>And right now we can see a link between both definitions.</p>
 
 <h2 id="drawbacks-of-mean-curvature-flow">Drawbacks of mean curvature flow</h2>
 
 <p>In subpage media there are several movies which presents mean curvature flow of several meshes but there is no sphere. Some people may think we would not add it because is obvious that it should evolve to point.
-At the beginning we thought same. Below movie presents interesting movie.</p>
+At the beginning we thought same. Below movie presents interesting behaviour of mean curvature flow.</p>
 
 <div class="ratio-4-3 embed-video-container" onclick="var myAnchor = document.getElementById('v_hZcjPe8-4');var tmpDiv = document.createElement('div');tmpDiv.innerHTML = '&lt;iframe style=&quot;vertical-align:top;width:100%;height:100%;position:absolute;&quot; src=&quot;http://www.youtube.com/embed/v_hZcjPe8-4?autoplay=1&quot; frameborder=&quot;0&quot; allowfullscreen&gt;&lt;/iframe&gt;';myAnchor.parentNode.replaceChild(tmpDiv.firstChild, myAnchor);return false;" title="click here to play">
 <a class="youtube-lazy-link" style="width:100%;height:100%;background:#000 url(http://i2.ytimg.com/vi/v_hZcjPe8-4/0.jpg) center center no-repeat;background-size:contain;position:absolute" href="http://www.youtube.com/watch?v=v_hZcjPe8-4" id="v_hZcjPe8-4" onclick="return false;">
@@ -261,7 +265,7 @@ At the beginning we thought same. Below movie presents interesting movie.</p>
 </div>
 
 <p>As we see we do not get any excepted result. Also some of you may noticed that in case of Stanford bunny or dragon result is also not so good - mesh is not really “smoother”.
-Next movie shows as comparison Laplacian smoothing with cotangent weights(in some sense is same as mean curvature) and mean curvature map. </p>
+Next movie shows in comparison Laplacian smoothing with cotangent weights(in some sense is same as mean curvature flow) and also to see non-regularity at first mean curvature map was calculated and also presented as different colors. </p>
 
 <div class="ratio-4-3 embed-video-container" onclick="var myAnchor = document.getElementById('zknFJ-aQvqU');var tmpDiv = document.createElement('div');tmpDiv.innerHTML = '&lt;iframe style=&quot;vertical-align:top;width:100%;height:100%;position:absolute;&quot; src=&quot;http://www.youtube.com/embed/zknFJ-aQvqU?autoplay=1&quot; frameborder=&quot;0&quot; allowfullscreen&gt;&lt;/iframe&gt;';myAnchor.parentNode.replaceChild(tmpDiv.firstChild, myAnchor);return false;" title="click here to play">
 <a class="youtube-lazy-link" style="width:100%;height:100%;background:#000 url(http://i2.ytimg.com/vi/zknFJ-aQvqU/0.jpg) center center no-repeat;background-size:contain;position:absolute" href="http://www.youtube.com/watch?v=zknFJ-aQvqU" id="zknFJ-aQvqU" onclick="return false;">
@@ -274,8 +278,9 @@ Next movie shows as comparison Laplacian smoothing with cotangent weights(in som
 <p>At first you can see that mean curvature map is not really uniform.
 We have some region with higher and lower curvature - differences in color. But we have to say that is proven that its impossible to create a polyhedral mesh which will be a real uniform sphere so these results are more and less predicted.</p>
 
-<p>Also once again you can see that sphere is not evolving to point. Explanation of this problem is that because our mean curvature vector is constant and we have two different regions with smaller and bigger curvature - as we saw on the movie some points are moving faster and some slower. Before we said that mean curvature flow is a solution to decrees area in most efficient way but we have to keep in mind that this not always mean to move point inwards. Figure 5 presents hypothetical case when after evolving area decreases but we ended-up with line and we did not smoother our surface. 
-This implays that mean curvature flow is good for regular n-gones if we want smooth a mesh. But if we are looking for more general solution we should use e.g. Willmore. We will stop in this place right now. And for sure continue when implementation of Willmore flow appear in FlowER. Stay tuned and take a look on references.</p>
+<p>Also once again you can see that sphere is not evolving to point. 
+Explanation of this problem is sense of mean curvature is that because our mean curvature vector is constant and we have two different regions with smaller and bigger curvature thus some of stars of p contains 5 and other 6 adjacent edges. As we saw on the movie some points are moving faster and some slower and if we take a closer look we can see that these vertices which are included in 5 adjacent edges are moving slower and creates spikes.
+Before we said that mean curvature flow is a solution to decrees area in most efficient way but we have to keep in mind that this not always mean to move vertex inwards. Figure 5 presents hypothetical case when after evolving area decreases but we ended-up with line and we did not smoother our surface. </p>
 
 <p><img class="center" src="http://copyme.github.io/flower/mean-curvature/spike_1.png" title="spkie" />
 <img class="center" src="http://copyme.github.io/flower/mean-curvature/spike_2.png" title="spkie" /></p>
@@ -284,11 +289,29 @@ This implays that mean curvature flow is good for regular n-gones if we want smo
 
 <p><br /></p>
 
+<p>This implies that mean curvature flow is good only for <a href="https://en.wikipedia.org/wiki/Regular_polyhedron">regular polyhedrons</a>. But if we are looking for more general solutions we should use e.g. Willmore flow.
+Right now we do not want to give any explanation of Willmore flow but you can take a look at below movie which presents <a href="http://www.cs.columbia.edu/~keenan/Projects/ConformalWillmoreFlow/">conformal Willmore flow</a>. Also Discrete Willmore flow is defined in (3) and we are planning to add it to FlowER.</p>
+
+<div class="ratio-4-3 embed-video-container" onclick="var myAnchor = document.getElementById('mIUi1zIUQJw');var tmpDiv = document.createElement('div');tmpDiv.innerHTML = '&lt;iframe style=&quot;vertical-align:top;width:100%;height:100%;position:absolute;&quot; src=&quot;http://www.youtube.com/embed/mIUi1zIUQJw?autoplay=1&quot; frameborder=&quot;0&quot; allowfullscreen&gt;&lt;/iframe&gt;';myAnchor.parentNode.replaceChild(tmpDiv.firstChild, myAnchor);return false;" title="click here to play">
+<a class="youtube-lazy-link" style="width:100%;height:100%;background:#000 url(http://i2.ytimg.com/vi/mIUi1zIUQJw/0.jpg) center center no-repeat;background-size:contain;position:absolute" href="http://www.youtube.com/watch?v=mIUi1zIUQJw" id="mIUi1zIUQJw" onclick="return false;">
+<div class="youtube-lazy-link-div"></div>
+<div class="youtube-lazy-link-info">Conformal Willmore Flow</div>
+</a>
+<div class="video-info">This video is supplementary material for the paper, &#8220;Robust Fairing via Conformal Curvature Flow&#8221; by Keenan Crane, Ulrich Pinkall, and Peter Schröder (SIGGRAPH 2013).
+
+For more information, see http://keenan.is/flow
+
+Abstract: We present a formulation of Willmore flow for triangulated surfaces that permits extraordinarily large time steps and naturally preserves the quality of the input mesh.  The main insight is that Willmore flow becomes remarkably stable when expressed in curvature space &#8211; we develop the precise conditions under which curvature is allowed to evolve.  The practical outcome is a highly efficient algorithm that naturally preserves texture and does not require remeshing during the flow.  We apply this algorithm to surface fairing, geometric modeling, and construction of constant mean curvature (CMC) surfaces.  We also present a new algorithm for length-preserving flow on planar curves, which provides a valuable analogy for the surface case.</div>
+</div>
+
+<p>We will stop in this place right now. And for sure continue when implementation of Willmore flow appear in FlowER. Stay tuned and take a look on references.</p>
+
 <h2 id="references">References</h2>
 
 <ol>
   <li>Introduction à la géométrie différentielle discrète, P. Romon, 2014 - <a href="http://perso-math.univ-mlv.fr/users/romon.pascal/gdd/index.html">link</a></li>
   <li>Polyhedral Surfaces of Constant Mean Curvature, K. Polthier, 2002 - <a href="http://page.mi.fu-berlin.de/polthier/articles/habil/polthier-habil2002.pdf">link</a></li>
+  <li>Discrete Willmore flow, A. Bobenko and P. Schröder, 2005 - <a href="http://www.multires.caltech.edu/pubs/Willmore.pdf">link</a>  </li>
 </ol>
 
   
