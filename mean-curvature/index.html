@@ -120,31 +120,7 @@
   
   <h2 id="introduction">Introduction</h2>
 
-<p>Many Computer Science projects suffers from lack of theoretical information behind ideas which they try to implement. This project is in fact is different because has been built on simple idea that we would like to share not only code but also ideas behind it. This part of our web page contains basic explanation of several topic related to curvature and its application to smooth polyhedral meshes. The plan of this page is as fallow, at first we will introduce some notation and conditions which given mesh should fulfill to makes possible calculation of its curvature. In next section we will discuss properties of mean curvature and mean curvature flow. Finally the last part deal with drawbacks of mean curvature flow.</p>
-
-<h2 id="meshes">Meshes</h2>
-<p>Instead of speaking about any arbitrary mesh we will define an abstract and we give set of conditions under any general mesh is well defined from the perspective of future discussion. Also in this place is good to add that because we are interested only in meshes with whom computers can deal - so we will skip some general properties of abstract meshes like infinitely big set of vertices.</p>
-
-<ol>
-  <li>Mesh is build from finit set of vertices - V where we will denot one vertex by p<sub>index</sub></li>
-  <li>All vertices are connected by unordered edges which whole set will be denoted by E and particular edge denoted by e = (p<sub>i</sub>, p<sub>j</sub>) = (p<sub>j</sub>, p<sub>i</sub>) where p<sub>i</sub> $\neq$ p<sub>j</sub>. We assume that the number of edges which go trought one vertex is finit and becouse we assumed in point 1 that set V is also finit therefore set E is also finit.</li>
-  <li>We will introduce a set F which contais closed pathes build from distinct vertices (p<sub>1</sub>, p<sub>2</sub>, …, p<sub>n</sub>, p<sub>1</sub>) where p<sub>i</sub>, p<sub>i+1</sub> form an edge. We will call these closed pathes faces.</li>
-</ol>
-
-<p>Some extra conditions:</p>
-
-<ol>
-  <li>Trought one vertex we can define 3 or more edges when vertex belongs to internal part of mesh or 2 when it belongs to boundary of mesh. (counter-example - figure 1. (a and b))</li>
-  <li>Each edge is incident to 2 faces when its an internal edge or only one when edges is a boundary one. (counter-example - figure 1. (b and c)) In this case mesh is not <a href="https://en.wikipedia.org/wiki/Manifold">2-manifold</a> and we will not interested in fallowed parts in this degenerated case.</li>
-  <li>Each face has at least three edges. By simplification we will work in fallowed parts with faces whom $dim(3)$ - triangular faces.</li>
-  <li>Each point belongs only to the one close mesh. This means that we can not have e.g. two close meshes connected by one point. (counter-example - figure 1. (d)) </li>
-</ol>
-
-<p><img class="center" src="http://copyme.github.io/flower/mean-curvature/bad_cases.png" title="Bad cases" /></p>
-
-<center>Figure 1. Examples of forbidden cases mentioned above. Image comes from (1)</center>
-
-<p><br /></p>
+<p>Many Computer Science projects suffers from lack of theoretical information behind ideas which they try to implement. This project is in fact is different because has been built on simple idea that we would like to share not only code but also ideas behind it. This part of our web page contains basic explanation of several topic related to curvature and its application to smooth polyhedral meshes. The plan of this page is as fallow at first we will discuss mean curvature for continuous surfaces, after that we introduce notation of abstract polyhedral mesh to finally talk about discrete mean curvature and flow based on it. Moreover the last part deals with drawbacks of mean curvature flow.</p>
 
 <h2 id="mean-curvature">Mean curvature</h2>
 <p>Intuitive definition of <a href="https://en.wikipedia.org/wiki/Curvature#Curvature_of_surfaces">curvature</a> is how much something departs from being flat or straight. We can also define positive curvature e.g. sphere or negative e.g. saddle surface and also zero curvature when we talk e.g. about plane. See figure 1. In case of curves we can define curvature e.g. by <a href="http://en.wikipedia.org/wiki/Osculating_circle">osculating circle</a>  but this definition of curvature can not be used for surfaces.</p>
@@ -168,6 +144,32 @@ To calculate min and max curvature we have to calculate curvature of curves defi
 <script type="math/tex; mode=display">
 \gamma = \frac{ \gamma_{ min } + \gamma_{max} }{2}
 </script>
+
+<h2 id="meshes">Meshes</h2>
+<p>Instead of speaking about any arbitrary mesh we will define an abstract and we give set of conditions under any general mesh is well defined from the perspective of future discussion. Also in this place is good to add that because we are interested only in meshes with whom computers can deal - so we will skip some general properties of abstract meshes like infinitely big set of vertices.</p>
+
+<ol>
+  <li>Mesh is build from finit set of vertices - V where we will denot one vertex by p<sub>index</sub></li>
+  <li>All vertices are connected by unordered edges which whole set will be denoted by E and particular edge denoted by e = (p<sub>i</sub>, p<sub>j</sub>) = (p<sub>j</sub>, p<sub>i</sub>) where p<sub>i</sub> $\neq$ p<sub>j</sub>. We assume that the number of edges which go trought one vertex is finit and becouse we assumed in point 1 that set V is also finit therefore set E is also finit.</li>
+  <li>We will introduce a set F which contais closed pathes build from distinct vertices (p<sub>1</sub>, p<sub>2</sub>, …, p<sub>n</sub>, p<sub>1</sub>) where p<sub>i</sub>, p<sub>i+1</sub> form an edge. We will call these closed pathes faces.</li>
+</ol>
+
+<p>Conditions:</p>
+
+<ol>
+  <li>Trought one vertex we can define 3 or more edges when vertex belongs to internal part of mesh or 2 when it belongs to boundary of mesh. (counter-example - figure 1. (a and b))</li>
+  <li>Each edge is incident to 2 faces when its an internal edge or only one when edges is a boundary one. (counter-example - figure 1. (b and c)) In this case mesh is not <a href="https://en.wikipedia.org/wiki/Manifold">2-manifold</a> and we will not interested in fallowed parts in this degenerated case.</li>
+  <li>Each face has at least three edges. By simplification we will work in fallowed parts with faces whom $dim(3)$ - triangular faces.</li>
+  <li>Each point belongs only to the one close mesh. This means that we can not have e.g. two close meshes connected by one point. (counter-example - figure 1. (d)) </li>
+</ol>
+
+<p><img class="center" src="http://copyme.github.io/flower/mean-curvature/bad_cases.png" title="Bad cases" /></p>
+
+<center>Figure 1. Examples of forbidden cases mentioned above. Image comes from (1)</center>
+
+<p><br /></p>
+
+<h2 id="discrete-mean-curvature">Discrete mean curvature</h2>
 
 <p>Right now we will introduce mean curvature vector which will be exhaustively used in fallowed parts. Mean curvature vector is defined as $\vec(H) = \gamma \vec{n}$ and its provides information how much the surface area changes at constant speed along the surface normal and in fact tell us how to increase in efficient way surface area. 
 But we are not interested in continuous surfaces, we want to work with polyhedral meshes and we need to define mean curvature in discrete space. </p>
@@ -227,7 +229,7 @@ But we are not interested in continuous surfaces, we want to work with polyhedra
 In this case there is no notation of angle $\theta$ as before therefore we can not define it for all edges. </p>
 
 <p><img class="center" src="http://copyme.github.io/flower/mean-curvature/boundary_case.png" title="Boundary case" /></p>
-<center>Figure 4. Start of p which belongs to boundary. Image comes from 1.</center>
+<center>Figure 4. Start of p which belongs to boundary. Image comes from (1).</center>
 
 <p><br /></p>
 
