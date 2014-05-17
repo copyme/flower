@@ -153,7 +153,8 @@ Figure 1. From the left to right. Positive, negative and zero curvature. Image c
 <p>Curvature of surfaces can be defined in several ways e.g. <a href="https://en.wikipedia.org/wiki/Gaussian_curvature">Gaussian curvature</a> or <a href="https://en.wikipedia.org/wiki/Mean_curvature">mean curvature</a>, 
 in this place we will take a look only on the second one therefore it has been used so far in FlowER. But because we are planning to add some new algorithms which use also Gaussian curvature, its definition should also appear in this place.</p>
 
-<p>In continuous space mean curvature is defined as mean of <a href="http://en.wikipedia.org/wiki/Principal_curvature">principal curvature</a>. We can understand this idea by taking a look on figure 2 which presents a surface with two principal curvature planes defined by normal to given point and perpendicular to each other. To calculate min and max curvature we have to calculate curvature of curves defined by surface and principal curvature planes in place where the each plane cross the surface.</p>
+<p>In continuous space mean curvature is defined as mean of <a href="http://en.wikipedia.org/wiki/Principal_curvature">principal curvature</a>. We can understand this idea by taking a look on figure 2 which presents a surface with two principal curvature planes defined by normal to given point and perpendicular to each other. 
+To calculate min and max curvature we have to calculate curvature of curves defined by surface and principal curvature planes in place where the each plane cross the surface.</p>
 
 <p><img class="center" src="http://copyme.github.io/flower/mean-curvature/Minimalsurfacecurvatureplanes-en.jpg" title="GFDL or CC-BY-SA - Eric Gaba - Wikipedia" /></p>
 <center>Figure 2. Image comes from Wikipedia - GFDL or CC-BY-SA - Eric Gaba.</center>
@@ -167,9 +168,7 @@ in this place we will take a look only on the second one therefore it has been u
 <p>Right now we will introduce mean curvature vector which will be exhaustively used in fallowed parts. Mean curvature vector is defined as $\vec(H) = \gamma \vec{n}$ and its provides information how much the surface area changes at constant speed along the surface normal and in fact tell us how to increase in efficient way surface area. 
 But we are not interested in continuous surfaces, we want to work with polyhedral meshes and we need to define mean curvature in discrete space. </p>
 
-<p>As is mentioned above this definitions works in continuous space but in discrete space we have to use another approach to be able to calculate mean curvature.</p>
-
-<p>Discrete mean curvature vector for polyhedral surfaces is defined as</p>
+<p>We can not apply above definition to polyhedral meshes. To define mean curvature of polyhedral surfaces we use curvature defined on edges and area of part of mesh contains given vertex. So discrete mean curvature vector for polyhedral surfaces is defined as</p>
 
 <script type="math/tex; mode=display">
 \vec{H(p)} = \frac{1}{2} \nabla_p \ area(star(p))
@@ -201,6 +200,9 @@ But we are not interested in continuous surfaces, we want to work with polyhedra
 <script type="math/tex; mode=display">
 \theta = \cos^{-1}(\frac{\vec{N_i} \vec{N_{i+1}}}{||\vec{N_i}|| ||\vec{N_{i+1}}||})
 </script>
+
+<p><img class="center" src="http://copyme.github.io/flower/mean-curvature/theta.png" title="angle theta" /></p>
+<center>Figure 4. Angle defined between face normals. Image comes from (1).</center>
 
 <!--image which presents theta-->
 
@@ -294,13 +296,6 @@ This implays that mean curvature flow is good for regular n-gones if we want smo
 <time datetime="2014-05-13T21:33:00+02:00" pubdate data-updated="true">May 13<span>th</span>, 2014</time>
         
       </p>
-      
-        <div class="sharing">
-  
-  
-  
-</div>
-
       
     </footer>
   
