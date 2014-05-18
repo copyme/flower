@@ -279,13 +279,22 @@ Next movie shows in comparison Laplacian smoothing with cotangent weights(in som
 We have some region with higher and lower curvature - differences in color. But we have to say that is proven that it’s impossible to create a polyhedral mesh which will be a real uniform sphere so these results are more and less predicted.</p>
 
 <p>Also once again you can see that sphere is not evolving to point. 
-Explanation of this problem in sense of mean curvature is that because our mean curvature vector is constant and we have two different regions with smaller and bigger curvature thus some of stars of p contains 5 and other 6 adjacent edges. As we saw on the movie some points are moving faster and some slower and if we take a closer look we can see that these vertices which are included in 5 adjacent edges are moving slower and creates spikes.
-Before we said that mean curvature flow is a solution to decrees area in most efficient way but we have to keep in mind that this not always mean to move vertex inwards. Figure 5 presents hypothetical case when after evolving area decreases but we ended-up with line and we did not smoother our surface. </p>
+Explanation of this problem in sense of mean curvature is that because our mean curvature vector is constant and we have two different regions with smaller and bigger curvature thus some of stars of p contains 5 and other 6 adjacent edges. 
+As we saw on the movie some points are moving faster and some slower and if we take a closer look we can see that these vertices which are included in 5 adjacent edges are moving slower and creates spikes.
+ This behaviour is presented by figure 5 where spike is prescribed as a cone. In this case to vertex p are adjacent six edges but all other vertices which creates these edges have bigger starts and there fore they are moving faster also from these reasons star of this vertex is stretched and going to line.</p>
+
+<p><img class="center" src="http://copyme.github.io/flower/mean-curvature/cone.jpg" title="cone" /></p>
+
+<center>Figure 5. Spike prescribed as cone.</center>
+
+<p><br /></p>
+
+<p>Before we said that mean curvature flow is a solution to decrees area in most efficient way but we have to keep in mind that this not always mean to move vertex inwards. Figure 6 presents hypothetical case when after evolving area decreases but we ended-up with line and we did not smoother our surface. </p>
 
 <p><img class="center" src="http://copyme.github.io/flower/mean-curvature/spike_1.png" title="spkie" />
 <img class="center" src="http://copyme.github.io/flower/mean-curvature/spike_2.png" title="spkie" /></p>
 
-<center>Figure 5. Continuous surface after evolving.</center>
+<center>Figure 6. Continuous surface after evolving.</center>
 
 <p><br /></p>
 
