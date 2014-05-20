@@ -5,11 +5,11 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>Mean Curvature in Theory - FlowER</title>
+  <title>Mean Curvature in Theory - Draft - FlowER</title>
   <meta name="author" content="Copyme & Meri-nut">
 
   
-  <meta name="description" content="Mean Curvature in Theory May 13th, 2014 Introduction Many Computer Science projects suffers from lack of theoretical information behind ideas which &hellip;">
+  <meta name="description" content="Mean Curvature in Theory - Draft May 13th, 2014 Introduction Many Computer Science projects suffers from lack of theoretical information behind &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -102,7 +102,7 @@
 <article role="article">
   
   <header>
-    <h1 class="entry-title">Mean Curvature in Theory</h1>
+    <h1 class="entry-title">Mean Curvature in Theory - Draft</h1>
     <p class="meta">
 
 
@@ -123,7 +123,7 @@
 <p>Many Computer Science projects suffers from lack of theoretical information behind ideas which they try to implement. This project is in fact is different because has been built on simple idea that we would like to share not only code but also ideas behind it. This part of our web page contains basic explanation of several topic related to curvature and its application to smooth polyhedral meshes. The plan of this page is as fallows at first we will discuss mean curvature for continuous surfaces, after that we introduce notation of abstract polyhedral mesh to finally talk about discrete mean curvature and flow based on it. Moreover the last part deals with drawbacks of mean curvature flow.</p>
 
 <h2 id="mean-curvature">Mean curvature</h2>
-<p>Intuitive definition of <a href="https://en.wikipedia.org/wiki/Curvature#Curvature_of_surfaces">curvature</a> is how much something departs from being flat or straight. We can also define positive curvature e.g. sphere or negative e.g. saddle surface and also zero curvature when we talk e.g. about plane. See figure 1. In case of curves we can define curvature e.g. by <a href="http://en.wikipedia.org/wiki/Osculating_circle">osculating circle</a>  but this definition of curvature can not be used for surfaces.</p>
+<p>Intuitive definition of <a href="https://en.wikipedia.org/wiki/Curvature#Curvature_of_surfaces">curvature</a> is how much something departs from being flat or straight. We can also define positive curvature e.g. sphere or negative e.g. saddle surface and also zero curvature when we talk e.g. about plane. See figure 1. In case of curves we can define curvature e.g. by <a href="http://en.wikipedia.org/wiki/Osculating_circle">osculating circle</a> but this definition of curvature can not be used for surfaces.</p>
 
 <p><img class="comparison of" src="http://copyme.github.io/flower/mean-curvature/comparison_of_curvatures.png" title="diff. curvatures" />
 Figure 1. From left to right. Positive, negative and zero curvature. Image comes from <a href="http://thephysicsmill.com">thephysicsmill.com</a>.</p>
@@ -142,30 +142,30 @@ To calculate min and max curvature we have to calculate curvature of curves defi
 <p>According to figure 2 mean curvature is defined as:</p>
 
 <script type="math/tex; mode=display">
-\gamma = \frac{ \gamma_{ min } + \gamma_{max} }{2}
+\gamma = \frac{ \kappa_1 + \kappa_2 }{2}
 </script>
 
 <h2 id="meshes">Meshes</h2>
 <p>Before we will talk about mean curvature of polyhedral meshes we have to define them and give some important condition under there will be possible to calculate mean curvature. Instead of speaking about any specific mesh we will define an abstract one and we give set of conditions under any general mesh is well defined from the perspective of future discussion. Also in this place is good to add that because we are interested only in meshes with whom computers can deal - so we will skip some general properties of abstract meshes like infinitely big set of vertices.</p>
 
 <ol>
-  <li>Mesh is build from finit set of vertices - V where we will denot one vertex by p<sub>index</sub></li>
-  <li>All vertices are connected by unordered edges which whole set will be denoted by E and particular edge denoted by e = (p<sub>i</sub>, p<sub>j</sub>) = (p<sub>j</sub>, p<sub>i</sub>) where p<sub>i</sub> $\neq$ p<sub>j</sub>. We assume that the number of edges which go trought one vertex is finit and becouse we assumed in point 1 that set V is also finit therefore set E is also finit.</li>
-  <li>We will introduce a set F which contais closed pathes build from distinct vertices (p<sub>1</sub>, p<sub>2</sub>, …, p<sub>n</sub>, p<sub>1</sub>) where p<sub>i</sub>, p<sub>i+1</sub> form an edge. We will call these closed pathes faces.</li>
+  <li>Mesh is build from finite set of vertices - V where we will denote one vertex by p<sub>index</sub></li>
+  <li>All vertices are connected by unordered edges which whole set will be denoted by E and particular edge denoted by e = (p<sub>i</sub>, p<sub>j</sub>) = (p<sub>j</sub>, p<sub>i</sub>) where p<sub>i</sub> $\neq$ p<sub>j</sub>. We assume that the number of edges which go through one vertex is finite and because we assumed in point 1 that set V is also finite therefore set E is also finite.</li>
+  <li>We will introduce a set F which contains closed paths build from distinct vertices (p<sub>1</sub>, p<sub>2</sub>, …, p<sub>n</sub>, p<sub>1</sub>) where p<sub>i</sub>, p<sub>i+1</sub> form an edge. We will call these closed paths faces.</li>
 </ol>
 
 <p>Conditions:</p>
 
 <ol>
-  <li>Trought one vertex we can define 3 or more edges when vertex belongs to internal part of mesh or 2 when it belongs to boundary of mesh. (counter-example - figure 1. (a and b))</li>
-  <li>Each edge is incident to 2 faces when its an internal edge or only one when edges is a boundary one. (counter-example - figure 1. (b and c)) In this case mesh is not <a href="https://en.wikipedia.org/wiki/Manifold">2-manifold</a> and we will not interested in fallowed parts in this degenerated case.</li>
+  <li>Through one vertex we can define 3 or more edges when vertex belongs to internal part of mesh or 2 when it belongs to boundary of mesh. (counter-example - figure 3. (a and b))</li>
+  <li>Each edge is incident to 2 faces when its an internal edge or only one when edges is a boundary one. (counter-example - figure 3. (b and c)) In this case mesh is not <a href="https://en.wikipedia.org/wiki/Manifold">2-manifold</a> and we are not interested in fallowed parts in this degenerated case.</li>
   <li>Each face has at least three edges. By simplification we will work in fallowed parts with faces whose $dim(f) = 3$ - triangular faces.</li>
-  <li>Each point belongs only to the one close mesh. This means that we can not have e.g. two close meshes connected by one point. (counter-example - figure 1. (d)) </li>
+  <li>Each point belongs only to the one close mesh. This means that we can not have e.g. two close meshes connected by one point. (counter-example - figure 3. (d)) </li>
 </ol>
 
 <p><img class="center" src="http://copyme.github.io/flower/mean-curvature/bad_cases.png" title="Bad cases" /></p>
 
-<center>Figure 1. Examples of forbidden cases mentioned above. Image comes from (1)</center>
+<center>Figure 3. Examples of forbidden cases mentioned above. Image comes from (1)</center>
 
 <p><br /></p>
 
@@ -180,10 +180,10 @@ But we are not interested in continuous surfaces, we want to work with polyhedra
 \vec{H(p)} = \frac{1}{2} \nabla_p \ area(star(p))
 </script>
 
-<p>Where star of p is presented by figure 3 and is defined by for given vertex - p by all faces and edges which contain it. </p>
+<p>Where star of p is presented by figure 4 and is defined by for given vertex - p by all faces and edges which contain it. </p>
 
 <p><img class="center" src="http://copyme.github.io/flower/mean-curvature/start_p2.png" title="Star of P" /></p>
-<center>Figure 3. Star of vertex p(red)</center>
+<center>Figure 4. Star of vertex p(red)</center>
 
 <p><br /></p>
 
@@ -211,10 +211,10 @@ But we are not interested in continuous surfaces, we want to work with polyhedra
 \theta = \cos^{-1}(\frac{\vec{N_i} \vec{N_{i+1}}}{||\vec{N_i}|| ||\vec{N_{i+1}}||})
 </script>
 
-<p>This angle is defined between two adjacent normals to faces as presented by figure 4.</p>
+<p>This angle is defined between two adjacent normals to faces as presented by figure 5.</p>
 
 <p><img class="center" src="http://copyme.github.io/flower/mean-curvature/theta.png" title="angle theta" /></p>
-<center>Figure 4. Angle defined between face normals. Image comes from (1).</center>
+<center>Figure 5. Angle defined between face normals. Image comes from (1).</center>
 
 <p><br /></p>
 
@@ -226,14 +226,14 @@ But we are not interested in continuous surfaces, we want to work with polyhedra
 \vec{H} = -\frac{t}{2} \sum\limits_{p \in e} \vec{Ne} ||e|| \sin(\frac{\theta}{2})
 </script>
 
-<p>In “Media” subpage you can find several movies which presents evolving of different kind of meshes by mean curvature flow.</p>
+<p>In “Media” sub-page you can find several movies which presents evolving of different kind of meshes by mean curvature flow.</p>
 
 <h2 id="boundary-case">Boundary case</h2>
-<p>Above part of this page deals only with close polyhedral meshes, but we can still define mean curvature flow for non-close surfaces. Figure 5 presents start of p which is on surface boundary.
+<p>Above part of this page deals only with close polyhedral meshes, but we can still define mean curvature flow for non-close surfaces. Figure 6 presents start of p which is on surface boundary.
 In this case there is no notation of angle $\theta$ as before since we can not define it for all edges. </p>
 
 <p><img class="center" src="http://copyme.github.io/flower/mean-curvature/boundary_case.png" title="Boundary case" /></p>
-<center>Figure 5. Start of p which belongs to boundary. Image comes from (1).</center>
+<center>Figure 6. Start of p which belongs to boundary. Image comes from (1).</center>
 
 <p><br /></p>
 
@@ -253,8 +253,8 @@ In this case there is no notation of angle $\theta$ as before since we can not d
 
 <h2 id="drawbacks-of-mean-curvature-flow">Drawbacks of mean curvature flow</h2>
 
-<p>In subpage media there are several movies which presents mean curvature flow of several meshes but there is no sphere. Some people may think we would not add it because is obvious that it should evolve to point.
-At the beginning we thought same. Below movie presents interesting behaviour of mean curvature flow.</p>
+<p>In sub-page media there are several movies which presents mean curvature flow of several meshes but there is no sphere. Some people may think we would not add it because is obvious that it should evolve to point.
+At the beginning we thought same. Below movie presents interesting behavior of mean curvature flow.</p>
 
 <div class="ratio-4-3 embed-video-container" onclick="var myAnchor = document.getElementById('v_hZcjPe8-4');var tmpDiv = document.createElement('div');tmpDiv.innerHTML = '&lt;iframe style=&quot;vertical-align:top;width:100%;height:100%;position:absolute;&quot; src=&quot;http://www.youtube.com/embed/v_hZcjPe8-4?autoplay=1&quot; frameborder=&quot;0&quot; allowfullscreen&gt;&lt;/iframe&gt;';myAnchor.parentNode.replaceChild(tmpDiv.firstChild, myAnchor);return false;" title="click here to play">
 <a class="youtube-lazy-link" style="width:100%;height:100%;background:#000 url(http://i2.ytimg.com/vi/v_hZcjPe8-4/0.jpg) center center no-repeat;background-size:contain;position:absolute" href="http://www.youtube.com/watch?v=v_hZcjPe8-4" id="v_hZcjPe8-4" onclick="return false;">
@@ -281,20 +281,18 @@ We have some region with higher and lower curvature - differences in color. But 
 <p>Also once again you can see that sphere is not evolving to point. 
 Explanation of this problem in sense of mean curvature is that because our mean curvature vector is constant and we have two different regions with smaller and bigger curvature thus some of stars of p contains 5 and other 6 adjacent edges. 
 As we saw on the movie some points are moving faster and some slower and if we take a closer look we can see that these vertices which are included in 5 adjacent edges are moving slower and creates spikes.
- This behaviour is presented by figure 5 where spike is prescribed as a cone. In this case to vertex p are adjacent six edges but all other vertices which creates these edges have bigger starts and therefore they are moving faster also from these reasons star of given vertex is stretched and going to line.</p>
+This behavior is presented by figure 7 where spike is prescribed as a cone. In this case to vertex p are adjacent six edges but all other vertices which creates these edges have bigger starts and therefore they are moving faster also from these reasons star of given vertex is stretched and going to line.</p>
 
 <p><img class="center" src="http://copyme.github.io/flower/mean-curvature/cone.jpg" title="cone" /></p>
-
-<center>Figure 5. Spike prescribed as cone. Blue vector presents mean curvature vector of p and red ones present it for vertices adjacent to p.</center>
+<center>Figure 7. Spike prescribed as cone. Blue vector presents mean curvature vector of p and red ones present it for vertices adjacent to p.</center>
 
 <p><br /></p>
 
-<p>Before we said that mean curvature flow is a solution to decrees area in most efficient way but we have to keep in mind that this not always mean to move vertex inwards. Figure 6 presents hypothetical case when after evolving area decreases but we ended-up with line and we did not smoother our surface. </p>
+<p>Before we said that mean curvature flow is a solution to decrees area in most efficient way but we have to keep in mind that this not always mean to move vertex inwards. Figure 8 presents hypothetical case when after evolving area decreases but we ended-up with line and we did not smoother our surface. </p>
 
-<p><img class="center" src="http://copyme.github.io/flower/mean-curvature/spike_1.png" title="spkie" />
-<img class="center" src="http://copyme.github.io/flower/mean-curvature/spike_2.png" title="spkie" /></p>
-
-<center>Figure 6. Continuous surface after evolving.</center>
+<p><img class="center" src="http://copyme.github.io/flower/mean-curvature/spike_1.png" title="spike" />
+<img class="center" src="http://copyme.github.io/flower/mean-curvature/spike_2.png" title="spike" /></p>
+<center>Figure 8. Continuous surface after evolving.</center>
 
 <p><br /></p>
 
@@ -318,7 +316,7 @@ Abstract: We present a formulation of Willmore flow for triangulated surfaces th
 <ol>
   <li>Introduction à la géométrie différentielle discrète, P. Romon, 2014 - <a href="http://perso-math.univ-mlv.fr/users/romon.pascal/gdd/index.html">link</a></li>
   <li>Polyhedral Surfaces of Constant Mean Curvature, K. Polthier, 2002 - <a href="http://page.mi.fu-berlin.de/polthier/articles/habil/polthier-habil2002.pdf">link</a></li>
-  <li>Discrete Willmore flow, A. Bobenko and P. Schröder, 2005 - <a href="http://www.multires.caltech.edu/pubs/Willmore.pdf">link</a>  </li>
+  <li>Discrete Willmore flow, A. Bobenko and P. Schröder, 2005 - <a href="http://www.multires.caltech.edu/pubs/Willmore.pdf">link</a></li>
 </ol>
 
   
