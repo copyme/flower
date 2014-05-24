@@ -122,28 +122,33 @@
 
 <p>Many Computer Science projects suffers from lack of theoretical information behind ideas which they try to implement. This project is in fact is different because has been built on simple idea that we would like to share not only code but also ideas behind it. This part of our web page contains basic explanation of several topic related to curvature and its application to smooth polyhedral meshes. The plan of this page is as fallows at first we will discuss mean curvature for continuous surfaces, after that we introduce notation of abstract polyhedral mesh to finally talk about discrete mean curvature and flow based on it. Moreover the last part deals with drawbacks of mean curvature flow.</p>
 
-<h2 id="mean-curvature">Mean curvature</h2>
+<h2 id="curvature">Curvature</h2>
 <p>Intuitive definition of <a href="https://en.wikipedia.org/wiki/Curvature#Curvature_of_surfaces">curvature</a> is how much something departs from being flat or straight. We can also define positive curvature e.g. sphere or negative e.g. saddle surface and also zero curvature when we talk e.g. about plane. See figure 1. In case of curves we can define curvature e.g. by <a href="http://en.wikipedia.org/wiki/Osculating_circle">osculating circle</a> but this definition of curvature can not be used for surfaces.</p>
 
 <p><img class="comparison of" src="http://copyme.github.io/flower/mean-curvature/comparison_of_curvatures.png" title="diff. curvatures" />
 Figure 1. From left to right. Positive, negative and zero curvature. Image comes from <a href="http://thephysicsmill.com">thephysicsmill.com</a>.</p>
 
-<p>Curvature of surfaces can be defined in several ways e.g. <a href="https://en.wikipedia.org/wiki/Gaussian_curvature">Gaussian curvature</a> or <a href="https://en.wikipedia.org/wiki/Mean_curvature">mean curvature</a>, 
-in this place we will take a look only on the second one therefore it has been used so far in FlowER. But because we are planning to add some new algorithms which use also Gaussian curvature, its definition should also appear in this place.</p>
+<p>Curvature of 3-dimensional differentiable surfaces can be defined in several ways e.g. <a href="https://en.wikipedia.org/wiki/Gaussian_curvature">Gaussian curvature</a> or <a href="https://en.wikipedia.org/wiki/Mean_curvature">mean curvature</a>.</p>
 
-<p>In continuous space mean curvature is defined as mean of <a href="http://en.wikipedia.org/wiki/Principal_curvature">principal curvature</a>. We can understand this idea by taking a look on figure 2 which presents a surface with two principal curvature planes defined by normal to given point and perpendicular to each other. 
-To calculate min and max curvature we have to calculate curvature of curves defined by surface and principal curvature planes in place where each plane cross the surface.</p>
+<p>In continuous space curvature at each point <i>p</i> is defined by two <a href="http://en.wikipedia.org/wiki/Principal_curvature">principal curvatures</a>.
+One can choose a normal vector at <i>p</i> and define a normal plane which goes through it. Each defined in this way normal plane will cut the surface in a plane curve. Each plane curve defined by different normal plane will have in general different curvature. Two principal curvatures $ \kappa<em>1, \ \kappa</em>2$ are the maximal and minimal curvatures defined by normal planes around normal vector.
+We can better understand this idea by taking a look on figure 2 which presents a surface with two principal curvature planes defined by normal to given point. </p>
 
 <p><img class="center" src="http://copyme.github.io/flower/mean-curvature/Minimalsurfacecurvatureplanes-en.jpg" title="GFDL or CC-BY-SA - Eric Gaba - Wikipedia" /></p>
-<center>Figure 2. Image comes from Wikipedia - GFDL or CC-BY-SA - Eric Gaba.</center>
+<center>Figure 2. Saddle surface with normal planes in directions of principal curvatures. Image comes from Wikipedia - GFDL or CC-BY-SA - Eric Gaba.</center>
 
 <p><br /></p>
 
 <p>According to figure 2 mean curvature is defined as:</p>
 
 <script type="math/tex; mode=display">
-\gamma = \frac{ \kappa_1 + \kappa_2 }{2}
+H = \frac{ \kappa_1 + \kappa_2 }{2}
 </script>
+
+<p>And Gaussian curvature as:
+$$
+\Kappa = \kappa<em>1 \kappa</em>2
+$$</p>
 
 <h2 id="meshes">Meshes</h2>
 <p>Before we will talk about mean curvature of polyhedral meshes we have to define them and give some important condition under there will be possible to calculate mean curvature. Instead of speaking about any specific mesh we will define an abstract one and we give set of conditions under any general mesh is well defined from the perspective of future discussion. Also in this place is good to add that because we are interested only in meshes with whom computers can deal - so we will skip some general properties of abstract meshes like infinitely big set of vertices.</p>
@@ -171,16 +176,18 @@ To calculate min and max curvature we have to calculate curvature of curves defi
 
 <h2 id="discrete-mean-curvature">Discrete mean curvature</h2>
 
-<p>Right now we will introduce mean curvature vector which will be exhaustively used in fallowed parts. Mean curvature vector is defined as $\vec{(H)} = \gamma \vec{n}$ and its provides information how much the surface area changes at constant speed along the surface normal and in fact tell us how to increase in efficient way surface area. 
-But we are not interested in continuous surfaces, we want to work with polyhedral meshes and we need to define mean curvature for them. </p>
+<p>Right now we talk a bit more about mean curvature which will be exhaustively used in fallowed parts. Mean curvature in general is a gradient of area $\vec{(H)} = \H \vec{n} = \nabla area$ 
+and contains information how much the surface area changes at constant speed along the surface normals and in fact tell us how to increase in an efficient way surface area. 
+But we are not interested in continuous case, we want to work with polyhedral meshes and we need to define mean curvature for them. </p>
 
-<p>We can not apply above definition to polyhedral meshes. In this place at first we have to say that mean curvature of discrete surfaces in given vertex is in fact equal to mean curvature vector because discrete mean curvature is vector valued quantity computed in the vicinity of a vertex. To define mean curvature vector for vertices of polyhedral surfaces we use curvature defined on edges and area of part of mesh contains given vertex. </p>
+<p>We can not apply above definition to polyhedral meshes directly in fact discrete definition of mean curvature is an analog of continuous one. 
+Discrete mean curvature is defined at vertices of polyhedral mesh instead of points of surfaces and takes into account curvature defined on edges and area of part of mesh contains given vertex. </p>
 
 <script type="math/tex; mode=display">
 \vec{H(p)} = \frac{1}{2} \nabla_p \ area(star(p))
 </script>
 
-<p>Where star of p is presented by figure 4 and is defined by for given vertex - p by all faces and edges which contain it. </p>
+<p>Where star of <i>p</i> is presented by figure 4 and is defined by for given vertex - p by all faces and edges which contain it. </p>
 
 <p><img class="center" src="http://copyme.github.io/flower/mean-curvature/start_p2.png" title="Star of P" /></p>
 <center>Figure 4. Star of vertex p(red)</center>
