@@ -184,7 +184,7 @@ and contains information how much the surface area changes at constant speed alo
 \vec{H(p)} = \frac{1}{2} \nabla_p \ area(star(p))
 </script>
 
-<p>Where star of <em>p</em> is presented by figure 4 and is defined by for given vertex - p by all faces and edges which contain it. </p>
+<p>Where star of <em>p</em> is presented by figure 4 and is defined by for given vertex - <em>p</em> by all faces and edges which contain it. </p>
 
 <p><img class="center" src="http://copyme.github.io/flower/mean-curvature/start_p2.png" title="Star of P" /></p>
 <center>Figure 4. Star of vertex p(red)</center>
@@ -232,11 +232,11 @@ As was said above mean curvature vector gives information how to efficiently inc
 <p>In “Media” sub-page you can find several movies which presents evolving of different kind of meshes by mean curvature flow.</p>
 
 <h2 id="boundary-case">Boundary case</h2>
-<p>Above part of this page deals only with close polyhedral meshes, but we can still define mean curvature flow for non-close surfaces. Figure 6 presents start of p which is on surface boundary.
-In this case there is no notation of angle $\theta$ as before since we can not define it for all edges. </p>
+<p>Above part of this page deals only with close polyhedral meshes, but we can still define mean curvature flow for non-close surfaces. Figure 6 presents <em>start of p</em> which is on surface boundary.
+In this case there is no notation of angle $\theta$ as before since we can not define it for all edges and therefore we use another strategy.</p>
 
 <p><img class="center" src="http://copyme.github.io/flower/mean-curvature/boundary_case.png" title="Boundary case" /></p>
-<center>Figure 6. Start of p which belongs to boundary. Image comes from (1).</center>
+<center>Figure 6. *Start of p* which belongs to boundary. Image comes from (1).</center>
 
 <p><br /></p>
 
@@ -255,8 +255,8 @@ In this case there is no notation of angle $\theta$ as before since we can not d
 <p>And right now we can see a link between both definitions.</p>
 
 <h2 id="drawbacks-of-mean-curvature-flow">Drawbacks of mean curvature flow</h2>
-
-<p>In sub-page media there are several movies which presents mean curvature flow of several meshes but there is no sphere. Some people may think we would not add it because is obvious that it should evolve to point.
+<p>In general decreasing of area is a natural choice to remove bumps and noise from mesh. But as we will see this is not always true in case of mean curvature flow.
+In sub-page media there are several movies which presents mean curvature flow of several meshes but there is no sphere. Some people may think we would not add it because is obvious that it should evolve to point.
 At the beginning we thought same. Below movie presents interesting behavior of mean curvature flow.</p>
 
 <div class="ratio-4-3 embed-video-container" onclick="var myAnchor = document.getElementById('v_hZcjPe8-4');var tmpDiv = document.createElement('div');tmpDiv.innerHTML = '&lt;iframe style=&quot;vertical-align:top;width:100%;height:100%;position:absolute;&quot; src=&quot;http://www.youtube.com/embed/v_hZcjPe8-4?autoplay=1&quot; frameborder=&quot;0&quot; allowfullscreen&gt;&lt;/iframe&gt;';myAnchor.parentNode.replaceChild(tmpDiv.firstChild, myAnchor);return false;" title="click here to play">
@@ -282,9 +282,9 @@ Next movie shows in comparison Laplacian smoothing with cotangent weights(in som
 We have some region with higher and lower curvature - differences in color. But we have to say that is proven that it’s impossible to create a polyhedral mesh which will be a real uniform sphere so these results are more and less predicted.</p>
 
 <p>Also once again you can see that sphere is not evolving to point. 
-Explanation of this problem in sense of mean curvature is that because our mean curvature vector is constant and we have two different regions with smaller and bigger curvature thus some of stars of p contains 5 and other 6 adjacent edges. 
+Explanation of this problem in sense of mean curvature is that because our mean curvature vector is constant and we have two different regions with smaller and bigger curvature thus some of <em>stars of p</em> contains 5 and other 6 adjacent edges. 
 As we saw on the movie some points are moving faster and some slower and if we take a closer look we can see that these vertices which are included in 5 adjacent edges are moving slower and creates spikes.
-This behavior is presented by figure 7 where spike is prescribed as a cone. In this case to vertex p are adjacent six edges but all other vertices which creates these edges have bigger starts and therefore they are moving faster also from these reasons star of given vertex is stretched and going to line.</p>
+This behavior is presented by figure 7 where spike is prescribed as a cone. In this case of figure 7 to vertex <em>p</em> are adjacent six edges but all other vertices which creates these edges have bigger starts and therefore they are moving faster also from these reasons star of given vertex is stretched and going to line.</p>
 
 <p><img class="center" src="http://copyme.github.io/flower/mean-curvature/cone.jpg" title="cone" /></p>
 <center>Figure 7. Spike prescribed as cone. Blue vector presents mean curvature vector of p and red ones present it for vertices adjacent to p.</center>
@@ -300,7 +300,7 @@ This behavior is presented by figure 7 where spike is prescribed as a cone. In t
 <p><br /></p>
 
 <p>This implies that mean curvature flow is good only for <a href="https://en.wikipedia.org/wiki/Regular_polyhedron">regular polyhedrons</a>. But if we are looking for more general solutions we should use e.g. Willmore flow.
-Right now we do not want to give any explanation of Willmore flow but you can take a look at below movie which presents <a href="http://www.cs.columbia.edu/~keenan/Projects/ConformalWillmoreFlow/">conformal Willmore flow</a>. Also discrete Willmore flow is defined in (3) and we are planning to add it to FlowER.</p>
+Right now we do not want to give any explanation of Willmore flow but you can take a look at below movie which presents <a href="http://www.cs.columbia.edu/~keenan/Projects/ConformalWillmoreFlow/">conformal Willmore flow</a> to see what we are talking about. People which are interested in the definition of discrete Willmore flow should take a look on (3).</p>
 
 <div class="ratio-4-3 embed-video-container" onclick="var myAnchor = document.getElementById('mIUi1zIUQJw');var tmpDiv = document.createElement('div');tmpDiv.innerHTML = '&lt;iframe style=&quot;vertical-align:top;width:100%;height:100%;position:absolute;&quot; src=&quot;http://www.youtube.com/embed/mIUi1zIUQJw?autoplay=1&quot; frameborder=&quot;0&quot; allowfullscreen&gt;&lt;/iframe&gt;';myAnchor.parentNode.replaceChild(tmpDiv.firstChild, myAnchor);return false;" title="click here to play">
 <a class="youtube-lazy-link" style="width:100%;height:100%;background:#000 url(http://i2.ytimg.com/vi/mIUi1zIUQJw/0.jpg) center center no-repeat;background-size:contain;position:absolute" href="http://www.youtube.com/watch?v=mIUi1zIUQJw" id="mIUi1zIUQJw" onclick="return false;">
