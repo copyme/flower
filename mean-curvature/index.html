@@ -178,9 +178,7 @@ and contains information how much the surface area changes at constant speed alo
 <p><br /></p>
 
 <h2 id="discrete-mean-curvature">Discrete mean curvature</h2>
-
-<p>We can not apply above definition to polyhedral meshes directly in fact discrete definition of mean curvature is an analog of continuous one. 
-Discrete mean curvature is defined at vertices of polyhedral mesh instead of points of surface and takes into account curvature defined on edges and area of part of mesh contains given vertex. </p>
+<p>Discrete mean curvature is defined at vertices of polyhedral mesh instead of points of surface and takes into account curvature defined on edges and area of part of mesh contains given vertex. </p>
 
 <script type="math/tex; mode=display">
 \vec{H(p)} = \frac{1}{2} \nabla_p \ area(star(p))
@@ -224,9 +222,8 @@ Discrete mean curvature is defined at vertices of polyhedral mesh instead of poi
 
 <p><br /></p>
 
-<!--image which presents theta-->
-
-<p>As was said above mean curvature vector gives information how to efficiently increase area of start of p. But we can change its direction to efficiently decrees area and therefore evolve our mesh by moving given vertex by inverted mean curvature vector. And this is exactly what mean curvature flow does. We can also add a time which allows to “jump” to particular evolved mesh. So final formula for mean curvature flow is as fallow:</p>
+<p>In fact this definition is an analog of continuous one.
+As was said above mean curvature vector gives information how to efficiently increase area. But we can change its direction to efficiently decrees area and therefore evolve our mesh by moving given vertex by inverted mean curvature vector. And this is exactly what mean curvature flow does. We can also add a time which allows to “jump” to particular evolved mesh. So final formula for mean curvature flow is as fallow:</p>
 
 <script type="math/tex; mode=display">
 \vec{H} = -\frac{t}{2} \sum\limits_{p \in e} \vec{Ne} ||e|| \sin(\frac{\theta}{2})
