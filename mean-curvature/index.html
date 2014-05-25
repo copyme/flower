@@ -120,7 +120,7 @@
   
   <h2 id="introduction">Introduction</h2>
 
-<p>Many Computer Science projects suffers from lack of theoretical information behind ideas which they try to implement. This project is in fact is different because has been built on simple idea that we would like to share not only code but also ideas behind it. This part of our web page contains basic explanation of several topic related to curvature and its application to smooth polyhedral meshes. The plan of this page is as fallows at first we will discuss mean curvature for continuous surfaces, after that we introduce notation of abstract polyhedral mesh to finally talk about discrete mean curvature and flow based on it. Moreover the last part deals with drawbacks of mean curvature flow.</p>
+<p>Many Computer Science projects suffers from lack of theoretical information behind ideas which they try to implement. This project is in fact different because has been built on simple idea that we would like to share not only code but also ideas behind it. This part of our web page contains basic explanation of several topic related to curvature and its application to smoothing of polyhedral meshes. The plan of this page is as fallows at first we will discuss in short curvature in general, after that we introduce notation of abstract polyhedral mesh to finally talk about discrete mean curvature and flow based on it. Moreover the last part deals with drawbacks of mean curvature flow.</p>
 
 <h2 id="curvature">Curvature</h2>
 <p>Intuitive definition of <a href="https://en.wikipedia.org/wiki/Curvature#Curvature_of_surfaces">curvature</a> is how much something departs from being flat or straight. We can also define positive curvature e.g. sphere or negative e.g. saddle surface and also zero curvature when we talk e.g. about plane. See figure 1. In case of curves we can define curvature e.g. by <a href="http://en.wikipedia.org/wiki/Osculating_circle">osculating circle</a> but this definition of curvature can not be used for surfaces.</p>
@@ -128,10 +128,9 @@
 <p><img class="comparison of" src="http://copyme.github.io/flower/mean-curvature/comparison_of_curvatures.png" title="diff. curvatures" />
 Figure 1. From left to right. Positive, negative and zero curvature. Image comes from <a href="http://thephysicsmill.com">thephysicsmill.com</a>.</p>
 
-<p>Curvature of 3-dimensional differentiable surfaces can be defined in several ways e.g. <a href="https://en.wikipedia.org/wiki/Gaussian_curvature">Gaussian curvature</a> or <a href="https://en.wikipedia.org/wiki/Mean_curvature">mean curvature</a>.</p>
-
-<p>In continuous space curvature at each point <i>p</i> is defined by two <a href="http://en.wikipedia.org/wiki/Principal_curvature">principal curvatures</a>.
-One can choose a normal vector at <i>p</i> and define a normal plane which goes through it. Each defined in this way normal plane will cut the surface in a plane curve. Each plane curve defined by different normal plane will have in general different curvature. Two principal curvatures $\kappa$<sub>1</sub>,  $\kappa$<sub>2</sub> are the maximal and minimal curvatures defined by normal planes around normal vector.
+<p>Curvature of 3-dimensional differentiable surfaces can be defined in several ways e.g. <a href="https://en.wikipedia.org/wiki/Gaussian_curvature">Gaussian curvature</a> or <a href="https://en.wikipedia.org/wiki/Mean_curvature">mean curvature</a>.
+In continuous space curvature at each point <em>p</em> is defined by two <a href="http://en.wikipedia.org/wiki/Principal_curvature">principal curvatures</a>.
+One can choose a normal vector at <em>p</em> and define a normal plane which goes through it. Each defined in this way normal plane will cut the surface in a plane curve. Each plane curve defined by different normal plane will have in general different curvature. Two principal curvatures $\kappa$<sub>1</sub>,  $\kappa$<sub>2</sub> are the maximal and minimal curvatures defined by normal planes around normal vector.
 We can better understand this idea by taking a look on figure 2 which presents a surface with two principal curvature planes defined by normal to given point. </p>
 
 <p><img class="center" src="http://copyme.github.io/flower/mean-curvature/Minimalsurfacecurvatureplanes-en.jpg" title="GFDL or CC-BY-SA - Eric Gaba - Wikipedia" /></p>
