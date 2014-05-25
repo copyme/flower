@@ -129,9 +129,9 @@
 Figure 1. From left to right. Positive, negative and zero curvature. Image comes from <a href="http://thephysicsmill.com">thephysicsmill.com</a>.</p>
 
 <p>Curvature of 3-dimensional differentiable surfaces can be defined in several ways e.g. <a href="https://en.wikipedia.org/wiki/Gaussian_curvature">Gaussian curvature</a> or <a href="https://en.wikipedia.org/wiki/Mean_curvature">mean curvature</a>.
-In continuous space curvature at each point <em>p</em> is defined by two <a href="http://en.wikipedia.org/wiki/Principal_curvature">principal curvatures</a>.
+In continuous space curvature at each point <em>p</em> of surface is defined by two <a href="http://en.wikipedia.org/wiki/Principal_curvature">principal curvatures</a>.
 One can choose a normal vector at <em>p</em> and define a normal plane which goes through it. Each defined in this way normal plane will cut the surface in a plane curve. Each plane curve defined by different normal plane will have in general different curvature. Two principal curvatures $\kappa$<sub>1</sub>,  $\kappa$<sub>2</sub> are the maximal and minimal curvatures defined by normal planes around normal vector.
-We can better understand this idea by taking a look on figure 2 which presents a surface with two principal curvature planes defined by normal to given point. </p>
+We can better understand this idea by taking a look on figure 2 which presents a surface with two principal curvature planes - normal planes. </p>
 
 <p><img class="center" src="http://copyme.github.io/flower/mean-curvature/Minimalsurfacecurvatureplanes-en.jpg" title="GFDL or CC-BY-SA - Eric Gaba - Wikipedia" /></p>
 <center>Figure 2. Saddle surface with normal planes in directions of principal curvatures. Image comes from Wikipedia - GFDL or CC-BY-SA - Eric Gaba.</center>
@@ -149,6 +149,9 @@ H = \frac{ \kappa_1 + \kappa_2 }{2}
 <script type="math/tex; mode=display">
 K = \kappa_1 \kappa_2
 </script>
+
+<p>Right now we talk a bit more about mean curvature which will be exhaustively used in fallowed parts. Mean curvature in general is a gradient of area $\vec{(H)} = H \vec{n} = \nabla area$ 
+and contains information how much the surface area changes at constant speed along the surface normals and in fact tell us how to increase in an efficient way surface area, or decrease if we inverse the gradient. </p>
 
 <h2 id="meshes">Meshes</h2>
 <p>Before we will talk about mean curvature of polyhedral meshes we have to define them and give some important condition under there will be possible to calculate mean curvature. Instead of speaking about any specific mesh we will define an abstract one and we give set of conditions under any general mesh is well defined from the perspective of future discussion. Also in this place is good to add that because we are interested only in meshes with whom computers can deal - so we will skip some general properties of abstract meshes like infinitely big set of vertices.</p>
@@ -176,18 +179,14 @@ K = \kappa_1 \kappa_2
 
 <h2 id="discrete-mean-curvature">Discrete mean curvature</h2>
 
-<p>Right now we talk a bit more about mean curvature which will be exhaustively used in fallowed parts. Mean curvature in general is a gradient of area $\vec{(H)} = H \vec{n} = \nabla area$ 
-and contains information how much the surface area changes at constant speed along the surface normals and in fact tell us how to increase in an efficient way surface area. 
-But we are not interested in continuous case, we want to work with polyhedral meshes and we need to define mean curvature for them. </p>
-
 <p>We can not apply above definition to polyhedral meshes directly in fact discrete definition of mean curvature is an analog of continuous one. 
-Discrete mean curvature is defined at vertices of polyhedral mesh instead of points of surfaces and takes into account curvature defined on edges and area of part of mesh contains given vertex. </p>
+Discrete mean curvature is defined at vertices of polyhedral mesh instead of points of surface and takes into account curvature defined on edges and area of part of mesh contains given vertex. </p>
 
 <script type="math/tex; mode=display">
 \vec{H(p)} = \frac{1}{2} \nabla_p \ area(star(p))
 </script>
 
-<p>Where star of <i>p</i> is presented by figure 4 and is defined by for given vertex - p by all faces and edges which contain it. </p>
+<p>Where star of <em>p</em> is presented by figure 4 and is defined by for given vertex - p by all faces and edges which contain it. </p>
 
 <p><img class="center" src="http://copyme.github.io/flower/mean-curvature/start_p2.png" title="Star of P" /></p>
 <center>Figure 4. Star of vertex p(red)</center>
